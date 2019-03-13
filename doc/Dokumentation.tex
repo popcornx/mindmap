@@ -25,17 +25,42 @@
 \section{Vision}
 Jeder kennt diese Situation, man sitzt in einem Meeting und möchte kurz ein Brainstorming machen. Oder man
 möchte für die nächste Arbeit zu einem Thema eine Übersicht zu den Informationen erstellen. Eine der einfachsten Methoden so eine Übersicht darzustellen ist das Mindmap. Das Mindmap auch Gedankenlandkarte genannt ist eine Technik welche von Tony Buzan geprägt und entwickelt wurde. Das Mindmap basiert auf dem Prinzip der Assoziation. Dies kommt nicht von ungefähr, unser Gehirn arbeitet ebenfalls mit Assoziationen, es versucht ständig neue Informationen mit gewissen Kategorien und anderen Informationen zu verknüpfen. Das Mindmap basiert auf derselben Technik, deshalb fällt es uns auch sehr einfach ein Mindmap zu erstellen.
-Dieses zu erstellen ist jedoch mit den meisten Programmen eher mühsam, deshalb greift man auf den Stift und Papier zurück. Um hier Abhilfe zu schaffen kommt unser Projekt ins Spiel. Ziel unseres Projektes, ist das Entwickeln einer Software mitwelcher man möglichst einfach und schnell ein Mindmap erstellen kann. 
-Dabei werden wir besonders Wert auf die Benutzerfreundlichkeit legen. Es sollte 
-möglich sein in kürzester Zeit ein Mindmap zu erstellen. Das Programm sollte aber auch reif sein für komplexere Mindmaps. Deshalb wird das Programm auch Funktionen wie verschiedene Verbindungstypen und Farben unterstützen, um auch komplexere Mindmaps übersichtlich zu gestalten. 
+
+Dieses zu erstellen ist jedoch mit den meisten Programmen eher mühsam, deshalb greift man auf den Stift und Papier zurück. Um hier Abhilfe zu schaffen kommt unser Projekt ins Spiel. Ziel unseres Projektes, ist das Entwickeln einer Software mitwelcher man möglichst einfach und schnell ein Mindmap erstellen kann. \\
+Dabei werden wir besonders Wert auf die Benutzerfreundlichkeit legen. Es sollte möglich sein in kürzester Zeit ein Mindmap zu erstellen. Das Programm sollte aber auch reif sein für komplexere Mindmaps. Deshalb wird das Programm auch Funktionen wie verschiedene Verbindungstypen und Farben unterstützen, um auch komplexere Mindmaps übersichtlich zu gestalten.
+
 Wichtige Funktionen welche das Programm ebenfalls bieten muss sind: das Speichern, Laden und Drucken/Exportieren der Mindmaps. 
 Das Programm wird als Standalone Software in JavaFX erstellt. JavaFX ist ein Framework von Oracle welches auf die Erstellung von GUI's und Multimedialen Inhalten spezialisiert ist.
+
 Wir hoffen wir können durch dieses Projekt vielen Menschen helfen Ihre Ideen mithilfe unseres Programmes
-festzuhalten. 
+festzuhalten.
+\subsection{Ziele}
+\begin{enumerate}
+\item Mindmap erstellen
+	\begin{enumerate}
+	\item Ein Mindmap in wenigen Klicks erstellen.
+	\item Einem Mindmap neue Konten hinzufügen.
+	\item In einem Mindmap zwei Knoten verbinden.
+	\item Ein Mindmap speichern.
+	\end{enumerate}
+\item Mindmap verändern
+	\begin{enumerate}
+	\item Ein gespeichertes Mindmap laden.
+	\item Die Beschreibung eines Knotens verändern.
+	\item Die Farbe eines Knotens verändern.
+	\item Zwischen zwei Arten von Verbindungen unterscheiden.
+	\end{enumerate}
+\item Erweiterungen
+	\begin{enumerate}
+	\item Ein Mindmap drucken.
+	\item Ein Mindmap exportieren.
+	\item Die Knoten eines Mindmaps optimal verteilen.
+	\end{enumerate}
+\end{enumerate}
 \section{Analysis}
 In diesem Abschnitt wird eine grobe Übersicht über die Software erstellt. Fragen wie, was sind die Anforderungen an die Software, was sind die Anforderungen der Akteure etc. werden hier beantwortet. Ebenfalls wird eine grobe Übersicht über die Programmstruktur erstellt.
 \subsection{Domainmodel}
-In diesem Abschnitt wird das Domain Model ("Fachmodell") des Mindmap Programmes beschrieben. Es stellt die 
+In diesem Abschnitt wird das Domain Model ("{}Fachmodell"{}) des Mindmap Programmes beschrieben. Es stellt die 
 wichtigsten Fachklassen und Assoziationen dar und zeigt die jeweiligen Multiplizitäten.
 
 \includegraphics[width=\linewidth]{DomainModel.PNG}
@@ -77,7 +102,7 @@ Mindmap bearbeiten Szenario:
 \end{enumerate}
 
 \subsection{User Stories}
-Da wir nur ein Akteur den Benutzer haben, wird auf die Bezeichnung "als Benutzer möchte ich" verzichtet und stattdessen nur von der ich perspektive gesprochen wird. 
+Da wir nur ein Akteur den Benutzer haben, wird auf die Bezeichnung "{}als Benutzer möchte ich"{} verzichtet und stattdessen nur von der ich perspektive gesprochen wird. 
 \begin{itemize}
 \item Ich möchte ein neues Mindmap erstellen können.
 \item Ich möchte Nodes hinzufügen können. 
@@ -89,13 +114,18 @@ Da wir nur ein Akteur den Benutzer haben, wird auf die Bezeichnung "als Benutzer
 \item Ich möchte ein altes Mindmap laden können.
 \end{itemize}
 
+\subsection{Systemkontext}
+Der Systemkontext ist eine Beschreibung des Systems, seiner Teile und äusserlichen Einwirkungen auf das System.
+
+Der Benutzer kann mit unserer Software ein Mindmap erstellen. Dies geschieht über eine grafische Benutzeroberfläche. Mit Hilfe eines Algorithmus können die Themen und Verbindungen des Mindmap optimal verteilt werden. Die Benutzeroberfläche und der Algorithmus sind Teil der Software\\
+Die Software greift auf das Dateisystem des Computers zu um ein Mindmap zu speichern oder zu laden. Der Druckservice des Computers erlaubt das Drucken des Mindmaps. Diese beiden Teile liegen ausserhalb unserer Software.
+
+\includegraphics[width=0.5\linewidth]{Systemkontext.png}
+
 \subsection{Anforderungen}
 --> Teil Modul Requirements Engineering
 
 \section{Design}
-
-\subsection{Systemkontext}
-
 
 \subsection{System Sequence Diagram}
 
