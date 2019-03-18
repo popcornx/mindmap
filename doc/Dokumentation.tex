@@ -25,11 +25,12 @@
 
 \section{Vision}
 Jeder kennt diese Situation, man sitzt in einem Meeting und möchte kurz ein Brainstorming machen. Oder man
-möchte für die nächste Arbeit zu einem Thema eine Übersicht zu den Informationen erstellen. Eine der einfachsten Methoden so eine Übersicht darzustellen ist das Mindmap. Das Mindmap auch Gedankenlandkarte genannt ist eine Technik welche von Tony Buzan geprägt und entwickelt wurde. Das Mindmap basiert auf dem Prinzip der Assoziation. Dies kommt nicht von ungefähr, unser Gehirn arbeitet ebenfalls mit Assoziationen, es versucht ständig neue Informationen mit gewissen Kategorien und anderen Informationen zu verknüpfen. Das Mindmap basiert auf derselben Technik, deshalb fällt es uns auch sehr einfach ein Mindmap zu erstellen.
-
-Dieses zu erstellen ist jedoch mit den meisten Programmen eher mühsam, deshalb greift man auf den Stift und Papier zurück. Um hier Abhilfe zu schaffen kommt unser Projekt ins Spiel. Ziel unseres Projektes, ist das Entwickeln einer Software mitwelcher man möglichst einfach und schnell ein Mindmap erstellen kann. \\
-Dabei werden wir besonders Wert auf die Benutzerfreundlichkeit legen. Es sollte möglich sein in kürzester Zeit ein Mindmap zu erstellen. Das Programm sollte aber auch reif sein für komplexere Mindmaps. Deshalb wird das Programm auch Funktionen wie verschiedene Verbindungstypen und Farben unterstützen, um auch komplexere Mindmaps übersichtlich zu gestalten.
-
+möchte für die nächste Arbeit zu einem Thema eine Übersicht zu den Informationen erstellen. Eine der einfachsten Methoden so eine Übersicht darzustellen ist das Mindmap. 
+Das Mindmap auch Gedankenlandkarte genannt ist eine Technik welche von Tony Buzan geprägt und entwickelt wurde. Das Mindmap basiert auf dem Prinzip der Assoziation. Dies kommt nicht von ungefähr, unser Gehirn arbeitet ebenfalls mit Assoziationen, es versucht ständig neue Informationen mit gewissen Kategorien und anderen Informationen zu verknüpfen. Das Mindmap basiert auf derselben Technik, deshalb fällt es uns auch sehr einfach ein Mindmap zu erstellen.
+Dieses zu erstellen ist jedoch mit den meisten Programmen eher mühsam, deshalb greift man auf den Stift und Papier zurück. Um hier Abhilfe zu schaffen kommt unser Projekt ins Spiel.
+Ziel unseres Projektes, ist das Entwickeln einer Software mitwelcher man möglichst einfach und schnell ein Mindmap erstellen kann. 
+Dabei werden wir besonders Wert auf die Benutzerfreundlichkeit legen. Es sollte möglich sein in kürzester Zeit ein Mindmap zu erstellen. Das Programm sollte aber auch reif sein für komplexere Mindmaps.
+Deshalb wird das Programm auch Funktionen wie verschiedene Verbindungstypen und Farben unterstützen, um auch komplexere Mindmaps übersichtlich zu gestalten.
 Wichtige Funktionen welche das Programm ebenfalls bieten muss sind: das Speichern, Laden und Drucken/Exportieren der Mindmaps. 
 Das Programm wird als Standalone Software in JavaFX erstellt. JavaFX ist ein Framework von Oracle welches auf die Erstellung von GUI's und Multimedialen Inhalten spezialisiert ist.
 
@@ -44,7 +45,6 @@ wichtigsten Fachklassen und Assoziationen dar und zeigt die jeweiligen Multipliz
 
 \includegraphics[width=\linewidth]{DomainModel.PNG}
 
-\subsubsection{Beschreibung}
 Wie oben in der Grafik zu sehen ist, haben wir uns dafür entschieden, dass eine Map mindestens einen Knoten haben muss um eine Map zu sein. Im Moment denken wir das die Connection und die Map keine direkte Verbindung benötigen dies könnte sich aber beim Implementieren vielleicht noch ändern. Ebenfalls haben wird definiert, dass eine Verbindung immer zwischen 2 Knoten besteht.
 
 \subsubsection{Assoziationen}
@@ -83,14 +83,17 @@ Mindmap bearbeiten Szenario:
 \subsection{User Stories}
 Da wir nur ein Akteur den Benutzer haben, wird auf die Bezeichnung "{}als Benutzer möchte ich"{} verzichtet und stattdessen nur von der ich perspektive gesprochen wird. 
 \begin{itemize}
-\item Ich möchte ein neues Mindmap erstellen können.
-\item Ich möchte Nodes hinzufügen können. 
-\item Ich möchte zwei Nodes miteinander verknüpfen.
-\item Ich möchte meine Nodes beschreiben können
-\item Ich möchte meine Nodes und Connections färben können.
-\item Ich möchte meine Nodes auf der Map bewegen können. 
-\item Ich möchte mein Mindmap speichern können.
-\item Ich möchte ein altes Mindmap laden können.
+\item Als Benutzer möchte ich neue Mindmaps erstellen könnnen.
+\item Als Benutzer möchte ich neue Knoten hinzufügen könnnen, welcher eine Beschreibung besitzt und wenn gewünscht auch eine spezielle Farbe haben kann. 
+\item Als Benutzer möchte ich die verschiedenen Informationen, also Knoten miteinander vernetzen und so grupieren können. 
+\item Als Benutzer möchte ich meine Arbeit speichern können und gespeicherte Projekte auch wieder laden können
+\item Als Benutzer möchte ich die Beschreibung eines Knoten auch nach seiner Erstellung bearbeiten können.
+\item Als Benutzer möchte ich die Farbe eines Knotens nach seiner Erstellung bearbeiten können.
+\item Als Benutzer möchte ich verschiedene Verbindungstypen definieren können, ich möchte Verbindungen zwischen verschiedenen Themen speziell hervorheben können. 
+\item Als Benutzer möchte ich mein Mindmap drucken können.
+\item Als Benutzer möchte ich mein Mindmap exportieren können, um es zum Beispiel als Bilddatei in einem Worddokument einfügen zu können.
+\item Als Benutzer möchte ich ein Mindmap mit möglichst wenigen überschneidenden Verbindungen, das Programm sollte eine Möglichkeit bieten dieses Problem zu lösen.
+
 \end{itemize}
 
 \subsection{Systemkontext}
