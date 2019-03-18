@@ -1,8 +1,4 @@
-/out/
-/.settings/
+out/
 .DS_Store
 .idea/
 *.iml
-/.classpath
-/.project
-/bin/
