@@ -25,23 +25,19 @@ public class GuiController {
     private ColorPicker ColorSwitch;
     @FXML
     private AnchorPane pane;
+    //to be implemented different
     private Map map = new Map();
 
 
     public void initialize() {
+        //DefaultValue
         ColorSwitch.setValue(Color.BLACK);
+
         pane.setOnMouseClicked(e -> {
             if (BtnNode.isSelected()) {
                 Ellipse ellipse = new Ellipse();
                 Text text = new Text("Text");
-                Node node = new Node(ellipse, text);
-                node.setLayoutX(e.getX());
-                node.setLayoutY(e.getY());
-                node.getEllipse().setRadiusX(150);
-                node.getEllipse().setRadiusY(100);
-                node.getEllipse().setStroke(ColorSwitch.getValue());
-                node.getEllipse().setStrokeWidth(2);
-                node.getEllipse().setFill(Color.WHITE);
+                Node node = new Node(ellipse, text,e.getX(),e.getY(),ColorSwitch.getValue());
                 pane.getChildren().add(node);
                 map.addNode(node);
             }
