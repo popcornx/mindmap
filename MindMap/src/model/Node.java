@@ -6,7 +6,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Text;
-import static util.IdGenerator.generateUniqueId;
+import util.IdGenerator;
+import view.Main;
+
 
 /**
  * Class for generating Nodes, class is extended from a Stackpane
@@ -35,7 +37,7 @@ public class Node extends StackPane {
      */
     public Node(Ellipse ellipse, Text text, double x, double y, Color color) {
         super(ellipse, text);
-        this.idNode = generateUniqueId();
+        this.idNode = IdGenerator.id.incrementAndGet();
         this.ellipse = ellipse;
         this.text = text;
         this.x = x;
@@ -43,9 +45,9 @@ public class Node extends StackPane {
         this.color = color;
         styleNode();
     }
-
     /**
-     * Styles the Ellipse after creation to Standard Values
+     * Styles the Ellipse after creation to Standard Values, also defines all MouseListeners of the
+     * Object.
      */
     void styleNode(){
         this.setLayoutX(this.x-150);
@@ -93,23 +95,38 @@ public class Node extends StackPane {
                 }
             }
             if (e.getButton().equals(MouseButton.PRIMARY)){
-               // GuiController.getInstance().nodeSelected(this);
+                Main.controller.nodeSelected(this);
             }
         });
     }
 
 
+    /**
+     * @param color color
+     */
     public void changeColor(Color color) {
         this.color = color;
         this.ellipse.setStroke(this.color);
     }
 
+
+    /**
+     * @return Ellipse
+     */
     public Ellipse getEllipse() {
         return ellipse;
     }
 
+    /**
+     * @return Text
+     */
     public Text getText() {
         return text;
     }
+
+    /**
+     * @return IdNode
+     */
+    public int getIdNode() {return idNode; }
 }
 

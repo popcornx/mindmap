@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
@@ -30,9 +31,13 @@ public class GuiController {
     private Node selectedNode;
 
     public void nodeSelected(Node node){
+        if(selectedNode != null) {
+            selectedNode.getEllipse().setStrokeWidth(2);
+        }
         selectedNode = node;
-    }
+        selectedNode.getEllipse().setStrokeWidth(10);
 
+    }
     public void initialize() {
         //DefaultValue
         ColorSwitch.setValue(Color.BLACK);
@@ -55,12 +60,20 @@ public class GuiController {
                 pane.getChildren().add(connection);
             }
         });
-
-      ColorSwitch.setOnAction(e-> {
+        ColorSwitch.setOnAction(e-> {
           if (selectedNode!=null){
               selectedNode.changeColor(ColorSwitch.getValue());
           }
-      });
+        });
+
+        //To be Implemented!!
+        BtnOrder.setOnAction(e-> {
+            for (Node node : map.getNodes()){
+                System.out.println(node.getIdNode());
+            }
+        });
+
+
     }
 
 }
