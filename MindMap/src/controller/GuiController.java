@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
@@ -30,13 +30,22 @@ public class GuiController {
     private Map map = new Map();
     private Node selectedNode;
 
+    /**
+     * @param node Node
+     */
+
     public void nodeSelected(Node node){
         if(selectedNode != null) {
             selectedNode.getEllipse().setStrokeWidth(2);
         }
         selectedNode = node;
         selectedNode.getEllipse().setStrokeWidth(10);
-
+    }
+    public void deleteNode() {
+        if(selectedNode != null) {
+            pane.getChildren().remove(selectedNode);
+            //delete from map
+        }
     }
     public void initialize() {
         //DefaultValue
@@ -50,7 +59,6 @@ public class GuiController {
                 pane.getChildren().add(node);
                 map.addNode(node);
             }
-
             if (BtnConnection.isSelected()) {
                 Line connection = new Line();
                 connection.setStartX(e.getSceneX());
@@ -59,7 +67,12 @@ public class GuiController {
                 connection.setEndY(connection.getStartY());
                 pane.getChildren().add(connection);
             }
+            if(e.getButton().equals(MouseButton.SECONDARY) && selectedNode != null) {
+                selectedNode.getEllipse().setStrokeWidth(2);
+                selectedNode = null;
+            }
         });
+
         ColorSwitch.setOnAction(e-> {
           if (selectedNode!=null){
               selectedNode.changeColor(ColorSwitch.getValue());
@@ -73,7 +86,12 @@ public class GuiController {
             }
         });
 
-
+        //To be Implemented!!
+        BtnSubNode.setOnAction(e-> {
+            for (Node node : map.getNodes()){
+                System.out.println(node.getIdNode());
+            }
+        });
     }
 
 }
