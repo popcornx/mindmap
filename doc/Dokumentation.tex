@@ -1,126 +1,236 @@
-\documentclass[a4paper,parskip]{scrartcl}
+%
+% Main document
+% ===========================================================================
+% This is part of the document "Project documentation template".
+% Authors: brd3, kaa1
+%
 
-\usepackage{lmodern}
-\renewcommand*\familydefault{\sfdefault}
-\usepackage[T1]{fontenc}
+%---------------------------------------------------------------------------
+\documentclass[
+	a4paper,					% paper format
+	10pt,							% fontsize
+	twoside,					% double-sided
+	openright,				% begin new chapter on right side
+	notitlepage,			% use no standard title page
+	parskip=half,			% set paragraph skip to half of a line
+]{scrreprt}					% KOMA-script report
+%---------------------------------------------------------------------------
 
-\usepackage[ngerman]{babel} %german english spell checking
-\usepackage[utf8]{inputenc} %allows ä,ö,ü and others
-\usepackage{multicol} %allows multiple columns
-\usepackage{enumitem} %allows to change enumerate style
-\usepackage[colorlinks=true,pdfborder={0 0 0},urlcolor=cyan,linkcolor=black]{hyperref} %allows links
-\usepackage{verbatim} %allows code
-\usepackage{graphicx} %allows images
-\usepackage{amssymb} %allows symbols for number sets
+\raggedbottom
+\KOMAoptions{cleardoublepage=plain}			% Add header and footer on blank pages
 
-\setlist{nosep} %smaller lists, less space between lines
 
-\title{Dokumentation - MindMap}
-\author{Lorenz Rasch \& Dominik Meister}
+% Load Standard Packages:
+%---------------------------------------------------------------------------
+\usepackage[standard-baselineskips]{cmbright}
 
-\begin{document}
-\maketitle
+\usepackage[ngerman]{babel}										% german hyphenation
+\usepackage[utf8]{inputenc}  							
+\usepackage[T1]{fontenc}											% hyphenation of words with ä,ö and ü
+\usepackage{textcomp}													% additional symbols
+\usepackage{ae}																% better resolution of Type1-Fonts 
+\usepackage{fancyhdr}													% simple manipulation of header and footer 
+\usepackage{etoolbox}													% color manipulation of header and footer
+\usepackage{graphicx}                      		% integration of images
+\usepackage{float}														% floating objects
+\usepackage{caption}													% for captions of figures and tables
+\usepackage{booktabs}													% package for nicer tables
+\usepackage{tocvsec2}													% provides means of controlling the sectional numbering
+%---------------------------------------------------------------------------
+
+% Load Math Packages
+%---------------------------------------------------------------------------
+\usepackage{amsmath}                    	   	% various features to facilitate writing math formulas
+\usepackage{amsthm}                       	 	% enhanced version of latex's newtheorem
+\usepackage{amsfonts}                      		% set of miscellaneous TeX fonts that augment the standard CM
+\usepackage{amssymb}													% mathematical special characters
+\usepackage{exscale}													% mathematical size corresponds to textsize
+%---------------------------------------------------------------------------
+
+% Package to facilitate placement of boxes at absolute positions
+%---------------------------------------------------------------------------
+\usepackage[absolute]{textpos}
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+%---------------------------------------------------------------------------					
+			
+% Definition of Colors
+%---------------------------------------------------------------------------
+\RequirePackage{color}                          % Color (not xcolor!)
+\definecolor{linkblue}{rgb}{0,0,0.8}            % Standard
+\definecolor{darkblue}{rgb}{0,0.08,0.45}        % Dark blue
+\definecolor{bfhgrey}{rgb}{0.41,0.49,0.57}      % BFH grey
+%\definecolor{linkcolor}{rgb}{0,0,0.8}     			% Blue for the web- and cd-version!
+\definecolor{linkcolor}{rgb}{0,0,0}        			% Black for the print-version!
+%---------------------------------------------------------------------------
+
+% Hyperref Package (Create links in a pdf)
+%---------------------------------------------------------------------------
+\usepackage[
+	pdftex,ngerman,bookmarks,plainpages=false,pdfpagelabels,
+	backref = {false},										% No index backreference
+	colorlinks = {true},                  % Color links in a PDF
+	hypertexnames = {true},               % no failures "same page(i)"
+	bookmarksopen = {true},               % opens the bar on the left side
+	bookmarksopenlevel = {0},             % depth of opened bookmarks
+	pdftitle = {Dokumentation - MindMap},	   	% PDF-property
+	pdfauthor = {brd3},        					  % PDF-property
+	pdfsubject = {LaTeX Template},        % PDF-property
+	linkcolor = {linkcolor},              % Color of Links
+	citecolor = {linkcolor},              % Color of Cite-Links
+	urlcolor = {linkcolor},               % Color of URLs
+]{hyperref}
+%---------------------------------------------------------------------------
+
+% Set up page dimension
+%---------------------------------------------------------------------------
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	left=28mm,
+	right=15mm,
+	top=30mm,
+	headheight=20mm,
+	headsep=10mm,
+	textheight=242mm,
+	footskip=15mm
+}
+%---------------------------------------------------------------------------
+
+% Makeindex Package
+%---------------------------------------------------------------------------
+\usepackage{makeidx}                         		% To produce index
+\makeindex                                    	% Index-Initialisation
+%---------------------------------------------------------------------------
+
+% Glossary Package
+%---------------------------------------------------------------------------
+% the glossaries package uses makeindex
+% if you use TeXnicCenter do the following steps:
+%  - Goto "Ausgabeprofile definieren" (ctrl + F7)
+%  - Select the profile "LaTeX => PDF"
+%  - Add in register "Nachbearbeitung" a new "Postprozessoren" point named Glossar
+%  - Select makeindex.exe in the field "Anwendung" ( ..\MiKTeX x.x\miktex\bin\makeindex.exe )
+%  - Add this [ -s "%tm.ist" -t "%tm.glg" -o "%tm.gls" "%tm.glo" ] in the field "Argumente"
+%
+% for futher informations go to http://ewus.de/tipp-1029.html
+%---------------------------------------------------------------------------
+%\usepackage[nonumberlist]{glossaries}
+%\makeglossaries
+%\include{data/glossar}
+%---------------------------------------------------------------------------
+
+% Intro:
+%---------------------------------------------------------------------------
+\begin{document}                              	% Start Document
+\settocdepth{section}														% Set depth of toc
+\pagenumbering{roman}														
+%---------------------------------------------------------------------------
+
+\input{intro/titel}					% Titel der Arbeit aus Datei titel.tex lesen
+\input{intro/version}				% Versionsnummer und -datum aus Datei version.tex lesen
+
+% Set up header and footer
+%---------------------------------------------------------------------------
+\makeatletter
+\patchcmd{\@fancyhead}{\rlap}{\color{bfhgrey}\rlap}{}{}		% new color of header
+\patchcmd{\@fancyfoot}{\rlap}{\color{bfhgrey}\rlap}{}{}		% new color of footer
+\makeatother
+
+\fancyhf{}																		% clean all fields
+\fancypagestyle{plain}{												% new definition of plain style	
+	\fancyfoot[OR,EL]{\footnotesize \thepage} 	% footer right part --> page number
+	\fancyfoot[OL,ER]{\footnotesize \titel, Version \versionnumber, \versiondate}	% footer even page left part 
+}
+
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.  #1}{}}
+\renewcommand{\headrulewidth}{0pt}				% no header stripline
+\renewcommand{\footrulewidth}{0pt} 				% no bottom stripline
+
+\pagestyle{plain}
+%---------------------------------------------------------------------------
+
+
+% Title Page and Abstract
+%---------------------------------------------------------------------------
+\include{intro/titelseite}		% activate for Titelseite ohne Bild
+\include{intro/versionen}
+\cleardoubleemptypage
+\setcounter{page}{1}
+\cleardoublepage
+%---------------------------------------------------------------------------
+
+% Table of contents
+%---------------------------------------------------------------------------
 \tableofcontents
-\pagebreak
+\cleardoublepage
+%---------------------------------------------------------------------------
 
-\section{Vision}
-Jeder kennt diese Situation, man sitzt in einem Meeting und möchte kurz ein Brainstorming machen. Oder man
-möchte für die nächste Arbeit zu einem Thema eine Übersicht zu den Informationen erstellen. Eine der einfachsten Methoden so eine Übersicht darzustellen ist das Mindmap. Das Mindmap auch Gedankenlandkarte genannt ist eine Technik welche von Tony Buzan geprägt und entwickelt wurde. Das Mindmap basiert auf dem Prinzip der Assoziation. Dies kommt nicht von ungefähr, unser Gehirn arbeitet ebenfalls mit Assoziationen, es versucht ständig neue Informationen mit gewissen Kategorien und anderen Informationen zu verknüpfen. Das Mindmap basiert auf derselben Technik, deshalb fällt es uns auch sehr einfach ein Mindmap zu erstellen.
+% Main part:
+%---------------------------------------------------------------------------
+\pagenumbering{arabic}
 
-Dieses zu erstellen ist jedoch mit den meisten Programmen eher mühsam, deshalb greift man auf den Stift und Papier zurück. Um hier Abhilfe zu schaffen kommt unser Projekt ins Spiel. Ziel unseres Projektes, ist das Entwickeln einer Software mitwelcher man möglichst einfach und schnell ein Mindmap erstellen kann. \\
-Dabei werden wir besonders Wert auf die Benutzerfreundlichkeit legen. Es sollte möglich sein in kürzester Zeit ein Mindmap zu erstellen. Das Programm sollte aber auch reif sein für komplexere Mindmaps. Deshalb wird das Programm auch Funktionen wie verschiedene Verbindungstypen und Farben unterstützen, um auch komplexere Mindmaps übersichtlich zu gestalten.
+\include{chapters/vision}
+\include{chapters/analysis}
+\include{chapters/design}
+\include{chapters/entwicklung}
+\include{chapters/fazit}
+%---------------------------------------------------------------------------
 
-Wichtige Funktionen welche das Programm ebenfalls bieten muss sind: das Speichern, Laden und Drucken/Exportieren der Mindmaps. 
-Das Programm wird als Standalone Software in JavaFX erstellt. JavaFX ist ein Framework von Oracle welches auf die Erstellung von GUI's und Multimedialen Inhalten spezialisiert ist.
+% Selbständigkeitserklärung
+%---------------------------------------------------------------------------
+%\cleardoublepage
+%\phantomsection 
+%\addcontentsline{toc}{chapter}{Selbständigkeitserklärung}
+%\include{vorspann/selbstaendigkeitserklaerung}
+%---------------------------------------------------------------------------
 
-Wir hoffen wir können durch dieses Projekt vielen Menschen helfen Ihre Ideen mithilfe unseres Programmes
-festzuhalten.
+% Glossary
+%---------------------------------------------------------------------------
+%\cleardoublepage
+%\phantomsection 
+%\addcontentsline{toc}{chapter}{Glossar}
+%\renewcommand{\glossaryname}{Glossar}
+%\printglossary
+%---------------------------------------------------------------------------
 
-\section{Analysis}
-In diesem Abschnitt wird eine grobe Übersicht über die Software erstellt. Fragen wie, was sind die Anforderungen an die Software, was sind die Anforderungen der Akteure etc. werden hier beantwortet. Ebenfalls wird eine grobe Übersicht über die Programmstruktur erstellt.
-\subsection{Domainmodel}
-In diesem Abschnitt wird das Domain Model ("{}Fachmodell"{}) des Mindmap Programmes beschrieben. Es stellt die 
-wichtigsten Fachklassen und Assoziationen dar und zeigt die jeweiligen Multiplizitäten.
+% Bibliography
+%---------------------------------------------------------------------------
+%\cleardoublepage
+%\phantomsection 
+%\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+%\bibliographystyle{IEEEtranS}
+%\bibliography{data/bibliography}{}
+%---------------------------------------------------------------------------
 
-\includegraphics[width=\linewidth]{DomainModel.PNG}
+% Listings
+%---------------------------------------------------------------------------
+\cleardoublepage
+\phantomsection 
+\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+\listoffigures
+%\cleardoublepage
+%\phantomsection 
+%\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+%\listoftables
+%---------------------------------------------------------------------------
 
-\subsubsection{Beschreibung}
-Wie oben in der Grafik zu sehen ist, haben wir uns dafür entschieden, dass eine Map mindestens einen Knoten haben muss um eine Map zu sein. Im Moment denken wir das die Connection und die Map keine direkte Verbindung benötigen dies könnte sich aber beim Implementieren vielleicht noch ändern. Ebenfalls haben wird definiert, dass eine Verbindung immer zwischen 2 Knoten besteht.
+% Index
+%---------------------------------------------------------------------------
+%\cleardoublepage
+%\phantomsection 
+%\addcontentsline{toc}{chapter}{Stichwortverzeichnis}
+%\renewcommand{\indexname}{Stichwortverzeichnis}
+%\printindex
+%---------------------------------------------------------------------------
 
-\subsubsection{Assoziationen}
-\begin{itemize}
-\item Zwei Knoten haben keine oder mehrere Verbindungen. Eine Verbindung besteht aus 2 Knoten.
-\item Eine Map hat einen oder Mehrere Knoten. Ein Knoten gehört zu einer Map.
-\end{itemize}
+% Attachment:
+%---------------------------------------------------------------------------
+\appendix
+\settocdepth{section}
+\include{appendix/use_cases}
+%---------------------------------------------------------------------------
 
-\subsection{Use Cases}
-Use-Cases beschreiben die Requirements der einzelnen Aktuere, es zeigt die Abläufe des Programmes auf. Zeigt dabei aber nicht wie die einzelnen Teile funktionieren.
-
-\subsubsection{Use Case Diagramm}
-\includegraphics[width=\linewidth]{UseCaseDiagram.PNG}
-
-\subsubsection{Mindmap Process}
-Neues Mindmap Szenario:
-\begin{enumerate}
-\item Benutzer erstellt neues Mindmap
-\item GUI Service zeigt leeres Mindmap an
-\item Benutzer erstellt Nodes und Connections 
-\item Benutzer bearbeitet die Nodes und Connections z.B. Typ, Beschreibung, Farbe.
-\item GUI Service stellt dies dar
-\item Punkt 3-5 werden wiederholt bis der Benutzer zufrieden ist
-\item Benutzer speichert seine Arbeit
-\item GUI Service übergibt Fileservice die Map
-\item Fileservice speichert die Map in ein Dokument
-\end{enumerate}
-
-Mindmap bearbeiten Szenario: 
-\begin{enumerate}
-\item Benutzer lädt Mindmap
-\item Fileservice lädt das alte Mindmap
-\item GUI Service zeigt das Mindmap an (Danach analog zu oberem Szenario)
-\end{enumerate}
-
-\subsection{User Stories}
-Da wir nur ein Akteur den Benutzer haben, wird auf die Bezeichnung "{}als Benutzer möchte ich"{} verzichtet und stattdessen nur von der ich perspektive gesprochen wird. 
-\begin{itemize}
-\item Ich möchte ein neues Mindmap erstellen können.
-\item Ich möchte Nodes hinzufügen können. 
-\item Ich möchte zwei Nodes miteinander verknüpfen.
-\item Ich möchte meine Nodes beschreiben können
-\item Ich möchte meine Nodes und Connections färben können.
-\item Ich möchte meine Nodes auf der Map bewegen können. 
-\item Ich möchte mein Mindmap speichern können.
-\item Ich möchte ein altes Mindmap laden können.
-\end{itemize}
-
-\subsection{Systemkontext}
-Der Systemkontext ist eine Beschreibung des Systems, seiner Teile und äusserlichen Einwirkungen auf das System.
-
-Der Benutzer kann mit unserer Software ein Mindmap erstellen. Dies geschieht über eine grafische Benutzeroberfläche. Mit Hilfe eines Algorithmus können die Themen und Verbindungen des Mindmap optimal verteilt werden. Die Benutzeroberfläche und der Algorithmus sind Teil der Software\\
-Die Software greift auf das Dateisystem des Computers zu um ein Mindmap zu speichern oder zu laden. Der Druckservice des Computers erlaubt das Drucken des Mindmaps. Diese beiden Teile liegen ausserhalb unserer Software.
-
-\includegraphics[width=0.5\linewidth]{Systemkontext.png}
-
-\subsection{Anforderungen}
---> Teil Modul Requirements Engineering
-
-\section{Design}
-
-\subsection{System Sequence Diagram}
-
-\subsection{UML Diagramme}
-
-\section{Entwicklung}
-\subsection{Sprint 1}
-Sprint 1 dauert vom 13.03 - 03.04
-\subsection{Sprint 2}
-Sprint 2 dauert vom 03.4 - 24.04
-\subsection{Sprint 3}
-Sprint 3 dauert vom 24.04 - 15.05
-\subsection{Sprint 4}
-Sprint 4 dauert vom 15.05 - 29.05 (Abgabe Code Teil)
-\section{Fazit}
-
-\section{Glossar}
-
+%---------------------------------------------------------------------------
 \end{document}
+

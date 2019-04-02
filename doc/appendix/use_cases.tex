@@ -1,0 +1,156 @@
+\chapter{Use Cases}
+\label{chap:use_cases}
+
+\section*{Use Case 1: Knoten erstellen}
+\begin{itemize}
+\item \textbf{Titel:} Als Benutzer möchte ich einen Knoten erstellen können.
+\item \textbf{Voraussetzung:} Programm ist gestartet
+\item \textbf{Erfolgsszenario:}
+	\begin{enumerate}
+	\item Der Benutzer gibt den Befehl einen neuen Knoten zu erstellen.
+	\item Das Programm fügt den neuen Knoten dem Mindmap hinzu.
+	\end{enumerate}
+\item \textbf{Nachbedingung:} Ein neuer Knoten wurde dem Mindmap hinzugefügt.
+\item \textbf{Alternative Szenarien:}
+	\begin{enumerate}
+	\item [1.a 1] Der Benutzer schreibt eine Beschreibung für den Knoten.
+	\item []
+	\item [1.b 1] Der Benutzer ändert die Farbe des Knoten.
+	\end{enumerate}
+\end{itemize}
+
+\section*{Use Case 2: Knoten verbinden}
+\begin{itemize}
+\item \textbf{Titel:} Als Benutzer möchte ich zwei Knoten miteinander verbinden können.
+\item \textbf{Voraussetzung:} Ein Mindmap mit mindestens zwei Knoten wurde erstellt oder geladen.
+\item \textbf{Erfolgsszenario:}
+	\begin{enumerate}
+	\item Der Benutzer wählt zwei Knoten aus.
+	\item Das Programm verbindet die ausgewählten Knoten.
+	\end{enumerate}
+\item \textbf{Nachbedingung:} Zwischen den ausgewählten Knoten besteht eine Verbindung.
+\item \textbf{Alternative Szenarien:}
+	\begin{enumerate}
+	\item [1.a 1] Der Benutzer ändert die Art der Verbindung.
+	\end{enumerate}
+\end{itemize}
+
+\section*{Use Case 3: Mindmap speichern}
+\begin{itemize}
+\item \textbf{Titel:} Als Benutzer möchte ich ein Mindmap speichern können.
+\item \textbf{Voraussetzung:} Ein Mindmap wurde erstellt.
+\item \textbf{Erfolgsszenario:}
+	\begin{enumerate}
+	\item Der Benutzer wählt einen Speicherort.
+	\item Das Programm übergibt dem Filesystem eine Datei.
+	\end{enumerate}
+\item \textbf{Nachbedingung:} Eine Datei mit den Informationen des Mindmaps wurde am gewählten Ort im Filesystem gespeichert.
+\item \textbf{Alternative Szenarien:}
+	\begin{enumerate}
+	\item [2.a 1] Das Filesystem verweigert das Speichern wegen zu wenig Speicherplatz.
+	\item [2.a 2] Das Programm informiert den Benutzer, dass nicht genug Speicherplatz vorhanden ist.
+	\item []
+	\item [2.b 1] Das Filesystem verweigert den Zugriff auf den Speicherort.
+	\item [2.b 2] Das Programm informiert den Benutzer, dass der Zugriff verweigert wurde.
+	\end{enumerate}
+\end{itemize}
+
+\section*{Use Case 4: Mindmap laden}
+\begin{itemize}
+\item \textbf{Titel:} Als Benutzer möchte ich ein gespeichertes Mindmap laden können.
+\item \textbf{Voraussetzung:} Eine Datei mit den Informationen eines Mindmap existiert im Filesystem.
+\item \textbf{Erfolgsszenario:}
+	\begin{enumerate}
+	\item Der Benutzer wählt eine Datei aus.
+	\item Das Programm lädt die Datei.
+	\item Das Programm zeigt das geladene Mindmap an.
+	\end{enumerate}
+\item \textbf{Nachbedingung:} Das Programm zeigt ein Mindmap mit den Informationen aus der geladenen Datei.
+\item \textbf{Alternative Szenarien:}
+	\begin{enumerate}
+	\item [2.a 1] Das Filesystem verweigert den Zugriff auf die Datei.
+	\item [2.a 2] Das Programm informiert den Benutzer, dass der Zugriff verweigert wurde.
+	\item []
+	\item [2.b 1] Das Programm lädt eine beschädigte Datei.
+	\item [2.b 2] Das Programm informiert den Benutzer, dass die Datei beschädigt ist und nicht geladen werden kann.
+	\end{enumerate}
+\end{itemize}
+
+\section*{Use Case 5: Knoten verändern}
+\begin{itemize}
+\item \textbf{Titel:} Als Benutzer möchte ich einen erstellten Knoten verändern können.
+\item \textbf{Voraussetzung:} Ein Mindmap mit mindestens einem Knoten wurde erstellt oder geladen.
+\item \textbf{Erfolgsszenario:}
+	\begin{enumerate}
+	\item Der Benutzer wählt einen existierenden Knoten.
+	\item Der Benutzer schreibt eine (neue) Beschreibung für den Knoten.
+	\end{enumerate}
+\item \textbf{Nachbedingung:} Der gewählte Knoten wurde verändert.
+\item \textbf{Alternative Szenarien:}
+	\begin{enumerate}
+	\item [2.a 1] Der Benutzer wählt eine (neue) Farbe für den Knoten.
+	\end{enumerate}
+\end{itemize}
+
+\section*{Use Case 6: Verbindung verändern}
+\begin{itemize}
+\item \textbf{Titel:} Als Benutzer möchte ich verschiedene Verbindungstypen definieren können.
+\item \textbf{Voraussetzung:} Ein Mindmap mit mindestens zwei Knoten wurde erstellt oder geladen.
+\item \textbf{Erfolgsszenario:}
+	\begin{enumerate}
+	\item Der Benutzer wählt eine Verbindung aus.
+	\item Der Benutzer ändert die Art/die Darstellung der Verbindung.
+	\end{enumerate}
+\item \textbf{Nachbedingung:} Die gewählte Verbindung wurde verändert.
+\end{itemize}
+
+\section*{Use Case 7: Mindmap drucken}
+\begin{itemize}
+\item \textbf{Titel:} Als Benutzer möchte ich ein Mindmap drucken können.
+\item \textbf{Voraussetzung:} Ein Mindmap wurde erstellt oder geladen.
+\item \textbf{Erfolgsszenario:}
+	\begin{enumerate}
+	\item Der Benutzer gibt den Befehl das Mindmap zu drucken.
+	\item Das Programm sendet eine Datei an den Drucker.
+	\end{enumerate}
+\item \textbf{Nachbedingung:} Das Mindmap wurde ausgedruckt.
+\item \textbf{Alternative Szenarien:}
+	\begin{enumerate}
+	\item [2.a 1] Das Programm informiert den Benutzer, dass kein Drucker angeschlossen ist.
+	\item []
+	\item [2.b 1] Das Programm informiert den Benutzer, dass die gesendete Datei vom Drucker zurückgewiesen wurde.
+	\end{enumerate}
+\end{itemize}
+
+\section*{Use Case 8: Mindmap exportieren}
+\begin{itemize}
+\item \textbf{Titel:} Als Benutzer möchte ich ein Mindmap exportieren können.
+\item \textbf{Voraussetzung:} Ein Mindmap wurde erstellt oder geladen.
+\item \textbf{Erfolgsszenario:}
+	\begin{enumerate}
+	\item Der Benutzer wählt ein Dateiformat.
+	\item Der Benutzer wählt einen Speicherort.
+	\item Das Programm übergibt dem Filesystem eine Datei mit dem gewünschten Format.
+	\end{enumerate}
+\item \textbf{Nachbedingung:}
+\item \textbf{Alternative Szenarien:}
+	\begin{enumerate}
+	\item [2.a 1] Das Filesystem verweigert das Speichern wegen zu wenig Speicherplatz.
+	\item [2.a 2] Das Programm informiert den Benutzer, dass nicht genug Speicherplatz vorhanden ist.
+	\item []
+	\item [2.b 1] Das Filesystem verweigert den Zugriff auf den Speicherort.
+	\item [2.b 2] Das Programm informiert den Benutzer, dass der Zugriff verweigert wurde.
+	\end{enumerate}
+\end{itemize}
+
+\section*{Use Case 9: Darstellung optimieren}
+\begin{itemize}
+\item \textbf{Titel:} Als Benutzer möchte ich die Darstellung des Mindmaps optimieren können.
+\item \textbf{Voraussetzung:} Ein Mindmap wurde erstellt oder geladen.
+\item \textbf{Erfolgsszenario:}
+	\begin{enumerate}
+	\item Der Benutzer gibt den Befehl das Mindmap zu optimieren.
+	\item Das Programm optimiert das Mindmap.
+	\end{enumerate}
+\item \textbf{Nachbedingung:} Ein Mindmap mit möglichst wenig sich überschneidenden Verbindungen.
+\end{itemize}

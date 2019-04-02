@@ -1,0 +1,14 @@
+out/
+.DS_Store
+.idea/
+*.iml
+
+# files created when using TeXMaker
+*.tex.bak
+*.aux
+*.idx
+*.lof
+*.log
+*.out
+*.synctex.gz
+*.toc
