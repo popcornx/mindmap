@@ -1,17 +1,24 @@
 package controller;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.effect.Light;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import model.Anchor;
+import model.Connection;
 import model.Map;
 import model.Node;
+
+import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class GuiController {
     @FXML
@@ -29,6 +36,10 @@ public class GuiController {
     //to be implemented different
     private Map map = new Map();
     private Node selectedNode;
+    private Node Start;
+    private Node End;
+    private Boolean connectionMode = false;
+
 
     /**
      * @param node Node
@@ -51,26 +62,57 @@ public class GuiController {
         //DefaultValue
         ColorSwitch.setValue(Color.BLACK);
 
+
         pane.setOnMouseClicked(e -> {
             if (BtnNode.isSelected()) {
                 Ellipse ellipse = new Ellipse();
                 Text text = new Text("Text");
+
                 Node node = new Node(ellipse, text,e.getSceneX(),e.getSceneY(),ColorSwitch.getValue());
                 pane.getChildren().add(node);
                 map.addNode(node);
+                node.connectionMode(false);
             }
             if (BtnConnection.isSelected()) {
-                Line connection = new Line();
-                connection.setStartX(e.getSceneX());
-                connection.setStartY(e.getSceneY());
-                connection.setEndX(connection.getStartX()+100);
-                connection.setEndY(connection.getStartY());
-                pane.getChildren().add(connection);
+                int count = 0;
+                for (Node node : map.getNodes()){
+                    if (node.activeNode()){
+                        if (count == 0) {
+                            Start = node;
+                        }else {
+                            End = node;
+                        }
+                        count++;
+                    }
+                }
+                if (count == 2 ) {
+                    Connection connection = new Connection();
+                    connection.startYProperty().bind(Start.aAnchor().helpCenterYProperty());
+                    connection.startXProperty().bind(Start.aAnchor().helpCenterXProperty());
+                    connection.endXProperty().bind(End.aAnchor().helpCenterXProperty());
+                    connection.endYProperty().bind(End.aAnchor().helpCenterYProperty());
+                    pane.getChildren().add(connection);
+                }
             }
             if(e.getButton().equals(MouseButton.SECONDARY) && selectedNode != null) {
                 selectedNode.getEllipse().setStrokeWidth(2);
                 selectedNode = null;
             }
+        });
+
+        BtnConnection.setOnAction(e-> {
+            if(connectionMode){
+                for(Node node : map.getNodes()){
+                    node.connectionMode(false);
+                    connectionMode = false;
+                }
+            }else {
+                for(Node node : map.getNodes()){
+                    node.connectionMode(true);
+                    connectionMode = true;
+                }
+            }
+
         });
 
         ColorSwitch.setOnAction(e-> {

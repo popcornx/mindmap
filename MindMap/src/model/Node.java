@@ -1,7 +1,9 @@
 package model;
-import controller.GuiController;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
@@ -9,20 +11,34 @@ import javafx.scene.text.Text;
 import util.IdGenerator;
 import view.Main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Class for generating Nodes, class is extended from a Stackpane
  * to put the textarea and the ellipse together.
  */
-public class Node extends StackPane {
+public class Node extends Pane {
     private int idNode;
     private Ellipse ellipse;
     private Text text;
-    private double x;
-    private double y;
+    private Anchor anchorL;
+    private Anchor anchorR;
+    private Anchor anchorT;
+    private Anchor anchorB;
+    private SimpleDoubleProperty x;
+    private SimpleDoubleProperty y;
     private Color color;
     private TextField textField = new TextField();
     private boolean edit = false;
+    private boolean active = false;
+    private Anchor aAnchor;
+
+    private List<Anchor> anchors = new ArrayList<>();
+
+
+    final double radius = 20;
 
 
     //Helpers for drag and drop
@@ -40,8 +56,8 @@ public class Node extends StackPane {
         this.idNode = IdGenerator.id.incrementAndGet();
         this.ellipse = ellipse;
         this.text = text;
-        this.x = x;
-        this.y = y;
+        this.x = new SimpleDoubleProperty(x);
+        this.y = new SimpleDoubleProperty(y);
         this.color = color;
         styleNode();
     }
@@ -50,8 +66,8 @@ public class Node extends StackPane {
      * Object.
      */
     void styleNode(){
-        this.setLayoutX(this.x-150);
-        this.setLayoutY(this.y-150);
+        this.setLayoutX(this.x.getValue());
+        this.setLayoutY(this.y.getValue());
         this.ellipse.setRadiusX(150);
         this.ellipse.setRadiusY(100);
         this.ellipse.setStroke(this.color);
@@ -72,8 +88,8 @@ public class Node extends StackPane {
             double newTranslateY = orgTranslateY + offsetY;
             this.setTranslateX(newTranslateX);
             this.setTranslateY(newTranslateY);
+            setPosition(newTranslateX, newTranslateY);
         });
-
 
         text.setOnMouseClicked(e-> {
             if (e.getButton().equals(MouseButton.PRIMARY)){
@@ -98,8 +114,39 @@ public class Node extends StackPane {
                 Main.controller.nodeSelected(this);
             }
         });
+        anchor();
     }
 
+    //Anchor Management inside the node
+    void anchor(){
+        this.anchorR = new Anchor(radius);
+        this.anchorL = new Anchor(radius);
+        this.anchorT = new Anchor(radius);
+        this.anchorB = new Anchor(radius);
+        anchorB.setLayoutY(ellipse.getRadiusY());
+        anchorT.setLayoutY(ellipse.getRadiusY()*-1);
+        anchorR.setLayoutX(ellipse.getRadiusX());
+        anchorL.setLayoutX(ellipse.getRadiusX()*-1);
+
+        this.getChildren().addAll(anchorB,anchorL,anchorR,anchorT);
+
+        anchorR.helpCenterX.bind(this.getX().add(ellipse.getRadiusX()));
+        anchorR.helpCenterY.bind(this.getY());
+
+        anchorB.helpCenterX.bind(this.getX());
+        anchorB.helpCenterY.bind(this.getY().add(ellipse.getRadiusY()));
+
+        anchorL.helpCenterX.bind(this.getX().add(ellipse.getRadiusX()*-1));
+        anchorL.helpCenterY.bind(this.getY());
+
+        anchorT.helpCenterX.bind(this.getX());
+        anchorT.helpCenterY.bind(this.getY().add(ellipse.getRadiusY()*-1));
+
+        anchors.add(anchorB);
+        anchors.add(anchorL);
+        anchors.add(anchorR);
+        anchors.add(anchorT);
+    }
 
     /**
      * @param color color
@@ -107,6 +154,19 @@ public class Node extends StackPane {
     public void changeColor(Color color) {
         this.color = color;
         this.ellipse.setStroke(this.color);
+    }
+
+    public SimpleDoubleProperty getX() {
+        return x;
+    }
+
+    public SimpleDoubleProperty getY() {
+        return y;
+    }
+
+    public void setPosition(double newTranslateX, double newTranslateY) {
+        x.setValue(layoutXProperty().getValue()+newTranslateX);
+        y.setValue(layoutYProperty().getValue()+newTranslateY);
     }
 
 
@@ -122,6 +182,30 @@ public class Node extends StackPane {
      */
     public Text getText() {
         return text;
+    }
+
+    public void connectionMode(Boolean mode){
+        anchorT.setVisible(mode);
+        anchorR.setVisible(mode);
+        anchorB.setVisible(mode);
+        anchorL.setVisible(mode);
+    }
+
+    public boolean activeNode(){
+        for (Anchor anchor : anchors) {
+            if(anchor.isActive()){
+                aAnchor = anchor;
+                active = true;
+            }
+        }
+    return active;
+    }
+    public Anchor aAnchor(){
+        return aAnchor;
+    }
+
+    public List<Anchor> getAnchors(){
+        return anchors;
     }
 
     /**
