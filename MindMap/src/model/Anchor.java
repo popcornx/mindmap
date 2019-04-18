@@ -14,9 +14,6 @@ public class Anchor extends Circle {
     public Anchor(double radius) {
         super(radius);
         super.setFill(Color.ORANGE);
-        this.setOnMouseClicked(e-> {
-            setActive();
-        });
     }
 
     public double getHelpCenterX() {
@@ -40,12 +37,14 @@ public class Anchor extends Circle {
     }
 
     public void setActive(){
-        if (active) {
-            active = false;
-            setFill(Color.ORANGE);
-        }else {
-            setFill(Color.SILVER);
-            active = true;
-        }
+        active = true;
+        this.setFill(Color.SILVER);
     }
+    public void deactivate(){
+        active = false;
+        this.setFill(Color.ORANGE);
+    }
+
+
 }
+

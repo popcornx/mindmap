@@ -24,6 +24,7 @@ public class Main extends Application {
         root.setOnKeyPressed(e->{
             if(e.getCode().equals(KeyCode.DELETE)){
                 controller.deleteNode();
+                controller.deleteConnection();
             }
         });
     }

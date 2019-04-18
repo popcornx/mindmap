@@ -1,24 +1,16 @@
 package controller;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.effect.Light;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
-import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
-import model.Anchor;
 import model.Connection;
 import model.Map;
 import model.Node;
-
-import java.awt.*;
-import java.awt.geom.Point2D;
 
 public class GuiController {
     @FXML
@@ -33,18 +25,32 @@ public class GuiController {
     private ColorPicker ColorSwitch;
     @FXML
     private AnchorPane pane;
-    //to be implemented different
     private Map map = new Map();
     private Node selectedNode;
+    private Connection selectedConnection;
+
     private Node Start;
     private Node End;
     private Boolean connectionMode = false;
 
 
+    public void conectionSelected (Connection connection){
+        if(selectedConnection != null) {
+            selectedConnection.setStroke(Color.SILVER);
+        }
+        selectedConnection = connection;
+        selectedConnection.setStroke(Color.RED);
+    }
+    public void deleteConnection() {
+        if(selectedConnection != null) {
+            pane.getChildren().remove(selectedConnection);
+            //delete from map
+        }
+    }
+
     /**
      * @param node Node
      */
-
     public void nodeSelected(Node node){
         if(selectedNode != null) {
             selectedNode.getEllipse().setStrokeWidth(2);
@@ -87,16 +93,26 @@ public class GuiController {
                 }
                 if (count == 2 ) {
                     Connection connection = new Connection();
-                    connection.startYProperty().bind(Start.aAnchor().helpCenterYProperty());
-                    connection.startXProperty().bind(Start.aAnchor().helpCenterXProperty());
-                    connection.endXProperty().bind(End.aAnchor().helpCenterXProperty());
-                    connection.endYProperty().bind(End.aAnchor().helpCenterYProperty());
+                    connection.startYProperty().bind(Start.getActiveAnchor().helpCenterYProperty());
+                    connection.startXProperty().bind(Start.getActiveAnchor().helpCenterXProperty());
+                    connection.endXProperty().bind(End.getActiveAnchor().helpCenterXProperty());
+                    connection.endYProperty().bind(End.getActiveAnchor().helpCenterYProperty());
                     pane.getChildren().add(connection);
+                    Start.deactivate();
+                    End.deactivate();
+                    Start.getActiveAnchor().deactivate();
+                    End.getActiveAnchor().deactivate();
                 }
             }
-            if(e.getButton().equals(MouseButton.SECONDARY) && selectedNode != null) {
-                selectedNode.getEllipse().setStrokeWidth(2);
-                selectedNode = null;
+            if(e.getButton().equals(MouseButton.SECONDARY)) {
+                if (selectedNode != null){
+                    selectedNode.getEllipse().setStrokeWidth(2);
+                    selectedNode = null;
+                }
+                if (selectedConnection != null){
+                    selectedConnection.setStroke(Color.SILVER);
+                    selectedConnection = null;
+                }
             }
         });
 
@@ -112,7 +128,6 @@ public class GuiController {
                     connectionMode = true;
                 }
             }
-
         });
 
         ColorSwitch.setOnAction(e-> {
