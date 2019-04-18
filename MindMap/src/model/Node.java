@@ -8,13 +8,12 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Text;
 import util.IdGenerator;
 import view.Main;
-
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- * Class for generating Nodes, class is extended from a Stackpane
+ * Class for generating Nodes, class is extended from a Pane
  * to put the textarea and the ellipse together.
  */
 public class Node extends Pane {
@@ -112,7 +111,9 @@ public class Node extends Pane {
         anchor();
     }
 
-    //Anchor Management inside the node
+    /**
+     * Method used to give the Node the Anchors for Connection
+     */
     private void anchor(){
         this.anchorR = new Anchor(radius);
         this.anchorL = new Anchor(radius);
@@ -165,14 +166,25 @@ public class Node extends Pane {
         this.ellipse.setStroke(this.color);
     }
 
+    /**
+     * @return Observable X Value
+     */
     public SimpleDoubleProperty getX() {
         return x;
     }
 
+    /**
+     * @return Observable Y Value
+     */
     public SimpleDoubleProperty getY() {
         return y;
     }
 
+
+    /**
+     * @param newTranslateX Updates X Value
+     * @param newTranslateY Updates Y Value
+     */
     public void setPosition(double newTranslateX, double newTranslateY) {
         x.setValue(layoutXProperty().getValue()+newTranslateX);
         y.setValue(layoutYProperty().getValue()+newTranslateY);
@@ -185,6 +197,9 @@ public class Node extends Pane {
         return ellipse;
     }
 
+    /**
+     * @param mode sets if Anchors are visible
+     */
     public void connectionMode(Boolean mode){
         anchorT.setVisible(mode);
         anchorR.setVisible(mode);
@@ -192,14 +207,23 @@ public class Node extends Pane {
         anchorL.setVisible(mode);
     }
 
+    /**
+     * Deactivates the Node, used for the Connect
+     */
     public void deactivate(){
         active = false;
     }
 
+    /**
+     * @return returns if Node is active for Connection
+     */
     public boolean activeNode(){
         return active;
     }
 
+    /**
+     * @return returns the active Anchor of the Node
+     */
     public Anchor getActiveAnchor(){
         return activeAnchor;
     }
