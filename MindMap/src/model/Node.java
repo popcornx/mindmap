@@ -1,29 +1,39 @@
 package model;
-import controller.GuiController;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Text;
 import util.IdGenerator;
 import view.Main;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
- * Class for generating Nodes, class is extended from a Stackpane
+ * Class for generating Nodes, class is extended from a Pane
  * to put the textarea and the ellipse together.
  */
-public class Node extends StackPane {
+public class Node extends Pane {
     private int idNode;
     private Ellipse ellipse;
     private Text text;
-    private double x;
-    private double y;
+    private Anchor anchorL;
+    private Anchor anchorR;
+    private Anchor anchorT;
+    private Anchor anchorB;
+    private SimpleDoubleProperty x;
+    private SimpleDoubleProperty y;
     private Color color;
     private TextField textField = new TextField();
     private boolean edit = false;
+    private boolean active = false;
+    private Anchor activeAnchor;
+    private List<Anchor> anchors = new ArrayList<>();
 
+    final double radius = 20;
 
     //Helpers for drag and drop
     private double orgX, orgY;
@@ -40,8 +50,8 @@ public class Node extends StackPane {
         this.idNode = IdGenerator.id.incrementAndGet();
         this.ellipse = ellipse;
         this.text = text;
-        this.x = x;
-        this.y = y;
+        this.x = new SimpleDoubleProperty(x);
+        this.y = new SimpleDoubleProperty(y);
         this.color = color;
         styleNode();
     }
@@ -49,9 +59,9 @@ public class Node extends StackPane {
      * Styles the Ellipse after creation to Standard Values, also defines all MouseListeners of the
      * Object.
      */
-    void styleNode(){
-        this.setLayoutX(this.x-150);
-        this.setLayoutY(this.y-150);
+    private void styleNode(){
+        this.setLayoutX(this.x.getValue());
+        this.setLayoutY(this.y.getValue());
         this.ellipse.setRadiusX(150);
         this.ellipse.setRadiusY(100);
         this.ellipse.setStroke(this.color);
@@ -72,8 +82,8 @@ public class Node extends StackPane {
             double newTranslateY = orgTranslateY + offsetY;
             this.setTranslateX(newTranslateX);
             this.setTranslateY(newTranslateY);
+            setPosition(newTranslateX, newTranslateY);
         });
-
 
         text.setOnMouseClicked(e-> {
             if (e.getButton().equals(MouseButton.PRIMARY)){
@@ -84,7 +94,6 @@ public class Node extends StackPane {
                 }
             }
         });
-
         this.setOnMouseClicked(e-> {
             if(e.getButton().equals(MouseButton.SECONDARY)){
                 if(edit) {
@@ -98,8 +107,56 @@ public class Node extends StackPane {
                 Main.controller.nodeSelected(this);
             }
         });
+
+        anchor();
     }
 
+    /**
+     * Method used to give the Node the Anchors for Connection
+     */
+    private void anchor(){
+        this.anchorR = new Anchor(radius);
+        this.anchorL = new Anchor(radius);
+        this.anchorT = new Anchor(radius);
+        this.anchorB = new Anchor(radius);
+        anchorB.setLayoutY(ellipse.getRadiusY());
+        anchorT.setLayoutY(ellipse.getRadiusY()*-1);
+        anchorR.setLayoutX(ellipse.getRadiusX());
+        anchorL.setLayoutX(ellipse.getRadiusX()*-1);
+
+        this.getChildren().addAll(anchorB,anchorL,anchorR,anchorT);
+
+        anchorR.helpCenterX.bind(this.getX().add(ellipse.getRadiusX()));
+        anchorR.helpCenterY.bind(this.getY());
+
+        anchorB.helpCenterX.bind(this.getX());
+        anchorB.helpCenterY.bind(this.getY().add(ellipse.getRadiusY()));
+
+        anchorL.helpCenterX.bind(this.getX().add(ellipse.getRadiusX()*-1));
+        anchorL.helpCenterY.bind(this.getY());
+
+        anchorT.helpCenterX.bind(this.getX());
+        anchorT.helpCenterY.bind(this.getY().add(ellipse.getRadiusY()*-1));
+
+        anchors.add(anchorB);
+        anchors.add(anchorL);
+        anchors.add(anchorR);
+        anchors.add(anchorT);
+
+        for (Anchor anchor : anchors) {
+            anchor.setOnMouseClicked(e->{
+                if(activeAnchor == null){
+                    activeAnchor = anchor;
+                }else {
+                    activeAnchor.deactivate();
+                    activeAnchor = anchor;
+                    activeAnchor.setActive();
+                    active = true;
+                }
+            });
+        }
+
+    }
 
     /**
      * @param color color
@@ -109,6 +166,29 @@ public class Node extends StackPane {
         this.ellipse.setStroke(this.color);
     }
 
+    /**
+     * @return Observable X Value
+     */
+    public SimpleDoubleProperty getX() {
+        return x;
+    }
+
+    /**
+     * @return Observable Y Value
+     */
+    public SimpleDoubleProperty getY() {
+        return y;
+    }
+
+
+    /**
+     * @param newTranslateX Updates X Value
+     * @param newTranslateY Updates Y Value
+     */
+    public void setPosition(double newTranslateX, double newTranslateY) {
+        x.setValue(layoutXProperty().getValue()+newTranslateX);
+        y.setValue(layoutYProperty().getValue()+newTranslateY);
+    }
 
     /**
      * @return Ellipse
@@ -118,10 +198,34 @@ public class Node extends StackPane {
     }
 
     /**
-     * @return Text
+     * @param mode sets if Anchors are visible
      */
-    public Text getText() {
-        return text;
+    public void connectionMode(Boolean mode){
+        anchorT.setVisible(mode);
+        anchorR.setVisible(mode);
+        anchorB.setVisible(mode);
+        anchorL.setVisible(mode);
+    }
+
+    /**
+     * Deactivates the Node, used for the Connect
+     */
+    public void deactivate(){
+        active = false;
+    }
+
+    /**
+     * @return returns if Node is active for Connection
+     */
+    public boolean activeNode(){
+        return active;
+    }
+
+    /**
+     * @return returns the active Anchor of the Node
+     */
+    public Anchor getActiveAnchor(){
+        return activeAnchor;
     }
 
     /**
