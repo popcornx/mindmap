@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Text;
 import util.IdGenerator;
+import util.Position;
 import view.Main;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,10 +116,10 @@ public class Node extends Pane {
      * Method used to give the Node the Anchors for Connection
      */
     private void anchor(){
-        this.anchorR = new Anchor(radius);
-        this.anchorL = new Anchor(radius);
-        this.anchorT = new Anchor(radius);
-        this.anchorB = new Anchor(radius);
+        this.anchorR = new Anchor(radius, Position.RIGHT);
+        this.anchorL = new Anchor(radius, Position.LEFT);
+        this.anchorT = new Anchor(radius, Position.TOP);
+        this.anchorB = new Anchor(radius, Position.BOTTOM);
         anchorB.setLayoutY(ellipse.getRadiusY());
         anchorT.setLayoutY(ellipse.getRadiusY()*-1);
         anchorR.setLayoutX(ellipse.getRadiusX());
@@ -232,5 +233,13 @@ public class Node extends Pane {
      * @return IdNode
      */
     public int getIdNode() {return idNode; }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public Text getText() {
+        return text;
+    }
 }
 
