@@ -3,17 +3,20 @@ package model;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import util.Position;
 
 public class Anchor extends Circle {
     public SimpleDoubleProperty helpCenterX = new SimpleDoubleProperty();
     public SimpleDoubleProperty helpCenterY = new SimpleDoubleProperty();
     private boolean active = false;
+    private Position pos;
 
     public Anchor() {
     }
-    public Anchor(double radius) {
+    public Anchor(double radius, Position pos) {
         super(radius);
         super.setFill(Color.ORANGE);
+        this.pos = pos;
     }
 
     public double getHelpCenterX() {
@@ -45,6 +48,9 @@ public class Anchor extends Circle {
         this.setFill(Color.ORANGE);
     }
 
+    public Position getPos(){
+        return pos;
+    }
 
 }
 
