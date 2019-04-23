@@ -30,4 +30,11 @@ public class SavableMap {
         return connections;
     }
 
+    public void setNodes(List<SavableNode> nodes) {
+        this.nodes = nodes;
+    }
+
+    public void setConnections(List<SavableConnection> connections) {
+        this.connections = connections;
+    }
 }

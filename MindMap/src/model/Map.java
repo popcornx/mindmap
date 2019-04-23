@@ -1,11 +1,9 @@
 package model;
 
-import util.Pair;
-import util.SavableConnection;
-import util.SavableMap;
-import util.SavableNode;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.text.Text;
+import util.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,25 +22,53 @@ public class Map {
         return nodes;
     }
 
+    public Node getNode(int id) {
+        for(Node n : nodes){
+            if(n.getIdNode() == id){
+                return n;
+            }
+        }
+        return null;
+    }
+
     public void addConnection(Connection connection) {
         connections.add(connection);
+    }
+
+    public List<Connection> getConnections () {
+        return connections;
     }
 
     public SavableMap saveMap(){
         List<SavableNode> saveNodes = new ArrayList<>();
         List<SavableConnection> saveConnections = new ArrayList<>();
         for(Node n : nodes){
-            Color c = new Color((float)n.getColor().getRed(),(float) n.getColor().getGreen(),(float) n.getColor().getBlue());
+            java.awt.Color c = new java.awt.Color((float)n.getColor().getRed(),(float) n.getColor().getGreen(),(float) n.getColor().getBlue());
             saveNodes.add(new SavableNode(n.getIdNode(), n.getText().getText() , n.getX().get(), n.getY().get(), c));
         }
 
         for(Connection c : connections){
             saveConnections.add(new SavableConnection(
-                    new Pair(c.getStart().getKey().getIdNode(), c.getStart().getValue()),
-                    new Pair(c.getEnd().getKey().getIdNode(), c.getEnd().getValue())
+                    new util.Pair(c.getStart().getKey().getIdNode(), c.getStart().getValue()),
+                    new util.Pair(c.getEnd().getKey().getIdNode(), c.getEnd().getValue())
             ));
         }
 
         return new SavableMap(saveNodes,saveConnections);
+    }
+
+    public Map loadMap(SavableMap load) {
+        Map map = new Map();
+        for(SavableNode n : load.getNodes()) {
+            javafx.scene.paint.Color c = javafx.scene.paint.Color.rgb(n.getColor().getRed(), n.getColor().getGreen(), n.getColor().getBlue());
+            map.addNode(new Node(new Ellipse(), new Text(n.getText()), n.getX(), n.getY(), c));
+        }
+        for(SavableConnection c : load.getConnections()) {
+            map.addConnection(new Connection(
+                    new javafx.util.Pair<>(map.getNode(c.getStart().getI()), c.getStart().getP()),
+                    new javafx.util.Pair<>(map.getNode(c.getEnd().getI()), c.getEnd().getP())
+            ));
+        }
+        return map;
     }
 }
