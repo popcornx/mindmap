@@ -3,6 +3,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Text;
@@ -48,6 +49,7 @@ public class Node extends Pane {
      */
     public Node(Ellipse ellipse, Text text, double x, double y, Color color) {
         super(ellipse, text);
+        this.setPrefSize(151,151);
         this.idNode = IdGenerator.id.incrementAndGet();
         this.ellipse = ellipse;
         this.text = text;
@@ -120,6 +122,7 @@ public class Node extends Pane {
         this.anchorL = new Anchor(radius, Position.LEFT);
         this.anchorT = new Anchor(radius, Position.TOP);
         this.anchorB = new Anchor(radius, Position.BOTTOM);
+
         anchorB.setLayoutY(ellipse.getRadiusY());
         anchorT.setLayoutY(ellipse.getRadiusY()*-1);
         anchorR.setLayoutX(ellipse.getRadiusX());
