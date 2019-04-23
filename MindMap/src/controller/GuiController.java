@@ -19,6 +19,7 @@ import util.SavableMap;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -37,6 +38,8 @@ public class GuiController {
     private AnchorPane pane;
     @FXML
     private MenuItem MIsave;
+    @FXML
+    private MenuItem MIload;
     private Map map = new Map();
     private Node selectedNode;
     private Connection selectedConnection;
@@ -93,6 +96,48 @@ public class GuiController {
         }
         catch (Exception exe) {
             exe.printStackTrace();
+        }
+    }
+
+    private void load() {
+        try {
+            FileChooser fc = new FileChooser();
+            fc.setTitle("Open Mindmap");
+            FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files (*.xml)", "*.xml");
+            fc.getExtensionFilters().add(filter);
+            File file = fc.showOpenDialog(new Stage());
+
+            JAXBContext context = JAXBContext.newInstance(SavableMap.class);
+
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            SavableMap savableMap = (SavableMap) unmarshaller.unmarshal(file);
+
+            map = map.loadMap(savableMap);
+            drawMap();
+
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,true);
+            marshaller.marshal(map.saveMap(),System.out);
+        }
+        catch (Exception exe) {
+            exe.printStackTrace();
+        }
+    }
+
+    private void drawMap(){
+        pane.getChildren().clear();
+        for(Node n : map.getNodes()){
+            pane.getChildren().add(n);
+            n.connectionMode(false);
+        }
+        for(Connection c : map.getConnections()) {
+            pane.getChildren().add(c);
+            Node start = c.getStart().getKey();
+            Node end = c.getEnd().getKey();
+            c.startYProperty().bind(start.getAnchor(c.getStart().getValue()).helpCenterYProperty());
+            c.startXProperty().bind(start.getAnchor(c.getStart().getValue()).helpCenterXProperty());
+            c.endXProperty().bind(end.getAnchor(c.getEnd().getValue()).helpCenterXProperty());
+            c.endYProperty().bind(end.getAnchor(c.getEnd().getValue()).helpCenterYProperty());
         }
     }
 
@@ -184,6 +229,8 @@ public class GuiController {
         });
 
         MIsave.setOnAction(e -> save());
+
+        MIload.setOnAction(e -> load());
     }
 
 }

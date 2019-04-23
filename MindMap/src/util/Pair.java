@@ -24,4 +24,12 @@ public class Pair {
     public Position getP() {
         return p;
     }
+
+    public void setI(int i) {
+        this.i = i;
+    }
+
+    public void setP(Position p) {
+        this.p = p;
+    }
 }

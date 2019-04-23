@@ -12,6 +12,8 @@ import view.Main;
 import java.util.ArrayList;
 import java.util.List;
 
+import static util.Position.TOP;
+
 
 /**
  * Class for generating Nodes, class is extended from a Pane
@@ -118,7 +120,7 @@ public class Node extends Pane {
     private void anchor(){
         this.anchorR = new Anchor(radius, Position.RIGHT);
         this.anchorL = new Anchor(radius, Position.LEFT);
-        this.anchorT = new Anchor(radius, Position.TOP);
+        this.anchorT = new Anchor(radius, TOP);
         this.anchorB = new Anchor(radius, Position.BOTTOM);
         anchorB.setLayoutY(ellipse.getRadiusY());
         anchorT.setLayoutY(ellipse.getRadiusY()*-1);
@@ -240,6 +242,22 @@ public class Node extends Pane {
 
     public Text getText() {
         return text;
+    }
+
+    public Anchor getAnchor(Position p){
+        switch (p) {
+            case TOP:
+                return anchorT;
+            case RIGHT:
+                return anchorR;
+            case BOTTOM:
+                return anchorB;
+            case LEFT:
+                return anchorL;
+            default:
+                return null;
+        }
+
     }
 }
 

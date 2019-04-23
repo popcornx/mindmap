@@ -24,4 +24,12 @@ public class SavableConnection {
     public Pair getEnd() {
         return end;
     }
+
+    public void setStart(Pair start) {
+        this.start = start;
+    }
+
+    public void setEnd(Pair end) {
+        this.end = end;
+    }
 }

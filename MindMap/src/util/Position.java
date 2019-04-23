@@ -6,5 +6,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType
 @XmlEnum
 public enum Position {
-    TOP, RIGHT, BOTTOM, LEFT
+    TOP, RIGHT, BOTTOM, LEFT;
+
+    public String value() {
+        return name();
+    }
+
+    public static Position fromValue(String v) {
+        return valueOf(v);
+    }
 }
