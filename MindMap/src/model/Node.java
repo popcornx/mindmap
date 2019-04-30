@@ -3,13 +3,13 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Text;
 import util.IdGenerator;
 import util.Position;
 import view.Main;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,7 +109,7 @@ public class Node extends Pane {
                 }
             }
             if (e.getButton().equals(MouseButton.PRIMARY)){
-                Main.controller.nodeSelected(this);
+                Main.mainController.nodeSelected(this);
             }
         });
 

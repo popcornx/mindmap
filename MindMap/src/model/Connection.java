@@ -14,7 +14,7 @@ public class Connection extends Line {
         this.setStrokeWidth(5);
         this.setStroke(Color.SILVER);
         this.setOnMouseClicked(e->{
-            Main.controller.conectionSelected(this);
+            Main.mainController.connectionSelected(this);
         });
         this.start = start;
         this.end = end;
