@@ -10,13 +10,13 @@
 <AnchorPane fx:id="toolbar" prefHeight="38.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ToolbarController">
     <ToolBar prefHeight="38.0" prefWidth="1024.0">
         <items>
-            <ToggleButton id="BtnNode" fx:id="BtnNode" mnemonicParsing="false" prefHeight="23.0" prefWidth="119.0" text="Knoten">
+            <ToggleButton id="BtnNode" fx:id="BtnNode" mnemonicParsing="false" prefHeight="23.0" prefWidth="119.0" text="Knoten" toggleGroup="$tools">
                 <toggleGroup>
-                    <ToggleGroup fx:id="NewObject" />
+                    <ToggleGroup fx:id="tools" />
                 </toggleGroup>
             </ToggleButton>
-            <ToggleButton id="BtnConnection" fx:id="BtnConnection" mnemonicParsing="false" prefHeight="23.0" prefWidth="104.0" text="Verbindung" toggleGroup="$NewObject" />
-            <Button id="BtnSubNode" fx:id="BtnSubNode" mnemonicParsing="false" prefHeight="26.0" prefWidth="170.0" text="Neuer Unterknoten" />
+            <ToggleButton id="BtnConnection" fx:id="BtnConnection" mnemonicParsing="false" prefHeight="23.0" prefWidth="104.0" text="Verbindung" toggleGroup="$tools" />
+            <ToggleButton id="BtnSubNode" fx:id="BtnSubNode" mnemonicParsing="false" prefHeight="26.0" prefWidth="170.0" text="Neuer Unterknoten" toggleGroup="$tools" />
             <Button id="BtnOrder" fx:id="BtnOrder" mnemonicParsing="false" prefHeight="23.0" prefWidth="150.0" text="Knoten ordnen" />
             <ColorPicker id="ColorSwitch" fx:id="ColorSwitch" prefHeight="28.0" prefWidth="174.0" />
         </items>

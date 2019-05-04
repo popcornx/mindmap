@@ -115,7 +115,6 @@ public class Node extends Pane {
 
         anchor();
     }
-
     /**
      * Method used to give the Node the Anchors for Connection
      */
@@ -151,19 +150,10 @@ public class Node extends Pane {
 
         for (Anchor anchor : anchors) {
             anchor.setOnMouseClicked(e->{
-                if(activeAnchor == null){
-                    activeAnchor = anchor;
-                }else {
-                    activeAnchor.deactivate();
-                    activeAnchor = anchor;
-                    activeAnchor.setActive();
-                    active = true;
-                }
+                setActiveAnchor(anchor);
             });
         }
-
     }
-
     /**
      * @param color color
      */
@@ -227,6 +217,17 @@ public class Node extends Pane {
         return active;
     }
 
+    public void setActiveAnchor(Anchor anchor) {
+        if(activeAnchor == null){
+            activeAnchor = anchor;
+        }else {
+            activeAnchor.deactivate();
+            activeAnchor = anchor;
+            activeAnchor.setActive();
+            active = true;
+        }
+    }
+
     /**
      * @return returns the active Anchor of the Node
      */
@@ -261,6 +262,21 @@ public class Node extends Pane {
                 return null;
         }
 
+    }
+    public Anchor getAnchorL() {
+        return anchorL;
+    }
+
+    public Anchor getAnchorR() {
+        return anchorR;
+    }
+
+    public Anchor getAnchorT() {
+        return anchorT;
+    }
+
+    public Anchor getAnchorB() {
+        return anchorB;
     }
 }
 
