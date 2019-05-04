@@ -84,6 +84,10 @@ public class MainController {
     public boolean btnConnectionSelected(){
         return toolbarController.btnConnectionSelected();
     }
+    public boolean btnSubNodeSelected(){
+        return toolbarController.btnSubNodeSelected();
+    }
+
     public Node getSelectedNode(){
         return canvasController.getSelectedNode();
     }
