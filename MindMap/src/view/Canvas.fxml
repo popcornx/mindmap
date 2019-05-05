@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
 
 <AnchorPane fx:id="canvas" prefHeight="960.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CanvasController">
+   <children>
+      <TextArea fx:id="nodeText" layoutX="737.0" layoutY="846.0" prefHeight="105.0" prefWidth="280.0" />
+   </children>
 </AnchorPane>
