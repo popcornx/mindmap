@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -14,13 +15,17 @@ import model.Node;
 public class CanvasController {
     @FXML
     private AnchorPane canvas;
+    @FXML
+    private TextArea nodeText;
     private MainController mainController;
     private Node selectedNode;
     private Connection selectedConnection;
     private Node Start;
     private Node End;
+
     @FXML
-    public void initialize() {
+    private void initialize() {
+        nodeText.setVisible(false);
         canvas.setOnMouseClicked(e -> {
             if (mainController.btnNodeSelected()) {
                 Ellipse ellipse = new Ellipse();
@@ -90,7 +95,9 @@ public class CanvasController {
             if(e.getButton().equals(MouseButton.SECONDARY)) {
                 if (selectedNode != null){
                     selectedNode.getEllipse().setStrokeWidth(2);
+                    selectedNode.setNodeText(nodeText.getText());
                     selectedNode = null;
+                    nodeText.setVisible(false);
                 }
                 if (selectedConnection != null){
                     selectedConnection.setStroke(Color.SILVER);
@@ -125,9 +132,12 @@ public class CanvasController {
     public void nodeSelected(Node node){
         if(selectedNode != null) {
             selectedNode.getEllipse().setStrokeWidth(2);
+            selectedNode.setNodeText(nodeText.getText());
         }
         selectedNode = node;
         selectedNode.getEllipse().setStrokeWidth(10);
+        nodeText.setVisible(true);
+        nodeText.setText(selectedNode.getNodeText());
     }
     public void deleteNode() {
         if(selectedNode != null) {

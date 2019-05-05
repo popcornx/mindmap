@@ -32,12 +32,13 @@ public class Node extends Pane {
     private SimpleDoubleProperty y;
     private Color color;
     private TextField textField = new TextField();
+    private String nodeText = "";
     private boolean edit = false;
     private boolean active = false;
     private Anchor activeAnchor;
     private List<Anchor> anchors = new ArrayList<>();
 
-    final double radius = 20;
+    private final double radius = 20;
 
     //Helpers for drag and drop
     private double orgX, orgY;
@@ -277,6 +278,14 @@ public class Node extends Pane {
 
     public Anchor getAnchorB() {
         return anchorB;
+    }
+
+    public void setNodeText(String nodeText) {
+        this.nodeText = nodeText;
+    }
+
+    public String getNodeText() {
+        return nodeText;
     }
 }
 
