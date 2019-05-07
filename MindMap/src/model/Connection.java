@@ -9,8 +9,9 @@ import view.Main;
 
 public class Connection extends Line {
     private Pair<Node, Position> start, end;
+    private int lineStyle;
 
-    public Connection(Pair<Node, Position> start, Pair<Node, Position> end) {
+    public Connection(Pair<Node, Position> start, Pair<Node, Position> end, int lineStyle) {
         super();
         this.setStrokeWidth(5);
         this.setStroke(Color.SILVER);
@@ -19,6 +20,8 @@ public class Connection extends Line {
         });
         this.start = start;
         this.end = end;
+        this.lineStyle = lineStyle;
+        this.changeLineStyle(lineStyle);
         this.setStrokeLineCap(StrokeLineCap.ROUND);
     }
 
@@ -30,11 +33,16 @@ public class Connection extends Line {
         return end;
     }
 
-    public void changeStroke(String s){
-        if(s.equals("Secondary Line Style")) {
+    public int getLineStyle(){
+        return lineStyle;
+    }
+
+    public void changeLineStyle(int s){
+        if(s == 2) {
             this.getStrokeDashArray().addAll(25d, 20d);
         } else {
             this.getStrokeDashArray().clear();
         }
+        this.lineStyle = s;
     }
 }

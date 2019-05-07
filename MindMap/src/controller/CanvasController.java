@@ -109,7 +109,7 @@ public class CanvasController {
     }
 
     private void connectNodes(){
-        Connection connection = new Connection(new Pair<>(Start,Start.getActiveAnchor().getPos()), new Pair<>(End,End.getActiveAnchor().getPos()));
+        Connection connection = new Connection(new Pair<>(Start,Start.getActiveAnchor().getPos()), new Pair<>(End,End.getActiveAnchor().getPos()),1);
         connection.startYProperty().bind(Start.getActiveAnchor().helpCenterYProperty());
         connection.startXProperty().bind(Start.getActiveAnchor().helpCenterXProperty());
         connection.endXProperty().bind(End.getActiveAnchor().helpCenterXProperty());

@@ -32,7 +32,11 @@ public class ToolbarController {
 
         LineStyle.setOnAction(e -> {
             if(mainController.getSelectedConnection() != null) {
-                mainController.getSelectedConnection().changeStroke((String) LineStyle.getValue());
+                if(LineStyle.getValue().equals("Secondary Line Style")){
+                    mainController.getSelectedConnection().changeLineStyle(2);
+                } else {
+                    mainController.getSelectedConnection().changeLineStyle(1);
+                }
             }
         });
 

@@ -51,7 +51,8 @@ public class Map {
         for(Connection c : connections){
             saveConnections.add(new SavableConnection(
                     new util.Pair(c.getStart().getKey().getIdNode(), c.getStart().getValue()),
-                    new util.Pair(c.getEnd().getKey().getIdNode(), c.getEnd().getValue())
+                    new util.Pair(c.getEnd().getKey().getIdNode(), c.getEnd().getValue()),
+                    c.getLineStyle()
             ));
         }
 
@@ -72,7 +73,8 @@ public class Map {
         for(SavableConnection c : load.getConnections()) {
             map.addConnection(new Connection(
                     new javafx.util.Pair<>(map.getNode(c.getStart().getI()), c.getStart().getP()),
-                    new javafx.util.Pair<>(map.getNode(c.getEnd().getI()), c.getEnd().getP())
+                    new javafx.util.Pair<>(map.getNode(c.getEnd().getI()), c.getEnd().getP()),
+                    c.getLineStyle()
             ));
         }
         return map;
