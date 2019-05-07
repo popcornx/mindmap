@@ -1,5 +1,9 @@
 package controller;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -10,8 +14,10 @@ import util.SavableMap;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 public class MainController {
@@ -23,47 +29,66 @@ public class MainController {
 
 
     public void save(){
-        try {
-            FileChooser fc = new FileChooser();
-            fc.setTitle("Save Mindmap");
-            fc.setInitialFileName("map.xml");
-            File file = fc.showSaveDialog(new Stage());
 
-            JAXBContext context = JAXBContext.newInstance(SavableMap.class);
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(map.saveMap(), new FileOutputStream(file));
-//            output to console for quicker result evaluation, disable filechooser
-//            marshaller.marshal(map.saveMap(), System.out);
-        }
-        catch (Exception exe) {
-            exe.printStackTrace();
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Save Mindmap");
+        fc.setInitialFileName("map.xml");
+        File file = fc.showSaveDialog(new Stage());
+
+        if (file != null) {
+            try (FileOutputStream stream = new FileOutputStream(file)) {
+
+                JAXBContext context = JAXBContext.newInstance(SavableMap.class);
+                Marshaller marshaller = context.createMarshaller();
+                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+                marshaller.marshal(map.saveMap(), stream);
+//                output to console for quicker result evaluation, disable filechooser
+//                marshaller.marshal(map.saveMap(), System.out);
+            } catch (FileNotFoundException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Saving Error", ButtonType.OK);
+                alert.setTitle("Error");
+                alert.setResizable(true);
+                alert.setContentText("An error occurred when trying to save the Mindmap.");
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                alert.showAndWait();
+            } catch (Exception exe) {
+                exe.printStackTrace();
+            }
         }
     }
 
     public void load() {
-        try {
-            FileChooser fc = new FileChooser();
-            fc.setTitle("Open Mindmap");
-            FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files (*.xml)", "*.xml");
-            fc.getExtensionFilters().add(filter);
-            File file = fc.showOpenDialog(new Stage());
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Open Mindmap");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files (*.xml)", "*.xml");
+        fc.getExtensionFilters().add(filter);
+        File file = fc.showOpenDialog(new Stage());
 
-            JAXBContext context = JAXBContext.newInstance(SavableMap.class);
+        if(file != null) {
+            try {
 
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            SavableMap savableMap = (SavableMap) unmarshaller.unmarshal(file);
+                JAXBContext context = JAXBContext.newInstance(SavableMap.class);
 
-            map = map.loadMap(savableMap);
-            canvasController.drawMap();
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                SavableMap savableMap = (SavableMap) unmarshaller.unmarshal(file);
 
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,true);
-            marshaller.marshal(map.saveMap(),System.out);
+                map = map.loadMap(savableMap);
+                canvasController.drawMap();
+            }
+            catch (UnmarshalException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Loading Error", ButtonType.OK);
+                alert.setTitle("Error");
+                alert.setResizable(true);
+                alert.setContentText("An error occurred when trying to load the Mindmap.\n" +
+                        "This file is either corrupted or not a Mindmap.");
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                alert.showAndWait();
+            }
+            catch (Exception exe) {
+                exe.printStackTrace();
+            }
         }
-        catch (Exception exe) {
-            exe.printStackTrace();
-        }
+
     }
 
     @FXML private void initialize() {

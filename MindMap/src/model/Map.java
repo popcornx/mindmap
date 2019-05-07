@@ -6,6 +6,7 @@ import util.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Map {
     private List<Node> nodes = new ArrayList<>();
@@ -59,10 +60,15 @@ public class Map {
 
     public Map loadMap(SavableMap load) {
         Map map = new Map();
+        int high = 0;
         for(SavableNode n : load.getNodes()) {
             javafx.scene.paint.Color c = javafx.scene.paint.Color.rgb(n.getColor().getRed(), n.getColor().getGreen(), n.getColor().getBlue());
-            map.addNode(new Node(new Ellipse(), new Text(n.getText()), n.getX(), n.getY(), c));
+            Node node = new Node(new Ellipse(), new Text(n.getText()), n.getX(), n.getY(), c);
+            node.setIdNode(n.getId());
+            map.addNode(node);
+            high = (node.getIdNode() > high) ? node.getIdNode() : high;
         }
+        IdGenerator.id = new AtomicInteger(high);
         for(SavableConnection c : load.getConnections()) {
             map.addConnection(new Connection(
                     new javafx.util.Pair<>(map.getNode(c.getStart().getI()), c.getStart().getP()),
