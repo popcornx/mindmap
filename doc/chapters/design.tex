@@ -87,5 +87,21 @@ Das System erstellt eine neue Verbindung, es holt sich zuerst die beiden aktiven
 und den End Knoten. Von diesen beiden Knoten holt es sich dann die jewiligen aktiven Anchors. Danach
 verbindet das System die beiden aktiven Anchors miteinander.
 
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.6]{images/savemapSD.png}
+	\caption{Save Map SD}
+	\label{fig:savemap_SD}
+\end{figure}
+Das System erzeugt zu erst ein speicherbares Map Objekt und schreibt dies dann in eine XML Datei.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.6]{images/loadmapSD.png}
+	\caption{Load Map SD}
+	\label{fig:loadmap_SD}
+\end{figure}
+Das System liest die gewählte Datei, parst den Inhalt und erzeugt eine Map. Ist die Datei beschädigt wird eine Fehlermeldung angezeigt.
+
 \section{UML Diagramme}
 \label{sec:uml_diagramme}
