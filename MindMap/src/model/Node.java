@@ -287,5 +287,9 @@ public class Node extends Pane {
     public String getNodeText() {
         return nodeText;
     }
+
+    public void setIdNode(int i) {
+        this.idNode = i;
+    }
 }
 
