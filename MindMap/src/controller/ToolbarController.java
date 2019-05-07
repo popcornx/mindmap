@@ -1,10 +1,7 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import model.Node;
 
@@ -21,6 +18,8 @@ public class ToolbarController {
     private ToggleButton BtnConnection;
     @FXML
     private ToggleGroup tools;
+    @FXML
+    private ComboBox LineStyle;
 
     private MainController mainController;
     private Boolean connectionMode = false;
@@ -29,6 +28,14 @@ public class ToolbarController {
     public void initialize() {
         //DefaultValue
         ColorSwitch.setValue(Color.BLACK);
+        LineStyle.setValue("Primary Line Style");
+
+        LineStyle.setOnAction(e -> {
+            if(mainController.getSelectedConnection() != null) {
+                mainController.getSelectedConnection().changeStroke((String) LineStyle.getValue());
+            }
+        });
+
         BtnConnection.setOnAction(e -> {
             setConnectionMode();
         });

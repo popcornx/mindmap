@@ -119,6 +119,9 @@ public class MainController {
     public void nodeSelected(Node node){
         canvasController.nodeSelected(node);
     }
+    public Connection getSelectedConnection() {
+        return canvasController.getSelectedConnection();
+    }
     public void connectionSelected(Connection connection){
         canvasController.connectionSelected(connection);
     }

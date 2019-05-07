@@ -2,6 +2,7 @@ package model;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Pair;
 import util.Position;
 import view.Main;
@@ -18,6 +19,7 @@ public class Connection extends Line {
         });
         this.start = start;
         this.end = end;
+        this.setStrokeLineCap(StrokeLineCap.ROUND);
     }
 
     public Pair<Node, Position> getStart() {
@@ -26,5 +28,13 @@ public class Connection extends Line {
 
     public Pair<Node, Position> getEnd() {
         return end;
+    }
+
+    public void changeStroke(String s){
+        if(s.equals("Secondary Line Style")) {
+            this.getStrokeDashArray().addAll(25d, 20d);
+        } else {
+            this.getStrokeDashArray().clear();
+        }
     }
 }
