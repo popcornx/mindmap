@@ -89,19 +89,33 @@ verbindet das System die beiden aktiven Anchors miteinander.
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.6]{images/savemapSD.png}
+		\includegraphics[scale=0.4]{images/savemapSD.png}
 	\caption{Save Map SD}
 	\label{fig:savemap_SD}
 \end{figure}
-Das System erzeugt zu erst ein speicherbares Map Objekt und schreibt dies dann in eine XML Datei.
+Das System lässt den Benutzer eine Datei wählen und erzeugt einen OutputStream. Die Map des MainControllers und der Stream werden dem XMLConverter übergeben. Dieser konvertiert die Map in ein speicherbares Objekt und schreibt die XML Datei. Die Funktionalität des XMLConverters ist im nächsten Sequence Diagram ersichtlich.
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.6]{images/loadmapSD.png}
+		\includegraphics[scale=0.5]{images/saveConvertSD.png}
+	\caption{Convert \& Save Map SD}
+	\label{fig:saveConvert_SD}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.4]{images/loadmapSD.png}
 	\caption{Load Map SD}
 	\label{fig:loadmap_SD}
 \end{figure}
-Das System liest die gewählte Datei, parst den Inhalt und erzeugt eine Map. Ist die Datei beschädigt wird eine Fehlermeldung angezeigt.
+Das System lässt den Benutzer eine Datei wählen. Der XMLConverter liest die Datei und erzeugt daraus eine Map. Diese wird danach angezeigt.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.6]{images/loadConvertSD.png}
+	\caption{Load \& Convert Map SD}
+	\label{fig:loadConvert_SD}
+\end{figure}
 
 \section{UML Diagramme}
 \label{sec:uml_diagramme}
