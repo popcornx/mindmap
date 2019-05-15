@@ -1,24 +1,10 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import model.Connection;
 import model.Map;
 import model.Node;
-import util.SavableMap;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.UnmarshalException;
-import javax.xml.bind.Unmarshaller;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 public class MainController {
     private Map map = new Map();
@@ -26,70 +12,6 @@ public class MainController {
     @FXML private MenubarController menubarController;
     @FXML private ToolbarController toolbarController;
     @FXML private CanvasController canvasController;
-
-
-    public void save(){
-
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Save Mindmap");
-        fc.setInitialFileName("map.xml");
-        File file = fc.showSaveDialog(new Stage());
-
-        if (file != null) {
-            try (FileOutputStream stream = new FileOutputStream(file)) {
-
-                JAXBContext context = JAXBContext.newInstance(SavableMap.class);
-                Marshaller marshaller = context.createMarshaller();
-                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-                marshaller.marshal(map.saveMap(), stream);
-//                output to console for quicker result evaluation, disable filechooser
-//                marshaller.marshal(map.saveMap(), System.out);
-            } catch (FileNotFoundException ex) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Saving Error", ButtonType.OK);
-                alert.setTitle("Error");
-                alert.setResizable(true);
-                alert.setContentText("An error occurred when trying to save the Mindmap.");
-                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-                alert.showAndWait();
-            } catch (Exception exe) {
-                exe.printStackTrace();
-            }
-        }
-    }
-
-    public void load() {
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Open Mindmap");
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files (*.xml)", "*.xml");
-        fc.getExtensionFilters().add(filter);
-        File file = fc.showOpenDialog(new Stage());
-
-        if(file != null) {
-            try {
-
-                JAXBContext context = JAXBContext.newInstance(SavableMap.class);
-
-                Unmarshaller unmarshaller = context.createUnmarshaller();
-                SavableMap savableMap = (SavableMap) unmarshaller.unmarshal(file);
-
-                map = map.loadMap(savableMap);
-                canvasController.drawMap();
-            }
-            catch (UnmarshalException ex) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Loading Error", ButtonType.OK);
-                alert.setTitle("Error");
-                alert.setResizable(true);
-                alert.setContentText("An error occurred when trying to load the Mindmap.\n" +
-                        "This file is either corrupted or not a Mindmap.");
-                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-                alert.showAndWait();
-            }
-            catch (Exception exe) {
-                exe.printStackTrace();
-            }
-        }
-
-    }
 
     @FXML private void initialize() {
         menubarController.setMainController(this);
@@ -99,6 +21,9 @@ public class MainController {
 
     public Map getMap() {
         return map;
+    }
+    public void setMap(Map m){
+        this.map = m;
     }
     public Color getColor(){
         return toolbarController.getColor();
@@ -132,5 +57,8 @@ public class MainController {
     public void deleteNode(){
         map.getNodes().remove(canvasController.getSelectedNode());
         canvasController.deleteNode();
+    }
+    public void drawMap(){
+        canvasController.drawMap();
     }
 }
