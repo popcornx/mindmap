@@ -3,13 +3,13 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Text;
 import util.IdGenerator;
 import util.Position;
 import view.Main;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +32,24 @@ public class Node extends Pane {
     private SimpleDoubleProperty y;
     private Color color;
     private TextField textField = new TextField();
+    private String nodeText = "";
     private boolean edit = false;
     private boolean active = false;
     private Anchor activeAnchor;
     private List<Anchor> anchors = new ArrayList<>();
+    private double maxWidth = 1024;
+    private double maxHeight = 950;
 
-    final double radius = 20;
+    public void setBorderWidth(double maxWidth) {
+        this.maxWidth = maxWidth;
+    }
+
+    public void setBorderHeight(double maxHeight) {
+        this.maxHeight = maxHeight;
+    }
+
+
+    private final double radius = 14;
 
     //Helpers for drag and drop
     private double orgX, orgY;
@@ -51,7 +63,7 @@ public class Node extends Pane {
      */
     public Node(Ellipse ellipse, Text text, double x, double y, Color color) {
         super(ellipse, text);
-        this.setPrefSize(151,151);
+        this.setPrefSize(101,51);
         this.idNode = IdGenerator.id.incrementAndGet();
         this.ellipse = ellipse;
         this.text = text;
@@ -67,11 +79,12 @@ public class Node extends Pane {
     private void styleNode(){
         this.setLayoutX(this.x.getValue());
         this.setLayoutY(this.y.getValue());
-        this.ellipse.setRadiusX(150);
-        this.ellipse.setRadiusY(100);
+        this.ellipse.setRadiusX(100);
+        this.ellipse.setRadiusY(50);
         this.ellipse.setStroke(this.color);
         this.ellipse.setStrokeWidth(2);
         this.ellipse.setFill(Color.WHITE);
+        textField.setLayoutX(ellipse.getRadiusX()*-1);
 
         this.setOnMousePressed(e ->{
             orgX = e.getSceneX();
@@ -85,8 +98,15 @@ public class Node extends Pane {
             double offsetY = e.getSceneY() - orgY;
             double newTranslateX = orgTranslateX + offsetX;
             double newTranslateY = orgTranslateY + offsetY;
-            this.setTranslateX(newTranslateX);
-            this.setTranslateY(newTranslateY);
+
+            if(layoutYProperty().getValue()+newTranslateY>70 &&
+                    layoutYProperty().getValue()+newTranslateY < maxHeight - this.ellipse.getRadiusY()){
+                this.setTranslateY(newTranslateY);
+            }
+            if (layoutXProperty().getValue()+newTranslateX>0+this.ellipse.getRadiusX() &&
+                    layoutXProperty().getValue()+newTranslateX < maxWidth - this.ellipse.getRadiusX()){
+                this.setTranslateX(newTranslateX);
+            }
             setPosition(newTranslateX, newTranslateY);
         });
 
@@ -109,13 +129,12 @@ public class Node extends Pane {
                 }
             }
             if (e.getButton().equals(MouseButton.PRIMARY)){
-                Main.controller.nodeSelected(this);
+                Main.mainController.nodeSelected(this);
             }
         });
 
         anchor();
     }
-
     /**
      * Method used to give the Node the Anchors for Connection
      */
@@ -151,19 +170,10 @@ public class Node extends Pane {
 
         for (Anchor anchor : anchors) {
             anchor.setOnMouseClicked(e->{
-                if(activeAnchor == null){
-                    activeAnchor = anchor;
-                }else {
-                    activeAnchor.deactivate();
-                    activeAnchor = anchor;
-                    activeAnchor.setActive();
-                    active = true;
-                }
+                setActiveAnchor(anchor);
             });
         }
-
     }
-
     /**
      * @param color color
      */
@@ -227,6 +237,17 @@ public class Node extends Pane {
         return active;
     }
 
+    public void setActiveAnchor(Anchor anchor) {
+        if(activeAnchor == null){
+            activeAnchor = anchor;
+        }else {
+            activeAnchor.deactivate();
+            activeAnchor = anchor;
+            activeAnchor.setActive();
+            active = true;
+        }
+    }
+
     /**
      * @return returns the active Anchor of the Node
      */
@@ -261,6 +282,33 @@ public class Node extends Pane {
                 return null;
         }
 
+    }
+    public Anchor getAnchorL() {
+        return anchorL;
+    }
+
+    public Anchor getAnchorR() {
+        return anchorR;
+    }
+
+    public Anchor getAnchorT() {
+        return anchorT;
+    }
+
+    public Anchor getAnchorB() {
+        return anchorB;
+    }
+
+    public void setNodeText(String nodeText) {
+        this.nodeText = nodeText;
+    }
+
+    public String getNodeText() {
+        return nodeText;
+    }
+
+    public void setIdNode(int i) {
+        this.idNode = i;
     }
 }
 

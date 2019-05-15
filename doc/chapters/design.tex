@@ -2,23 +2,119 @@
 \label{chap:design}
 
 \section{System Sequence Diagram}
+\label{sec:system_sequence_diagramm}
+Die System Sequence Diagramme zeigen die möglichen Interaktionen 
+von extern mit unserem Mindmap Programm.
+
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.7]{images/SSD.png}
-	\caption{System Sequence Diagramm}
-	\label{fig:domain_model}
+		\includegraphics[scale=0.7]{images/createnode.PNG}
+	\caption{Create Node SSD}
+	\label{fig:create_node_ssd}
 \end{figure}
-\label{sec:system_sequence_diagram}
-Wie beim Diagramm zu sehen ist, übergibt der Benutzer dem Programm primär Klicks auf bestimmte Objekte. Das Programm erstellt anhand der Koordinaten dann so die Nodes und Connections. Beim Speicher Prozess erhält der Benutzer eine XML Datei mit den Informationen zu seinem Mindmap. Beim Lade Prozess übergibt der Benutzer dieses dann, das Programm erstellt anhand der Informationen die Knoten auf der Map.
 
+Der Benutzer übergibt dem System eine Position in welcher er den Node erstellen möchte, das System
+erstellt dann den Node mit allen seinen Komponenten, also der Form, dem Text und den Anchors für das
+Verbinden.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.7]{images/deletenode.PNG}
+	\caption{Delete Node SSD}
+	\label{fig:delete_node_ssd}
+\end{figure}
+Der Benutzer wählt einen Node oder eine Verbindung(der Ablauf zum Löschen einens Nodes oder einer Verbindung ist gleich), das System löscht diesen Node dann vom GUI und von der Liste. 
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.7]{images/createconnection.PNG}
+	\caption{Create Connection SSD}
+	\label{fig:create_connection_ssd}
+\end{figure}
+Der Benutzer wählt einen Start und einen Ziel Anchor für seine Verbindung aus, das System erstellt
+dann anhand dieser Informationen die Verbindung.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.7]{images/savemap.PNG}
+	\caption{Save Map SSD}
+	\label{fig:save_map_ssd}
+\end{figure}
+Der Benuzer speichert die Map, das System speichert nun alle Informationen der Map in eine
+Datei und übergibt sie dem Benutzer.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.7]{images/loadmap.PNG}
+	\caption{Load Map SSD}
+	\label{fig:load_map_ssd}
+\end{figure}
+Der Benutzer lädt eine alte Map und übergibt dem System eine Datei mit den Informationen, das System
+arbeitet nun die Informationen ab und stellt die Map dar.
 
 \section{Sequence Diagram}
 \label{sec:sequence_diagram}
+Das Sequence Diagramm zeigt die Interaktion zwischen den verschiedenen Objekten in dem Mind Map System.
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.6]{images/sequence.png}
-	\caption{System Sequence Diagramm}
-	\label{fig:domain_model}
+		\includegraphics[scale=0.6]{images/crNodeSD.PNG}
+	\caption{Create Node SD}
+	\label{fig:create_node_SD}
+\end{figure}
+
+Das System erstellt einen neuen Node, der Node erstellt dann seine Objekte welche er benötigt.
+Er erstellt ein Shape für seine Form, er erstellt einen Text für die Beschreibung und er erstellt
+4 Anchors(TOP,LEFT,BOTTOM,RIGHT) für das Verbinden der Knoten. Danach wird der Knoten in die Maplist 
+gespeichert.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.6]{images/delNodeSD.PNG}
+	\caption{Delete Node SD}
+	\label{fig:delete_node_SD}
+\end{figure}
+
+Das System löscht den selektieren Knoten von der Map und löscht diesen dann von der Liste. 
+Dies funktioniert gleich bei der Verbindung.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.6]{images/connectionSD.PNG}
+	\caption{Create Connection SD}
+	\label{fig:create_connection_SD}
+\end{figure}
+Das System erstellt eine neue Verbindung, es holt sich zuerst die beiden aktiven Knoten, den Start 
+und den End Knoten. Von diesen beiden Knoten holt es sich dann die jewiligen aktiven Anchors. Danach
+verbindet das System die beiden aktiven Anchors miteinander.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.4]{images/savemapSD.png}
+	\caption{Save Map SD}
+	\label{fig:savemap_SD}
+\end{figure}
+Das System lässt den Benutzer eine Datei wählen und erzeugt einen OutputStream. Die Map des MainControllers und der Stream werden dem XMLConverter übergeben. Dieser konvertiert die Map in ein speicherbares Objekt und schreibt die XML Datei. Die Funktionalität des XMLConverters ist im nächsten Sequence Diagram ersichtlich.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.5]{images/saveConvertSD.png}
+	\caption{Convert \& Save Map SD}
+	\label{fig:saveConvert_SD}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.4]{images/loadmapSD.png}
+	\caption{Load Map SD}
+	\label{fig:loadmap_SD}
+\end{figure}
+Das System lässt den Benutzer eine Datei wählen. Der XMLConverter liest die Datei und erzeugt daraus eine Map. Diese wird danach angezeigt.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.6]{images/loadConvertSD.png}
+	\caption{Load \& Convert Map SD}
+	\label{fig:loadConvert_SD}
 \end{figure}
 
 \section{UML Diagramme}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="toolbar" prefHeight="38.0" prefWidth="4096.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ToolbarController">
+    <ToolBar prefHeight="38.0" prefWidth="4096.0">
+        <items>
+            <ToggleButton id="BtnNode" fx:id="BtnNode" mnemonicParsing="false" prefHeight="23.0" prefWidth="119.0" text="Knoten" toggleGroup="$tools">
+                <toggleGroup>
+                    <ToggleGroup fx:id="tools" />
+                </toggleGroup>
+            </ToggleButton>
+            <ToggleButton id="BtnConnection" fx:id="BtnConnection" mnemonicParsing="false" prefHeight="23.0" prefWidth="104.0" text="Verbindung" toggleGroup="$tools" />
+            <ToggleButton id="BtnSubNode" fx:id="BtnSubNode" mnemonicParsing="false" prefHeight="26.0" prefWidth="170.0" text="Neuer Unterknoten" toggleGroup="$tools" />
+            <Button id="BtnOrder" fx:id="BtnOrder" mnemonicParsing="false" prefHeight="23.0" prefWidth="150.0" text="Knoten ordnen" />
+            <ColorPicker id="ColorSwitch" fx:id="ColorSwitch" prefHeight="28.0" prefWidth="174.0" />
+            <ComboBox id="LineStyle" fx:id="LineStyle" >
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Primary Line Style" />
+                        <String fx:value="Secondary Line Style" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </items>
+    </ToolBar>
+</AnchorPane>
