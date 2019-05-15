@@ -10,8 +10,8 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="toolbar" prefHeight="38.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ToolbarController">
-    <ToolBar prefHeight="38.0" prefWidth="1024.0">
+<AnchorPane fx:id="toolbar" prefHeight="38.0" prefWidth="4096.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ToolbarController">
+    <ToolBar prefHeight="38.0" prefWidth="4096.0">
         <items>
             <ToggleButton id="BtnNode" fx:id="BtnNode" mnemonicParsing="false" prefHeight="23.0" prefWidth="119.0" text="Knoten" toggleGroup="$tools">
                 <toggleGroup>

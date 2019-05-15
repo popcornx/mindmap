@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Text;
@@ -14,7 +15,7 @@ import model.Node;
 
 public class CanvasController {
     @FXML
-    private AnchorPane canvas;
+    private BorderPane canvas;
     @FXML
     private TextArea nodeText;
     private MainController mainController;

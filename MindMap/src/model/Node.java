@@ -37,8 +37,19 @@ public class Node extends Pane {
     private boolean active = false;
     private Anchor activeAnchor;
     private List<Anchor> anchors = new ArrayList<>();
+    private double maxWidth = 1024;
+    private double maxHeight = 950;
 
-    private final double radius = 20;
+    public void setBorderWidth(double maxWidth) {
+        this.maxWidth = maxWidth;
+    }
+
+    public void setBorderHeight(double maxHeight) {
+        this.maxHeight = maxHeight;
+    }
+
+
+    private final double radius = 14;
 
     //Helpers for drag and drop
     private double orgX, orgY;
@@ -52,7 +63,7 @@ public class Node extends Pane {
      */
     public Node(Ellipse ellipse, Text text, double x, double y, Color color) {
         super(ellipse, text);
-        this.setPrefSize(151,151);
+        this.setPrefSize(101,51);
         this.idNode = IdGenerator.id.incrementAndGet();
         this.ellipse = ellipse;
         this.text = text;
@@ -68,11 +79,12 @@ public class Node extends Pane {
     private void styleNode(){
         this.setLayoutX(this.x.getValue());
         this.setLayoutY(this.y.getValue());
-        this.ellipse.setRadiusX(150);
-        this.ellipse.setRadiusY(100);
+        this.ellipse.setRadiusX(100);
+        this.ellipse.setRadiusY(50);
         this.ellipse.setStroke(this.color);
         this.ellipse.setStrokeWidth(2);
         this.ellipse.setFill(Color.WHITE);
+        textField.setLayoutX(ellipse.getRadiusX()*-1);
 
         this.setOnMousePressed(e ->{
             orgX = e.getSceneX();
@@ -86,8 +98,15 @@ public class Node extends Pane {
             double offsetY = e.getSceneY() - orgY;
             double newTranslateX = orgTranslateX + offsetX;
             double newTranslateY = orgTranslateY + offsetY;
-            this.setTranslateX(newTranslateX);
-            this.setTranslateY(newTranslateY);
+
+            if(layoutYProperty().getValue()+newTranslateY>70 &&
+                    layoutYProperty().getValue()+newTranslateY < maxHeight - this.ellipse.getRadiusY()){
+                this.setTranslateY(newTranslateY);
+            }
+            if (layoutXProperty().getValue()+newTranslateX>0+this.ellipse.getRadiusX() &&
+                    layoutXProperty().getValue()+newTranslateX < maxWidth - this.ellipse.getRadiusX()){
+                this.setTranslateX(newTranslateX);
+            }
             setPosition(newTranslateX, newTranslateY);
         });
 
