@@ -25,7 +25,7 @@ public class MenubarController {
     private MenuItem MIload;
     @FXML
     private Slider sliderScale;
-
+    private Double scale = 1.0;
     private MainController mainController;
     @FXML
     public void initialize() {
@@ -71,16 +71,21 @@ public class MenubarController {
             public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
                 for (Node node : mainController.getMap().getNodes()){
                    node.setScale(sliderScale.getValue());
+                   scale = sliderScale.getValue();
                 }
             }
         });
     }
 
-    public void setMainController(MainController mainController){
+    Double getScale() {
+        return scale;
+    }
+
+    void setMainController(MainController mainController){
         this.mainController = mainController;
     }
 
-    public void showAlert(String type, String text){
+    void showAlert(String type, String text){
         Alert alert = new Alert(Alert.AlertType.ERROR, type, ButtonType.OK);
         alert.setTitle("Error");
         alert.setResizable(true);

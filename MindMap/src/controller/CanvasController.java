@@ -32,8 +32,7 @@ public class CanvasController {
             if (mainController.btnNodeSelected()) {
                 Ellipse ellipse = new Ellipse();
                 Label text = new Label("Text");
-
-                Node node = new Node(ellipse, text,e.getSceneX(),e.getSceneY(),mainController.getColor());
+                Node node = new Node(ellipse, text,e.getSceneX(),e.getSceneY(),mainController.getColor(),mainController.getMenubarController().getScale());
                 canvas.getChildren().add(node);
                 mainController.getMap().addNode(node);
                 node.connectionMode(false);
@@ -60,7 +59,7 @@ public class CanvasController {
                     if(node.activeNode()){
                         Start = node;
                         End = new Node (new Ellipse(), new Label("Text"), Start.getX().getValue(),
-                                Start.getY().getValue(),mainController.getColor());
+                                Start.getY().getValue(),mainController.getColor(), mainController.getMenubarController().getScale());
                         canvas.getChildren().add(End);
                         switch (Start.getActiveAnchor().getPos()) {
                             case TOP:

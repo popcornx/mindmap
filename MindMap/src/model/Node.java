@@ -8,17 +8,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import util.IdGenerator;
 import util.Position;
 import view.Main;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static util.Position.TOP;
-
 
 /**
  * Class for generating Nodes, class is extended from a Pane
@@ -43,12 +38,6 @@ public class Node extends Pane {
     private List<Anchor> anchors = new ArrayList<>();
     private double maxWidth = 1024;
     private double maxHeight = 950;
-    public void setBorderWidth(double maxWidth) {
-        this.maxWidth = maxWidth;
-    }
-    public void setBorderHeight(double maxHeight) {
-        this.maxHeight = maxHeight;
-    }
     private final double radiusAnchor = 14;
     private final double radiusShapeX = 100;
     private final double radiusShapeY = 50;
@@ -56,6 +45,7 @@ public class Node extends Pane {
     //Helpers for drag and drop
     private double orgX, orgY;
     private double orgTranslateX, orgTranslateY;
+    private double scale;
     /**
      * @param ellipse ellipse
      * @param text text
@@ -63,9 +53,10 @@ public class Node extends Pane {
      * @param y y-Coordinate
      * @param color Color of the ellipse
      */
-    public Node(Ellipse ellipse, Label text, double x, double y, Color color) {
+    public Node(Ellipse ellipse, Label text, double x, double y, Color color, Double scale) {
         super(ellipse, text);
-        this.setPrefSize(radiusShapeX+1,radiusShapeY+1);
+        this.scale = scale;
+        this.setPrefSize(radiusShapeX+1*scale,radiusShapeY+1*scale);
         this.idNode = IdGenerator.id.incrementAndGet();
         this.ellipse = ellipse;
         this.text = text;
@@ -81,8 +72,9 @@ public class Node extends Pane {
     private void styleNode(){
         this.setLayoutX(this.x.getValue());
         this.setLayoutY(this.y.getValue());
-        this.ellipse.setRadiusX(radiusShapeX);
-        this.ellipse.setRadiusY(radiusShapeY);
+        this.ellipse.setRadiusX(radiusShapeX*scale);
+        this.ellipse.setRadiusY(radiusShapeY*scale);
+        System.out.println(scale);
         this.ellipse.setStroke(this.color);
         this.ellipse.setStrokeWidth(2);
         this.ellipse.setFill(Color.WHITE);
@@ -297,9 +289,7 @@ public class Node extends Pane {
             default:
                 return null;
         }
-
     }
-
     public void setScale(Double scale) {
         this.ellipse.setRadiusX(radiusShapeX*scale);
         this.ellipse.setRadiusY(radiusShapeY*scale);
@@ -308,9 +298,11 @@ public class Node extends Pane {
         anchorR.setLayoutX(radiusShapeX*scale);
         anchorL.setLayoutX(radiusShapeX*-1*scale);
         text.setFont(Font.font(textSize*scale));
+        anchorR.helpCenterX.bind(this.getX().add(ellipse.getRadiusX()));
+        anchorB.helpCenterY.bind(this.getY().add(ellipse.getRadiusY()));
+        anchorL.helpCenterX.bind(this.getX().add(ellipse.getRadiusX()*-1));
+        anchorT.helpCenterY.bind(this.getY().add(ellipse.getRadiusY()*-1));
     }
-
-
     /**
      * @return getLeftAnchor
      */
@@ -358,6 +350,20 @@ public class Node extends Pane {
      */
     public void setIdNode(int i) {
         this.idNode = i;
+    }
+
+    /**
+     * @param maxWidth setsMaxWidth of Window
+     */
+    public void setBorderWidth(double maxWidth) {
+        this.maxWidth = maxWidth;
+    }
+
+    /**
+     * @param maxHeight setsMaxHeight of Window
+     */
+    public void setBorderHeight(double maxHeight) {
+        this.maxHeight = maxHeight;
     }
 }
 

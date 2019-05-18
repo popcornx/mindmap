@@ -25,8 +25,15 @@ public class MainController {
         canvasController.setMainController(this);
     }
 
-
-
+    MenubarController getMenubarController(){
+        return menubarController;
+    }
+    ToolbarController getToolbarController(){
+        return  toolbarController;
+    }
+    CanvasController getCanvasController(){
+        return  canvasController;
+    }
 
     Map getMap() {
         return map;
@@ -34,6 +41,7 @@ public class MainController {
     void setMap(Map m){
         this.map = m;
     }
+    
     Color getColor(){
         return toolbarController.getColor();
     }
@@ -58,6 +66,7 @@ public class MainController {
     public void connectionSelected(Connection connection){
         canvasController.connectionSelected(connection);
     }
+
     private void deleteConnection(){
         map.getConnections().remove(canvasController.getSelectedConnection());
         canvasController.deleteConnection();
