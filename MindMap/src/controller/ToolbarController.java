@@ -24,18 +24,20 @@ public class ToolbarController {
     private MainController mainController;
     private Boolean connectionMode = false;
 
+    /**
+     * Initializes the Toolbar Controller and sets the handling for the Buttons.
+     */
     @FXML
     public void initialize() {
-        //DefaultValue
         ColorSwitch.setValue(Color.BLACK);
         LineStyle.setValue("Primary Line Style");
 
         LineStyle.setOnAction(e -> {
-            if(mainController.getSelectedConnection() != null) {
+            if(mainController.getCanvasController().getSelectedConnection() != null) {
                 if(LineStyle.getValue().equals("Secondary Line Style")){
-                    mainController.getSelectedConnection().changeLineStyle(2);
+                    mainController.getCanvasController().getSelectedConnection().changeLineStyle(2);
                 } else {
-                    mainController.getSelectedConnection().changeLineStyle(1);
+                    mainController.getCanvasController().getSelectedConnection().changeLineStyle(1);
                 }
             }
         });
@@ -45,8 +47,8 @@ public class ToolbarController {
         });
 
         ColorSwitch.setOnAction(e -> {
-            if (mainController.getSelectedNode() != null) {
-                mainController.getSelectedNode().changeColor(ColorSwitch.getValue());
+            if (mainController.getCanvasController().getSelectedNode() != null) {
+                mainController.getCanvasController().getSelectedNode().changeColor(ColorSwitch.getValue());
             }
         });
 
@@ -62,7 +64,9 @@ public class ToolbarController {
         });
 
     }
-
+    /**
+     * Activates the Anchors and makes them visible to connect them together.
+     */
     private void setConnectionMode(){
         if(connectionMode){
             for(Node node : mainController.getMap().getNodes()){
@@ -81,19 +85,37 @@ public class ToolbarController {
         }
     }
 
+    /**
+     * @param mainController injects the Maincontroller
+     */
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
+    /**
+     * @return boolean connection button is selected or not
+     */
     public boolean btnConnectionSelected (){
         return BtnConnection.isSelected();
     }
+
+    /**
+     * @return boolean node button is selected or not
+     */
     public boolean btnNodeSelected (){
         return BtnNode.isSelected();
     }
+
+    /**
+     * @return boolean subnode button is selected or not
+     */
     public boolean btnSubNodeSelected(){
         return BtnSubNode.isSelected();
     }
+
+    /**
+     * @return Color
+     */
     public Color getColor(){
         return ColorSwitch.getValue();
     }

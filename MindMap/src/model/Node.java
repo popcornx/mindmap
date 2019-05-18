@@ -74,7 +74,6 @@ public class Node extends Pane {
         this.setLayoutY(this.y.getValue());
         this.ellipse.setRadiusX(radiusShapeX*scale);
         this.ellipse.setRadiusY(radiusShapeY*scale);
-        System.out.println(scale);
         this.ellipse.setStroke(this.color);
         this.ellipse.setStrokeWidth(2);
         this.ellipse.setFill(Color.WHITE);
@@ -129,7 +128,7 @@ public class Node extends Pane {
                 }
             }
             if (e.getButton().equals(MouseButton.PRIMARY)){
-                Main.mainController.nodeSelected(this);
+                Main.mainController.getCanvasController().nodeSelected(this);
             }
         });
 
@@ -235,6 +234,10 @@ public class Node extends Pane {
         return active;
     }
 
+    /**
+     * @param anchor sets the currently active Anchor
+     * and deactivates the previously active Anchor
+     */
     public void setActiveAnchor(Anchor anchor) {
         if(activeAnchor == null){
             activeAnchor = anchor;

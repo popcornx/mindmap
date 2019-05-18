@@ -4,15 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
-import javafx.scene.text.Text;
 import javafx.util.Pair;
 import model.Connection;
 import model.Node;
-
 
 public class CanvasController {
     @FXML
@@ -25,19 +22,23 @@ public class CanvasController {
     private Node Start;
     private Node End;
 
+    /**
+     * Initializes the Canvas controller and sets the event handling
+     */
     @FXML
     private void initialize() {
         nodeText.setVisible(false);
         canvas.setOnMouseClicked(e -> {
-            if (mainController.btnNodeSelected()) {
+            if (mainController.getToolbarController().btnNodeSelected()) {
                 Ellipse ellipse = new Ellipse();
                 Label text = new Label("Text");
-                Node node = new Node(ellipse, text,e.getSceneX(),e.getSceneY(),mainController.getColor(),mainController.getMenubarController().getScale());
+                Node node = new Node(ellipse, text,e.getSceneX(),e.getSceneY(),mainController.getToolbarController().getColor(),
+                        mainController.getMenubarController().getScale());
                 canvas.getChildren().add(node);
                 mainController.getMap().addNode(node);
                 node.connectionMode(false);
             }
-            if (mainController.btnConnectionSelected()) {
+            if (mainController.getToolbarController().btnConnectionSelected()) {
                 int count = 0;
                 for (Node node : mainController.getMap().getNodes()){
                     if (node.activeNode()){
@@ -54,12 +55,13 @@ public class CanvasController {
                 }
             }
 
-            if (mainController.btnSubNodeSelected()){
+            if (mainController.getToolbarController().btnSubNodeSelected()){
                   for (Node node : mainController.getMap().getNodes()){
                     if(node.activeNode()){
                         Start = node;
                         End = new Node (new Ellipse(), new Label("Text"), Start.getX().getValue(),
-                                Start.getY().getValue(),mainController.getColor(), mainController.getMenubarController().getScale());
+                                Start.getY().getValue(),mainController.getToolbarController().getColor(),
+                                mainController.getMenubarController().getScale());
                         canvas.getChildren().add(End);
                         switch (Start.getActiveAnchor().getPos()) {
                             case TOP:
@@ -108,8 +110,9 @@ public class CanvasController {
         });
 
     }
-
-
+    /**
+     * Creates a new Connection, between the currently 2 active Anchors
+     */
     private void connectNodes(){
         Connection connection = new Connection(new Pair<>(Start,Start.getActiveAnchor().getPos()), new Pair<>(End,End.getActiveAnchor().getPos()),1);
         connection.startYProperty().bind(Start.getActiveAnchor().helpCenterYProperty());
@@ -125,11 +128,14 @@ public class CanvasController {
     }
 
 
-    public void setMainController(MainController mainController) {
+    /**
+     * @param mainController injects the mainController
+     */
+    void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
     /**
-     * @param node Node
+     * @param node handles the selection and unselection of a Node
      */
     public void nodeSelected(Node node){
         if(selectedNode != null) {
@@ -141,13 +147,18 @@ public class CanvasController {
         nodeText.setVisible(true);
         nodeText.setText(selectedNode.getNodeText());
     }
-    public void deleteNode() {
+    /**
+     * deletes the currently selected node
+     */
+    void deleteNode() {
         if(selectedNode != null) {
             canvas.getChildren().remove(selectedNode);
             selectedNode = null;
         }
     }
-
+    /**
+     * @param connection handles the selection and unselection of a Connection
+     */
     public void connectionSelected (Connection connection){
         if(selectedConnection != null) {
             selectedConnection.setStroke(Color.SILVER);
@@ -155,16 +166,19 @@ public class CanvasController {
         selectedConnection = connection;
         selectedConnection.setStroke(Color.RED);
     }
-
-
-    public void deleteConnection() {
+    /**
+     * deletes the currently selected connection
+     */
+    void deleteConnection() {
         if(selectedConnection != null) {
             canvas.getChildren().remove(selectedConnection);
         }
         selectedConnection = null;
     }
-
-    public void drawMap(){
+    /**
+     * generates the map and places its objects when loading a file
+     */
+    void drawMap(){
         canvas.getChildren().clear();
         for(Node n : mainController.getMap().getNodes()){
             canvas.getChildren().add(n);
@@ -181,11 +195,17 @@ public class CanvasController {
         }
     }
 
-    public Node getSelectedNode() {
+    /**
+     * @return selectedNode
+     */
+    Node getSelectedNode() {
         return selectedNode;
     }
 
-    public Connection getSelectedConnection() {
+    /**
+     * @return selectedConnection
+     */
+    Connection getSelectedConnection() {
         return selectedConnection;
     }
 }
