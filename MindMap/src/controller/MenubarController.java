@@ -1,12 +1,16 @@
 package controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.Node;
 import util.XMLConverter;
 
 import javax.xml.bind.UnmarshalException;
@@ -19,55 +23,69 @@ public class MenubarController {
     private MenuItem MIsave;
     @FXML
     private MenuItem MIload;
+    @FXML
+    private Slider sliderScale;
+    private Double scale = 1.0;
     private MainController mainController;
     @FXML
-    public void initialize(){
-         MIsave.setOnAction(e -> {
-             FileChooser fc = new FileChooser();
-             fc.setTitle("Save Mindmap");
-             fc.setInitialFileName("map.xml");
-             File file = fc.showSaveDialog(new Stage());
-
-             if (file != null) {
-                 try (FileOutputStream stream = new FileOutputStream(file)) {
+    public void initialize() {
+        MIsave.setOnAction(e -> {
+            FileChooser fc = new FileChooser();
+            fc.setTitle("Save Mindmap");
+            fc.setInitialFileName("map.xml");
+            File file = fc.showSaveDialog(new Stage());
+            if (file != null) {
+                try (FileOutputStream stream = new FileOutputStream(file)) {
                     XMLConverter.saveMap(mainController.getMap(), stream);
-                 } catch (FileNotFoundException ex) {
-                     showAlert("Saving Error", "An error occurred when trying to save the Mindmap.");
-                 } catch (Exception exe) {
-                     exe.printStackTrace();
-                 }
-             }
-         });
+                } catch (FileNotFoundException ex) {
+                    showAlert("Saving Error", "An error occurred when trying to save the Mindmap.");
+                } catch (Exception exe) {
+                    exe.printStackTrace();
+                }
+            }
+        });
 
-         MIload.setOnAction(e -> {
-             FileChooser fc = new FileChooser();
-             fc.setTitle("Open Mindmap");
-             FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files (*.xml)", "*.xml");
-             fc.getExtensionFilters().add(filter);
-             File file = fc.showOpenDialog(new Stage());
+        MIload.setOnAction(e -> {
+            FileChooser fc = new FileChooser();
+            fc.setTitle("Open Mindmap");
+            FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files (*.xml)", "*.xml");
+            fc.getExtensionFilters().add(filter);
+            File file = fc.showOpenDialog(new Stage());
 
-             if(file != null) {
-                 try {
-                     mainController.setMap(XMLConverter.loadMap(file));
-                     mainController.drawMap();
-                 }
-                 catch (UnmarshalException ex) {
-                     showAlert("Loading Error",
-                             "An error occurred when trying to load the Mindmap.\n" +
-                                     "This file is either corrupted or not a Mindmap.");
-                 }
-                 catch (Exception exe) {
-                     exe.printStackTrace();
-                 }
-             }
-         });
+            if (file != null) {
+                try {
+                    mainController.setMap(XMLConverter.loadMap(file));
+                    mainController.drawMap();
+                } catch (UnmarshalException ex) {
+                    showAlert("Loading Error",
+                            "An error occurred when trying to load the Mindmap.\n" +
+                                    "This file is either corrupted or not a Mindmap.");
+                } catch (Exception exe) {
+                    exe.printStackTrace();
+                }
+            }
+        });
+
+        sliderScale.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+                for (Node node : mainController.getMap().getNodes()){
+                   node.setScale(sliderScale.getValue());
+                   scale = sliderScale.getValue();
+                }
+            }
+        });
     }
 
-    public void setMainController(MainController mainController){
+    Double getScale() {
+        return scale;
+    }
+
+    void setMainController(MainController mainController){
         this.mainController = mainController;
     }
 
-    public void showAlert(String type, String text){
+    void showAlert(String type, String text){
         Alert alert = new Alert(Alert.AlertType.ERROR, type, ButtonType.OK);
         alert.setTitle("Error");
         alert.setResizable(true);

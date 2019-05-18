@@ -1,5 +1,6 @@
 package util;
 
+import javafx.scene.control.Label;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Text;
 import model.Connection;
@@ -52,7 +53,7 @@ public abstract class XMLConverter {
         int high = 0;
         for(SavableNode n : savableMap.getNodes()) {
             javafx.scene.paint.Color c = javafx.scene.paint.Color.rgb(n.getColor().getRed(), n.getColor().getGreen(), n.getColor().getBlue());
-            Node node = new Node(new Ellipse(), new Text(n.getText()), n.getX(), n.getY(), c);
+            Node node = new Node(new Ellipse(), new Label(n.getText()), n.getX(), n.getY(), c, 1.0);
             node.setIdNode(n.getId());
             map.addNode(node);
             high = (node.getIdNode() > high) ? node.getIdNode() : high;

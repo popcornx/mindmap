@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
@@ -30,9 +31,8 @@ public class CanvasController {
         canvas.setOnMouseClicked(e -> {
             if (mainController.btnNodeSelected()) {
                 Ellipse ellipse = new Ellipse();
-                Text text = new Text("Text");
-
-                Node node = new Node(ellipse, text,e.getSceneX(),e.getSceneY(),mainController.getColor());
+                Label text = new Label("Text");
+                Node node = new Node(ellipse, text,e.getSceneX(),e.getSceneY(),mainController.getColor(),mainController.getMenubarController().getScale());
                 canvas.getChildren().add(node);
                 mainController.getMap().addNode(node);
                 node.connectionMode(false);
@@ -58,8 +58,8 @@ public class CanvasController {
                   for (Node node : mainController.getMap().getNodes()){
                     if(node.activeNode()){
                         Start = node;
-                        End = new Node (new Ellipse(), new Text("Text"), Start.getX().getValue(),
-                                Start.getY().getValue(),mainController.getColor());
+                        End = new Node (new Ellipse(), new Label("Text"), Start.getX().getValue(),
+                                Start.getY().getValue(),mainController.getColor(), mainController.getMenubarController().getScale());
                         canvas.getChildren().add(End);
                         switch (Start.getActiveAnchor().getPos()) {
                             case TOP:
@@ -108,6 +108,7 @@ public class CanvasController {
         });
 
     }
+
 
     private void connectNodes(){
         Connection connection = new Connection(new Pair<>(Start,Start.getActiveAnchor().getPos()), new Pair<>(End,End.getActiveAnchor().getPos()),1);

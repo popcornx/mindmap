@@ -25,42 +25,53 @@ public class MainController {
         canvasController.setMainController(this);
     }
 
-    public Map getMap() {
-        return map;
+    MenubarController getMenubarController(){
+        return menubarController;
     }
-    public void setMap(Map m){
-        this.map = m;
+    ToolbarController getToolbarController(){
+        return  toolbarController;
     }
-    public Color getColor(){
-        return toolbarController.getColor();
-    }
-    public boolean btnNodeSelected(){
-        return toolbarController.btnNodeSelected();
-    }
-    public boolean btnConnectionSelected(){
-        return toolbarController.btnConnectionSelected();
-    }
-    public boolean btnSubNodeSelected(){
-        return toolbarController.btnSubNodeSelected();
+    CanvasController getCanvasController(){
+        return  canvasController;
     }
 
-    public Node getSelectedNode(){
+    Map getMap() {
+        return map;
+    }
+    void setMap(Map m){
+        this.map = m;
+    }
+    
+    Color getColor(){
+        return toolbarController.getColor();
+    }
+    boolean btnNodeSelected(){
+        return toolbarController.btnNodeSelected();
+    }
+    boolean btnConnectionSelected(){
+        return toolbarController.btnConnectionSelected();
+    }
+    boolean btnSubNodeSelected(){
+        return toolbarController.btnSubNodeSelected();
+    }
+    Node getSelectedNode(){
         return canvasController.getSelectedNode();
     }
     public void nodeSelected(Node node){
         canvasController.nodeSelected(node);
     }
-    public Connection getSelectedConnection() {
+    Connection getSelectedConnection() {
         return canvasController.getSelectedConnection();
     }
     public void connectionSelected(Connection connection){
         canvasController.connectionSelected(connection);
     }
-    public void deleteConnection(){
+
+    private void deleteConnection(){
         map.getConnections().remove(canvasController.getSelectedConnection());
         canvasController.deleteConnection();
     }
-    public void deleteNode(){
+    private void deleteNode(){
         map.getNodes().remove(canvasController.getSelectedNode());
         canvasController.deleteNode();
     }
