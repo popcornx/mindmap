@@ -25,42 +25,44 @@ public class MainController {
         canvasController.setMainController(this);
     }
 
-    public Map getMap() {
+
+
+
+    Map getMap() {
         return map;
     }
-    public void setMap(Map m){
+    void setMap(Map m){
         this.map = m;
     }
-    public Color getColor(){
+    Color getColor(){
         return toolbarController.getColor();
     }
-    public boolean btnNodeSelected(){
+    boolean btnNodeSelected(){
         return toolbarController.btnNodeSelected();
     }
-    public boolean btnConnectionSelected(){
+    boolean btnConnectionSelected(){
         return toolbarController.btnConnectionSelected();
     }
-    public boolean btnSubNodeSelected(){
+    boolean btnSubNodeSelected(){
         return toolbarController.btnSubNodeSelected();
     }
-
-    public Node getSelectedNode(){
+    Node getSelectedNode(){
         return canvasController.getSelectedNode();
     }
     public void nodeSelected(Node node){
         canvasController.nodeSelected(node);
     }
-    public Connection getSelectedConnection() {
+    Connection getSelectedConnection() {
         return canvasController.getSelectedConnection();
     }
     public void connectionSelected(Connection connection){
         canvasController.connectionSelected(connection);
     }
-    public void deleteConnection(){
+    private void deleteConnection(){
         map.getConnections().remove(canvasController.getSelectedConnection());
         canvasController.deleteConnection();
     }
-    public void deleteNode(){
+    private void deleteNode(){
         map.getNodes().remove(canvasController.getSelectedNode());
         canvasController.deleteNode();
     }
