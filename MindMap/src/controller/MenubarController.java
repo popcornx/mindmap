@@ -27,6 +27,10 @@ public class MenubarController {
     private Slider sliderScale;
     private Double scale = 1.0;
     private MainController mainController;
+
+    /**
+     * Initializes the Menubar Controller and sets the Button handling for the Menubar
+     */
     @FXML
     public void initialize() {
         MIsave.setOnAction(e -> {
@@ -44,7 +48,6 @@ public class MenubarController {
                 }
             }
         });
-
         MIload.setOnAction(e -> {
             FileChooser fc = new FileChooser();
             fc.setTitle("Open Mindmap");
@@ -55,7 +58,7 @@ public class MenubarController {
             if (file != null) {
                 try {
                     mainController.setMap(XMLConverter.loadMap(file));
-                    mainController.drawMap();
+                    mainController.getCanvasController().drawMap();
                 } catch (UnmarshalException ex) {
                     showAlert("Loading Error",
                             "An error occurred when trying to load the Mindmap.\n" +
@@ -76,15 +79,25 @@ public class MenubarController {
             }
         });
     }
-
+    /**
+     * @return scale
+     */
     Double getScale() {
         return scale;
     }
 
+    /**
+     * @param mainController inject mainController
+     */
     void setMainController(MainController mainController){
         this.mainController = mainController;
     }
 
+    /**
+     * @param type String
+     * @param text Text
+     * generates a Alert when a error occurs while loading or saving a file
+     */
     void showAlert(String type, String text){
         Alert alert = new Alert(Alert.AlertType.ERROR, type, ButtonType.OK);
         alert.setTitle("Error");

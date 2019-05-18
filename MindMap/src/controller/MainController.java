@@ -5,9 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.Connection;
 import model.Map;
 import model.Node;
 
@@ -18,64 +16,67 @@ public class MainController {
     @FXML private MenubarController menubarController;
     @FXML private ToolbarController toolbarController;
     @FXML private CanvasController canvasController;
-
+    /**
+     * Injects the MainController into the other Controllers
+     */
     @FXML private void initialize() {
         menubarController.setMainController(this);
         toolbarController.setMainController(this);
         canvasController.setMainController(this);
     }
 
+    /**
+     * @return Returns the menubarController
+     */
     MenubarController getMenubarController(){
         return menubarController;
     }
+    /**
+     * @return Returns the toolbarController
+     */
     ToolbarController getToolbarController(){
         return  toolbarController;
     }
-    CanvasController getCanvasController(){
+    /**
+     * @return Returns the canvasController
+     */
+    public CanvasController getCanvasController(){
         return  canvasController;
     }
-
+    /**
+     * @return Returns the current Map
+     */
     Map getMap() {
         return map;
     }
+
+    /**
+     * @param m Sets the current Map after loading
+     */
     void setMap(Map m){
         this.map = m;
     }
-    
-    Color getColor(){
-        return toolbarController.getColor();
-    }
-    boolean btnNodeSelected(){
-        return toolbarController.btnNodeSelected();
-    }
-    boolean btnConnectionSelected(){
-        return toolbarController.btnConnectionSelected();
-    }
-    boolean btnSubNodeSelected(){
-        return toolbarController.btnSubNodeSelected();
-    }
-    Node getSelectedNode(){
-        return canvasController.getSelectedNode();
-    }
-    public void nodeSelected(Node node){
-        canvasController.nodeSelected(node);
-    }
-    Connection getSelectedConnection() {
-        return canvasController.getSelectedConnection();
-    }
-    public void connectionSelected(Connection connection){
-        canvasController.connectionSelected(connection);
-    }
 
+    /**
+     * deletes the currently selected connection
+     */
     private void deleteConnection(){
         map.getConnections().remove(canvasController.getSelectedConnection());
         canvasController.deleteConnection();
     }
+
+    /**
+     * deletes the currently selected Node
+     */
     private void deleteNode(){
         map.getNodes().remove(canvasController.getSelectedNode());
         canvasController.deleteNode();
     }
 
+    /**
+     * @param root sets the Parent from the Main.class,
+     * and adds the delete Function to it.
+     */
     public void setRoot(Parent root){
         this.root = root;
         root.setOnKeyPressed(e -> {
@@ -85,7 +86,11 @@ public class MainController {
             }
         });
     }
-    
+
+    /**
+     * @param primaryStage sets the Stage from the Main.class,
+     * and adds the Observer for the Window size.
+     */
     public void setStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
         primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
@@ -104,9 +109,5 @@ public class MainController {
                 }
             }
         });
-    }
-
-    public void drawMap(){
-        canvasController.drawMap();
     }
 }

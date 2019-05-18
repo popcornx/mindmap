@@ -9,15 +9,24 @@ public class Map {
 
     public Map() {
     }
-
+    /**
+     * @param node adds a Node to the List
+     */
     public void addNode(Node node) {
         nodes.add(node);
     }
 
+    /**
+     * @return List<Node> all nodes in the List
+     */
     public List<Node> getNodes () {
         return nodes;
     }
 
+    /**
+     * @param id Id of the searched node
+     * @return the searched node, if not found null
+     */
     public Node getNode(int id) {
         for(Node n : nodes){
             if(n.getIdNode() == id){
@@ -26,11 +35,16 @@ public class Map {
         }
         return null;
     }
-
+    /**
+     * @param connection adds the connection to the List
+     */
     public void addConnection(Connection connection) {
         connections.add(connection);
     }
 
+    /**
+     * @return List<Connection> all connections in the List
+     */
     public List<Connection> getConnections () {
         return connections;
     }

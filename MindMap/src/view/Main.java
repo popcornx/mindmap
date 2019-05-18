@@ -7,6 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main application which starts the Application and passes
+ * its Information to the Main Controller
+ */
 public class Main extends Application {
     public static MainController mainController;
 
