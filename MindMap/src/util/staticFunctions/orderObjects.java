@@ -27,15 +27,38 @@ public class orderObjects {
                         double orgTransY = nodeOuter.getTranslateY();
                         if(shiftRight(nodeOuter, factor, radiusX, nodeOuter.getEllipse(),nodeInner.getEllipse(),orgTransX,orgTransY )){
                             break;
+                        }else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
                         }
                         if(shiftLeft(nodeOuter, factor, radiusX, nodeOuter.getEllipse(),nodeInner.getEllipse(),orgTransX,orgTransY )){
                             break;
+                        }else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
                         }
                         if(shiftTop(nodeOuter, factor, radiusY, nodeOuter.getEllipse(),nodeInner.getEllipse(),orgTransX,orgTransY )){
                             break;
+                        }else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
                         }
-                        if(shiftBottom(nodeOuter, factor, radiusY, nodeOuter.getEllipse(),nodeInner.getEllipse(),orgTransX,orgTransY )){
+                        if(shiftTopLeft(nodeOuter, factor,radiusX, radiusY, nodeOuter.getEllipse(),nodeInner.getEllipse(),orgTransX,orgTransY)){
                             break;
+                        }else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
+                        }
+                        if(shiftTopRight(nodeOuter, factor,radiusX, radiusY, nodeOuter.getEllipse(),nodeInner.getEllipse(),orgTransX,orgTransY)){
+                            break;
+                        }else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
+                        }
+                        if(shiftBottomRight(nodeOuter, factor,radiusX, radiusY, nodeOuter.getEllipse(),nodeInner.getEllipse(),orgTransX,orgTransY)){
+                            break;
+                        }else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
+                        }
+                        if(shiftBottomLeft(nodeOuter, factor,radiusX, radiusY, nodeOuter.getEllipse(),nodeInner.getEllipse(),orgTransX,orgTransY )){
+                            break;
+                        }else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
                         }
                     }
                 }
@@ -52,15 +75,43 @@ public class orderObjects {
 
                         if(shiftRight(nodeOuter, factor, radiusX, nodeOuter.getEllipse(),connectionOuter,orgTransX,orgTransY )){
                             break;
+                        } else {
+                            resetTranslate(nodeOuter,orgTransX, orgTransY);
                         }
                         if(shiftLeft(nodeOuter, factor, radiusX, nodeOuter.getEllipse(),connectionOuter,orgTransX,orgTransY )){
                             break;
+                        } else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
                         }
                         if(shiftBottom(nodeOuter, factor, radiusY, nodeOuter.getEllipse(),connectionOuter,orgTransX,orgTransY )){
                             break;
+                        }else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
                         }
                         if(shiftTop(nodeOuter, factor, radiusY, nodeOuter.getEllipse(),connectionOuter,orgTransX,orgTransY )){
                             break;
+                        }else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
+                        }
+                        if(shiftTopLeft(nodeOuter, factor,radiusX, radiusY, nodeOuter.getEllipse(),connectionOuter,orgTransX,orgTransY)){
+                            break;
+                        }else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
+                        }
+                        if(shiftTopRight(nodeOuter, factor,radiusX, radiusY, nodeOuter.getEllipse(),connectionOuter,orgTransX,orgTransY)){
+                            break;
+                        }else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
+                        }
+                        if(shiftBottomRight(nodeOuter, factor,radiusX, radiusY, nodeOuter.getEllipse(),connectionOuter,orgTransX,orgTransY)){
+                            break;
+                        }else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
+                        }
+                        if(shiftBottomLeft(nodeOuter, factor,radiusX, radiusY, nodeOuter.getEllipse(),connectionOuter,orgTransX,orgTransY )){
+                            break;
+                        }else {
+                            resetTranslate(nodeOuter,orgTransX,orgTransY);
                         }
                     }
                 }
@@ -76,21 +127,121 @@ public class orderObjects {
 
                             if (shiftRight(nodeOuter, factor, radiusX, connectionInner, connectionOuter, orgTransX, orgTransY)) {
                                 break;
+                            }else {
+                                resetTranslate(nodeOuter,orgTransX,orgTransY);
                             }
                             if (shiftLeft(nodeOuter, factor, radiusX, connectionInner, connectionOuter, orgTransX, orgTransY)) {
                                 break;
+                            }else {
+                                resetTranslate(nodeOuter,orgTransX,orgTransY);
                             }
                             if (shiftBottom(nodeOuter, factor, radiusY, connectionInner, connectionOuter, orgTransX, orgTransY)) {
                                 break;
+                            }else {
+                                resetTranslate(nodeOuter,orgTransX,orgTransY);
                             }
                             if (shiftTop(nodeOuter, factor, radiusY, connectionInner, connectionOuter, orgTransX, orgTransY)) {
                                 break;
+                            }else {
+                                resetTranslate(nodeOuter,orgTransX,orgTransY);
+                            }
+                            if(shiftTopLeft(nodeOuter, factor,radiusX, radiusY, connectionInner,connectionOuter,orgTransX,orgTransY)){
+                                break;
+                            }else {
+                                resetTranslate(nodeOuter,orgTransX,orgTransY);
+                            }
+                            if(shiftTopRight(nodeOuter, factor,radiusX, radiusY, connectionInner,connectionOuter,orgTransX,orgTransY)){
+                                break;
+                            }else {
+                                resetTranslate(nodeOuter,orgTransX,orgTransY);
+                            }
+                            if(shiftBottomRight(nodeOuter, factor,radiusX, radiusY, connectionInner,connectionOuter,orgTransX,orgTransY)){
+                                break;
+                            }else {
+                                resetTranslate(nodeOuter,orgTransX,orgTransY);
+                            }
+                            if(shiftBottomLeft(nodeOuter, factor,radiusX, radiusY, connectionInner,connectionOuter,orgTransX,orgTransY )){
+                                break;
+                            }else {
+                                resetTranslate(nodeOuter,orgTransX,orgTransY);
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    /**
+     * @param node which position gets reseted
+     * @param orgTransX original coordinates
+     * @param orgTransY original coordinates
+     */
+    private static void resetTranslate(Node node, double orgTransX, double orgTransY){
+        node.setTranslateX(orgTransX);
+        node.setTranslateY(orgTransY);
+        node.setPosition(orgTransX, orgTransY);
+    }
+
+    /**
+     * @param nodeOuter the OuterNode which will be shifted to correct
+     * @param factor how far should the node be shifted
+     * @param radiusX the distance of a horizontal shift
+     * @param radiusY the distance of a vertical shift
+     * @param a the shape which gets checked wether it collides or not
+     * @param b the other shape which gets checked wether it collides or not
+     * @param orgTransX the Original X position of the Object
+     * @param orgTransY the Original Y position of the Object
+     * @return Returns false if the problem is not solved / true if solved
+     */
+    private static boolean shiftTopLeft(Node nodeOuter, int factor, double radiusX,  double radiusY, Shape a, Shape b, double orgTransX, double orgTransY){
+        return shiftLeft(nodeOuter,factor,radiusX,a,b,orgTransX,orgTransY) &&
+                shiftTop(nodeOuter,factor,radiusY,a,b,orgTransX,orgTransY);
+    }
+    /**
+     * @param nodeOuter the OuterNode which will be shifted to correct
+     * @param factor how far should the node be shifted
+     * @param radiusX the distance of a horizontal shift
+     * @param radiusY the distance of a vertical shift
+     * @param a the shape which gets checked wether it collides or not
+     * @param b the other shape which gets checked wether it collides or not
+     * @param orgTransX the Original X position of the Object
+     * @param orgTransY the Original Y position of the Object
+     * @return Returns false if the problem is not solved / true if solved
+     */
+    private static boolean shiftTopRight(Node nodeOuter, int factor, double radiusX,  double radiusY, Shape a, Shape b, double orgTransX, double orgTransY){
+       return shiftRight(nodeOuter,factor,radiusX,a,b,orgTransX,orgTransY) &&
+                shiftTop(nodeOuter,factor,radiusY,a,b,orgTransX,orgTransY);
+    }
+    /**
+     * @param nodeOuter the OuterNode which will be shifted to correct
+     * @param factor how far should the node be shifted
+     * @param radiusX the distance of a horizontal shift
+     * @param radiusY the distance of a vertical shift
+     * @param a the shape which gets checked wether it collides or not
+     * @param b the other shape which gets checked wether it collides or not
+     * @param orgTransX the Original X position of the Object
+     * @param orgTransY the Original Y position of the Object
+     * @return Returns false if the problem is not solved / true if solved
+     */
+    private static boolean shiftBottomRight(Node nodeOuter, int factor, double radiusX,  double radiusY, Shape a, Shape b, double orgTransX, double orgTransY){
+        return shiftRight(nodeOuter,factor,radiusX,a,b,orgTransX,orgTransY) &&
+                shiftBottom(nodeOuter,factor,radiusY,a,b,orgTransX,orgTransY);
+    }
+    /**
+     * @param nodeOuter the OuterNode which will be shifted to correct
+     * @param factor how far should the node be shifted
+     * @param radiusX the distance of a horizontal shift
+     * @param radiusY the distance of a vertical shift
+     * @param a the shape which gets checked wether it collides or not
+     * @param b the other shape which gets checked wether it collides or not
+     * @param orgTransX the Original X position of the Object
+     * @param orgTransY the Original Y position of the Object
+     * @return Returns false if the problem is not solved / true if solved
+     */
+    private static boolean shiftBottomLeft(Node nodeOuter, int factor, double radiusX,  double radiusY, Shape a, Shape b, double orgTransX, double orgTransY){
+        return shiftLeft(nodeOuter,factor,radiusX,a,b,orgTransX,orgTransY) &&
+                shiftBottom(nodeOuter,factor,radiusY,a,b,orgTransX,orgTransY);
     }
 
     /**
@@ -107,8 +258,6 @@ public class orderObjects {
         nodeOuter.setTranslateX(orgTransX + (radiusX * factor));
         nodeOuter.setPosition(orgTransX + (radiusX * factor), orgTransY);
         if (checkNode(a, b)) {
-            nodeOuter.setTranslateX(orgTransX);
-            nodeOuter.setPosition(orgTransX, orgTransY);
             return false;
         } else {
             return true;
@@ -128,8 +277,6 @@ public class orderObjects {
         nodeOuter.setTranslateX(orgTransX+(radiusX*factor*-1));
         nodeOuter.setPosition(orgTransX+(radiusX*factor*-1),orgTransY);
         if (checkNode(a,b)){
-            nodeOuter.setTranslateX(orgTransX);
-            nodeOuter.setPosition(orgTransX,orgTransY);
             return false;
         }else {
             return true;
@@ -150,8 +297,6 @@ public class orderObjects {
         nodeOuter.setTranslateY(orgTransY+(radiusY*factor*-1));
         nodeOuter.setPosition(orgTransX,orgTransY+(radiusY*factor*-1));
         if (checkNode(a,b)){
-            nodeOuter.setTranslateY(orgTransY);
-            nodeOuter.setPosition(orgTransX,orgTransY);
             return false;
         }else {
             return true;
@@ -171,8 +316,6 @@ public class orderObjects {
         nodeOuter.setTranslateY(orgTransY+(radiusY*factor));
         nodeOuter.setPosition(orgTransX,orgTransY+(radiusY*factor));
         if (checkNode(a,b)){
-            nodeOuter.setTranslateY(orgTransY);
-            nodeOuter.setPosition(orgTransX,orgTransY);
             return false;
         }else {
             return true;
