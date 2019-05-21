@@ -46,7 +46,7 @@ public class MainController {
     /**
      * @return Returns the current Map
      */
-    Map getMap() {
+    public Map getMap() {
         return map;
     }
 

@@ -9,6 +9,7 @@ public class Anchor extends Circle {
     public SimpleDoubleProperty helpCenterX = new SimpleDoubleProperty();
     public SimpleDoubleProperty helpCenterY = new SimpleDoubleProperty();
     private Position pos;
+    private Boolean active = false;
 
     /**
      * @param radius Radius for the Anchor Size
@@ -39,12 +40,14 @@ public class Anchor extends Circle {
      */
     public void setActive(){
         this.setFill(Color.SILVER);
+        this.active = true;
     }
     /**
      * Deactivates the Anchor visualy
      */
     public void deactivate(){
         this.setFill(Color.ORANGE);
+        this.active = false;
     }
 
     /**
@@ -53,5 +56,14 @@ public class Anchor extends Circle {
     public Position getPos(){
         return pos;
     }
+
+
+    /**
+     * @return returns if the Anchor is active
+     */
+    public boolean isActive(){
+        return active;
+    }
+
 }
 

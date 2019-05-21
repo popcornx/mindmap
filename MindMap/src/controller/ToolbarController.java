@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import model.Node;
+import util.orderObjects;
 
 public class ToolbarController {
     @FXML
@@ -52,11 +53,8 @@ public class ToolbarController {
             }
         });
 
-        //To be Implemented!!
         BtnOrder.setOnAction(e -> {
-            for (Node node : mainController.getMap().getNodes()) {
-                System.out.println(node.getIdNode());
-            }
+            orderObjects.orderNodes();
         });
 
         BtnSubNode.setOnAction(e -> {
