@@ -1,4 +1,4 @@
-package util;
+package util.staticFunctions;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

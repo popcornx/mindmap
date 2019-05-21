@@ -8,12 +8,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Font;
-import util.IdGenerator;
-import util.Position;
+import util.staticFunctions.IdGenerator;
+import util.saveFunctions.Position;
 import view.Main;
 import java.util.ArrayList;
 import java.util.List;
-import static util.Position.TOP;
+import static util.saveFunctions.Position.TOP;
 
 /**
  * Class for generating Nodes, class is extended from a Pane

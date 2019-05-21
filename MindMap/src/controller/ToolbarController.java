@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import model.Node;
-import util.orderObjects;
+import util.staticFunctions.orderObjects;
 
 public class ToolbarController {
     @FXML

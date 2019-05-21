@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Pair;
-import util.Position;
+import util.saveFunctions.Position;
 import view.Main;
 
 public class Connection extends Line {

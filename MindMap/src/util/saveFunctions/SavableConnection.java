@@ -1,4 +1,6 @@
-package util;
+package util.saveFunctions;
+
+import util.saveFunctions.Pair;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;

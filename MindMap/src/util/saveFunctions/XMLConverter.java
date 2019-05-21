@@ -1,11 +1,15 @@
-package util;
+package util.saveFunctions;
 
 import javafx.scene.control.Label;
 import javafx.scene.shape.Ellipse;
-import javafx.scene.text.Text;
 import model.Connection;
 import model.Map;
 import model.Node;
+import util.saveFunctions.Pair;
+import util.saveFunctions.SavableConnection;
+import util.saveFunctions.SavableMap;
+import util.saveFunctions.SavableNode;
+import util.staticFunctions.IdGenerator;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -28,8 +32,8 @@ public abstract class XMLConverter {
         List<SavableConnection> saveConnections = new ArrayList<>();
         for(Connection c : map.getConnections()){
             saveConnections.add(new SavableConnection(
-                    new util.Pair(c.getStart().getKey().getIdNode(), c.getStart().getValue()),
-                    new util.Pair(c.getEnd().getKey().getIdNode(), c.getEnd().getValue()),
+                    new Pair(c.getStart().getKey().getIdNode(), c.getStart().getValue()),
+                    new Pair(c.getEnd().getKey().getIdNode(), c.getEnd().getValue()),
                     c.getLineStyle()
             ));
         }

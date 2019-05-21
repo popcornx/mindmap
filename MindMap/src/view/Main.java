@@ -16,7 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML/Main.fxml"));
         Parent root = loader.load();
         mainController = loader.getController();
         mainController.setStage(primaryStage);

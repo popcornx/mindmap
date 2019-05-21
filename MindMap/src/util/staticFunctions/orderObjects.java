@@ -1,4 +1,4 @@
-package util;
+package util.staticFunctions;
 
 import controller.MainController;
 import javafx.scene.shape.Shape;
@@ -187,7 +187,6 @@ public class orderObjects {
      * the Shape will have the size 0.
      */
     private static boolean checkNode(Shape out, Shape in){
-        System.out.println(6);
         Shape intersect = Shape.intersect(out, in);
         if (intersect.getBoundsInParent().getHeight() > 0) {
             return true;
