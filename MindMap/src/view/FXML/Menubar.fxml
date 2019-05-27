@@ -12,6 +12,7 @@
         <menus>
             <Menu mnemonicParsing="false" text="Datei">
                 <items>
+                    <MenuItem id="MInew" fx:id="MInew" mnemonicParsing="false" text="Neu" />
                     <MenuItem id="MIload" fx:id="MIload" mnemonicParsing="false" text="Laden" />
                     <MenuItem id="MIsave" fx:id="MIsave" mnemonicParsing="false" text="Speichern" />
                 </items>

@@ -1,6 +1,5 @@
 package controller;
 
-import com.sun.javafx.robot.FXRobot;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -17,9 +16,10 @@ import javax.xml.bind.UnmarshalException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.Scanner;
 
 public class MenubarController {
+    @FXML
+    private MenuItem MInew;
     @FXML
     private MenuItem MIsave;
     @FXML
@@ -39,6 +39,9 @@ public class MenubarController {
      */
     @FXML
     public void initialize() {
+        MInew.setOnAction(e -> {
+            mainController.getCanvasController().drawNew();
+        });
         MIsave.setOnAction(e -> {
             FileChooser fc = new FileChooser();
             fc.setTitle("Save Mindmap");
@@ -115,6 +118,14 @@ public class MenubarController {
      */
     Double getScale() {
         return scale;
+    }
+
+    /**
+     * @param scale double scale
+     */
+    public void setScale(double scale) {
+        this.scale = scale;
+        sliderScale.setValue(scale);
     }
 
     /**

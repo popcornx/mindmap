@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.util.Pair;
 import model.Connection;
+import model.Map;
 import model.Node;
 
 public class CanvasController {
@@ -194,6 +195,16 @@ public class CanvasController {
             c.endYProperty().bind(end.getAnchor(c.getEnd().getValue()).helpCenterYProperty());
         }
         canvas.getChildren().add(nodeText);
+    }
+
+    /**
+     * draws a new empty canvas
+     */
+    void drawNew() {
+        canvas.getChildren().clear();
+        canvas.getChildren().add(nodeText);
+        mainController.getMenubarController().setScale(1d);
+        mainController.setMap(new Map());
     }
 
     /**
