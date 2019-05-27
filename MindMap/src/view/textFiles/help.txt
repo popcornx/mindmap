@@ -1,0 +1,23 @@
+Willkommen zu unserer Mindmap Applikation!
+
+Hier ist eine kleine Einführung in die Benutzung des Programmes:
+
+1. Knoten erstellen
+Klicke auf Knoten, der Button ist nun aktiv, jetzt kann durch einen klick im Zeichenbereich ein neuer Knoten erstellt werden.
+2. Knoten verbinden
+Um zwei Knoten miteinander zu verbinden, muss zuerst der Verbinden Button angewählt werden. Sogenannte Orange Anker werden nun eingeblendet. Um einen Knoten zu verbinden muss nun lediglich auf die beiden Anker der jeweiligen Knoten geklickt werden. Diese werden dann miteinander verbunden.
+3. Unterknoten erstellen
+Um einen Unterknoten zu erstellen, muss auf den jewiligen Button geklickt werden, jetzt erscheinen wieder die Orangen Anker. Ein Klick auf diese Anker erzeugt einen neuen Unterknoten in dieser Richtung.
+4. Knoten oder Verbindungen löschen
+Um einen Knoten oder eine Verbindung zu löschen muss diese angewählt werden, dies wird grafisch dargestellt, Knoten erscheinen dicker und die Verbindungen werden rot. Danach können die Knoten/Verbindungen mit drücken der Delete Taste gelöscht werden.
+5. Text anpassen
+Um den Text eines Knotens anzupassen muss der Text des Buttons mit einem Doppelklick ausgewählt werden. Es erscheint nun ein Textfeld, nach dem bearbeiten kann das Textfeld mit einem Rechtsklick in den Knoten geschlossen und gespeichert werden.
+6. Knoten deselektieren
+Sobald ein Knoten selektiert ist erscheint dieser dicker und der Beschreibungsdialog öffnet sich unten rechts im Bild. Um den Knoten wieder abzuwählen kann man einfach einen Rechtsklick im Zeichenbereich ausführen.
+7. Laden und Speichern
+Das Mindmap kann durch Datei -> Speichern im Menü gespeichert werden.
+Das Mindmap kann duch Datei -> Laden im Menü wieder geladen werden.
+8. Design
+Der Slider oben im Menü entscheidet wie gross die Knoten dargestellt werden sollen, um die Farbe eines Knotens zu ändern muss der Knoten angewählt werden und kann dann im Farbdialog angepasst werden. Um einen Verbindungstyp anzupassen muss ebenfalls zuerst die gewünschte Verbindung ausgewählt werden um sie dann mit dem Reiter anzupassen.
+
+

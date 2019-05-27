@@ -60,7 +60,7 @@ public class MainController {
     /**
      * deletes the currently selected connection
      */
-    private void deleteConnection(){
+    public void deleteConnection(){
         map.getConnections().remove(canvasController.getSelectedConnection());
         canvasController.deleteConnection();
     }
@@ -68,7 +68,7 @@ public class MainController {
     /**
      * deletes the currently selected Node
      */
-    private void deleteNode(){
+    public void deleteNode(){
         map.getNodes().remove(canvasController.getSelectedNode());
         canvasController.deleteNode();
     }

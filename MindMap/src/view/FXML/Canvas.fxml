@@ -3,7 +3,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="canvas" prefHeight="4096.0" prefWidth="4096.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CanvasController">
+<BorderPane fx:id="canvas" prefHeight="4096.0" prefWidth="4096.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CanvasController">
    <bottom>
       <TextArea fx:id="nodeText" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="280.0" BorderPane.alignment="CENTER_RIGHT" />
    </bottom>
