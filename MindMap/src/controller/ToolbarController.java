@@ -29,11 +29,11 @@ public class ToolbarController {
     @FXML
     public void initialize() {
         ColorSwitch.setValue(Color.BLACK);
-        LineStyle.setValue("Primary Line Style");
+        LineStyle.setValue("Normal");
 
         LineStyle.setOnAction(e -> {
             if(mainController.getCanvasController().getSelectedConnection() != null) {
-                if(LineStyle.getValue().equals("Secondary Line Style")){
+                if(LineStyle.getValue().equals("Nebenlinie")){
                     mainController.getCanvasController().getSelectedConnection().changeLineStyle(2);
                 } else {
                     mainController.getCanvasController().getSelectedConnection().changeLineStyle(1);

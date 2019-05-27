@@ -4,50 +4,30 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="menubar" prefHeight="38.0" prefWidth="4096" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenubarController">
+<AnchorPane fx:id="menubar" prefHeight="38.0" prefWidth="4096" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenubarController">
     <MenuBar prefHeight="38.0" prefWidth="365.0" style="-fx-background-color: lightgray;">
         <menus>
-            <Menu mnemonicParsing="false" text="File">
+            <Menu mnemonicParsing="false" text="Datei">
                 <items>
-                    <MenuItem mnemonicParsing="false" text="New" />
-                    <MenuItem id="MIload" fx:id="MIload" mnemonicParsing="false" text="Open…" />
-                    <Menu mnemonicParsing="false" text="Open Recent" />
-                    <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                    <MenuItem id="MIsave" fx:id="MIsave" mnemonicParsing="false" text="Save" />
-                    <MenuItem mnemonicParsing="false" text="Save As…" />
-                    <MenuItem mnemonicParsing="false" text="Revert" />
-                    <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem mnemonicParsing="false" text="Preferences…" />
-                    <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem mnemonicParsing="false" text="Quit" />
+                    <MenuItem id="MIload" fx:id="MIload" mnemonicParsing="false" text="Laden" />
+                    <MenuItem id="MIsave" fx:id="MIsave" mnemonicParsing="false" text="Speichern" />
                 </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
+            <Menu mnemonicParsing="false" text="Bearbeiten">
                 <items>
-                    <MenuItem mnemonicParsing="false" text="Undo" />
-                    <MenuItem mnemonicParsing="false" text="Redo" />
-                    <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem mnemonicParsing="false" text="Cut" />
-                    <MenuItem mnemonicParsing="false" text="Copy" />
-                    <MenuItem mnemonicParsing="false" text="Paste" />
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                    <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem mnemonicParsing="false" text="Select All" />
-                    <MenuItem mnemonicParsing="false" text="Unselect All" />
+                    <MenuItem id="Delete" fx:id="deleteButton" mnemonicParsing="false" text="Löschen" />
                 </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Help">
+            <Menu mnemonicParsing="false" text="Hilfe">
                 <items>
-                    <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                    <MenuItem id="Help" fx:id="helpButton" mnemonicParsing="false" text="Hilfe?" />
                 </items>
             </Menu>
         </menus>
     </MenuBar>
    <Slider fx:id="sliderScale" layoutX="452.0" layoutY="12.0" max="1.5" min="0.5" prefHeight="14.0" prefWidth="198.0" value="1.0" />
-   <Label layoutX="399.0" layoutY="10.0" prefHeight="18.0" prefWidth="38.0" text="Size:" />
+   <Label layoutX="370.0" layoutY="10.0" prefHeight="18.0" prefWidth="60.0" text="Grösse:" />
 </AnchorPane>
