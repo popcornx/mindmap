@@ -21,8 +21,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Class to convert Map Object to XML text.
+ */
 public abstract class XMLConverter {
 
+    /**
+     * Method first converts Map to savable Object then writes XML file.
+     * @param map Map
+     * @param stream OutputStream
+     * @throws JAXBException Problems during the conversion to XML text
+     */
     public static void saveMap(Map map, OutputStream stream) throws JAXBException {
         List<SavableNode> saveNodes = new ArrayList<>();
         for(Node n : map.getNodes()){
@@ -46,6 +55,12 @@ public abstract class XMLConverter {
         marshaller.marshal(savableMap, stream);
     }
 
+    /**
+     * Method first reads the file then converts savable Objects back to UI objects.
+     * @param file File
+     * @return Map
+     * @throws JAXBException Problems when reading file, format or syntax Errors
+     */
     public static Map loadMap(File file) throws JAXBException {
 
         JAXBContext context = JAXBContext.newInstance(SavableMap.class);
