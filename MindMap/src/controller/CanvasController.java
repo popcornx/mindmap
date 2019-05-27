@@ -193,6 +193,7 @@ public class CanvasController {
             c.endXProperty().bind(end.getAnchor(c.getEnd().getValue()).helpCenterXProperty());
             c.endYProperty().bind(end.getAnchor(c.getEnd().getValue()).helpCenterYProperty());
         }
+        canvas.getChildren().add(nodeText);
     }
 
     /**

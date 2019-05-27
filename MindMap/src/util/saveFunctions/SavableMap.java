@@ -1,5 +1,6 @@
 package util.saveFunctions;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,6 +13,7 @@ import java.util.List;
 public class SavableMap {
     private List<SavableNode> nodes;
     private List<SavableConnection> connections;
+    private double scale;
 
     /**
      * Default constructor for JAXB
@@ -21,10 +23,12 @@ public class SavableMap {
     /**
      * @param nodes List of SavableNode
      * @param connections List of SavableConnection
+     * @param scale double scale
      */
-    public SavableMap(List<SavableNode> nodes, List<SavableConnection> connections){
+    public SavableMap(List<SavableNode> nodes, List<SavableConnection> connections, double scale){
         this.nodes = nodes;
         this.connections = connections;
+        this.scale = scale;
     }
 
 
@@ -47,6 +51,14 @@ public class SavableMap {
     }
 
     /**
+     * @return double scale
+     */
+    @XmlAttribute
+    public double getScale() {
+        return scale;
+    }
+
+    /**
      * @param nodes List of SavableNode
      */
     public void setNodes(List<SavableNode> nodes) {
@@ -58,5 +70,12 @@ public class SavableMap {
      */
     public void setConnections(List<SavableConnection> connections) {
         this.connections = connections;
+    }
+
+    /**
+     * @param scale double scale
+     */
+    public void setScale(double scale) {
+        this.scale = scale;
     }
 }

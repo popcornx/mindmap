@@ -40,7 +40,7 @@ public class MenubarController {
             File file = fc.showSaveDialog(new Stage());
             if (file != null) {
                 try (FileOutputStream stream = new FileOutputStream(file)) {
-                    XMLConverter.saveMap(mainController.getMap(), stream);
+                    XMLConverter.saveMap(mainController.getMap(), stream, scale);
                 } catch (FileNotFoundException ex) {
                     showAlert("Saving Error", "An error occurred when trying to save the Mindmap.");
                 } catch (Exception exe) {
@@ -59,6 +59,7 @@ public class MenubarController {
                 try {
                     mainController.setMap(XMLConverter.loadMap(file));
                     mainController.getCanvasController().drawMap();
+                    sliderScale.setValue(XMLConverter.scale);
                 } catch (UnmarshalException ex) {
                     showAlert("Loading Error",
                             "An error occurred when trying to load the Mindmap.\n" +

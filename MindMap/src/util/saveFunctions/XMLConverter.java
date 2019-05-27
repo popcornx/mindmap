@@ -1,6 +1,8 @@
 package util.saveFunctions;
 
+import controller.MenubarController;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.shape.Ellipse;
 import model.Connection;
 import model.Map;
@@ -26,17 +28,19 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public abstract class XMLConverter {
 
+    public static double scale;
+
     /**
      * Method first converts Map to savable Object then writes XML file.
      * @param map Map
      * @param stream OutputStream
      * @throws JAXBException Problems during the conversion to XML text
      */
-    public static void saveMap(Map map, OutputStream stream) throws JAXBException {
+    public static void saveMap(Map map, OutputStream stream, double scale) throws JAXBException {
         List<SavableNode> saveNodes = new ArrayList<>();
         for(Node n : map.getNodes()){
             java.awt.Color c = new java.awt.Color((float)n.getColor().getRed(),(float) n.getColor().getGreen(),(float) n.getColor().getBlue());
-            saveNodes.add(new SavableNode(n.getIdNode(), n.getText().getText() , n.getX().get(), n.getY().get(), c));
+            saveNodes.add(new SavableNode(n.getIdNode(), n.getText().getText() , n.getX().get(), n.getY().get(), c, n.getNodeText()));
         }
         List<SavableConnection> saveConnections = new ArrayList<>();
         for(Connection c : map.getConnections()){
@@ -47,7 +51,7 @@ public abstract class XMLConverter {
             ));
         }
 
-        SavableMap savableMap = new SavableMap(saveNodes, saveConnections);
+        SavableMap savableMap = new SavableMap(saveNodes, saveConnections, scale);
 
         JAXBContext context = JAXBContext.newInstance(SavableMap.class);
         Marshaller marshaller = context.createMarshaller();
@@ -74,6 +78,7 @@ public abstract class XMLConverter {
             javafx.scene.paint.Color c = javafx.scene.paint.Color.rgb(n.getColor().getRed(), n.getColor().getGreen(), n.getColor().getBlue());
             Node node = new Node(new Ellipse(), new Label(n.getText()), n.getX(), n.getY(), c, 1.0);
             node.setIdNode(n.getId());
+            node.setNodeText(n.getDesc());
             map.addNode(node);
             high = (node.getIdNode() > high) ? node.getIdNode() : high;
         }
@@ -85,6 +90,7 @@ public abstract class XMLConverter {
                     c.getLineStyle()
             ));
         }
+        scale = savableMap.getScale();
         return map;
     }
 }

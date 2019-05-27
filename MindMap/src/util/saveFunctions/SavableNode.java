@@ -10,12 +10,13 @@ import java.awt.*;
  * Node Object savable by JAXB
  */
 @XmlRootElement
-@XmlType(propOrder = {"id", "x", "y", "text"})
+@XmlType(propOrder = {"id", "x", "y", "text", "desc"})
 public class SavableNode {
     private int id;
     private String text;
     private double x, y;
     private Color color;
+    private String desc;
 
     /**
      * Default constructor for JAXB
@@ -24,17 +25,19 @@ public class SavableNode {
 
     /**
      * @param id Integer
-     * @param text String
+     * @param text String, text
      * @param x x-coordinate
      * @param y y-coordinate
      * @param color Color
+     * @param description String, description
      */
-    public SavableNode (int id, String text, double x, double y, Color color) {
+    public SavableNode (int id, String text, double x, double y, Color color, String description) {
         this.id = id;
         this.text = text;
         this.x = x;
         this.y = y;
         this.color = color;
+        this.desc = description;
     }
 
     /**
@@ -46,7 +49,7 @@ public class SavableNode {
     }
 
     /**
-     * @return String
+     * @return String, text
      */
     @XmlAttribute
     public String getText() {
@@ -67,6 +70,14 @@ public class SavableNode {
     @XmlAttribute
     public double getY() {
         return y;
+    }
+
+    /**
+     * @return String, description
+     */
+    @XmlAttribute(name="description")
+    public String getDesc() {
+        return desc;
     }
 
     /**
@@ -92,7 +103,7 @@ public class SavableNode {
     }
 
     /**
-     * @param text String
+     * @param text String, text
      */
     public void setText(String text) {
         this.text = text;
@@ -110,6 +121,13 @@ public class SavableNode {
      */
     public void setY(double y) {
         this.y = y;
+    }
+
+    /**
+     * @param desc String, description
+     */
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     /**
