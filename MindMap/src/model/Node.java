@@ -13,8 +13,6 @@ import util.saveFunctions.Position;
 import view.Main;
 import java.util.ArrayList;
 import java.util.List;
-import static util.saveFunctions.Position.TOP;
-
 /**
  * Class for generating Nodes, class is extended from a Pane
  * to put the textarea and the ellipse together.
@@ -140,7 +138,7 @@ public class Node extends Pane {
     private void anchor(){
         this.anchorR = new Anchor(radiusAnchor, Position.RIGHT);
         this.anchorL = new Anchor(radiusAnchor, Position.LEFT);
-        this.anchorT = new Anchor(radiusAnchor, TOP);
+        this.anchorT = new Anchor(radiusAnchor, Position.TOP);
         this.anchorB = new Anchor(radiusAnchor, Position.BOTTOM);
 
         anchorB.setLayoutY(ellipse.getRadiusY());

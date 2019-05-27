@@ -21,10 +21,8 @@ public class ToolbarController {
     private ToggleGroup tools;
     @FXML
     private ComboBox LineStyle;
-
     private MainController mainController;
     private Boolean connectionMode = false;
-
     /**
      * Initializes the Toolbar Controller and sets the handling for the Buttons.
      */
@@ -44,7 +42,13 @@ public class ToolbarController {
         });
 
         BtnConnection.setOnAction(e -> {
-            setConnectionMode();
+            if (tools.getSelectedToggle() == null) {
+                connectionMode = false;
+                setConnectionMode();
+            }else {
+                connectionMode = true;
+                setConnectionMode();
+            }
         });
 
         ColorSwitch.setOnAction(e -> {
@@ -53,32 +57,44 @@ public class ToolbarController {
             }
         });
 
+        BtnNode.setOnAction(e -> {
+            if (connectionMode){
+                connectionMode = false;
+                setConnectionMode();
+            }
+        });
+
         BtnOrder.setOnAction(e -> {
             orderObjects.orderNodes();
         });
 
         BtnSubNode.setOnAction(e -> {
-            setConnectionMode();
+            if(tools.getSelectedToggle() == null){
+                connectionMode = false;
+                setConnectionMode();
+            }else {
+                connectionMode = true;
+                setConnectionMode();
+            }
         });
+
 
     }
     /**
      * Activates the Anchors and makes them visible to connect them together.
      */
     private void setConnectionMode(){
-        if(connectionMode){
+        if(!connectionMode){
             for(Node node : mainController.getMap().getNodes()){
                 node.deactivate();
                 if (node.getActiveAnchor() != null){
                     node.getActiveAnchor().deactivate();
                 }
                 node.connectionMode(false);
-                connectionMode = false;
             }
         }else {
             for(Node node : mainController.getMap().getNodes()){
                 node.connectionMode(true);
-                connectionMode = true;
             }
         }
     }
