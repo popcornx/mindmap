@@ -10,7 +10,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="toolbar" prefHeight="38.0" prefWidth="4096.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ToolbarController">
+<AnchorPane fx:id="toolbar" prefHeight="38.0" prefWidth="4096.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ToolbarController">
     <ToolBar prefHeight="38.0" prefWidth="4096.0">
         <items>
             <ToggleButton id="BtnNode" fx:id="BtnNode" mnemonicParsing="false" prefHeight="23.0" prefWidth="119.0" text="Knoten" toggleGroup="$tools">
@@ -25,8 +25,8 @@
             <ComboBox id="LineStyle" fx:id="LineStyle" >
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Primary Line Style" />
-                        <String fx:value="Secondary Line Style" />
+                        <String fx:value="Normal" />
+                        <String fx:value="Nebenlinie" />
                     </FXCollections>
                 </items>
             </ComboBox>

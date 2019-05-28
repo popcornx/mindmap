@@ -7,12 +7,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main application which starts the Application and passes
+ * its Information to the Main Controller
+ */
 public class Main extends Application {
     public static MainController mainController;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML/Main.fxml"));
         Parent root = loader.load();
         mainController = loader.getController();
         mainController.setStage(primaryStage);

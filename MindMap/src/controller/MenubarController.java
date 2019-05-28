@@ -1,14 +1,17 @@
 package controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import util.XMLConverter;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import model.Node;
+import util.saveFunctions.XMLConverter;
 import javax.xml.bind.UnmarshalException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,63 +19,151 @@ import java.io.FileOutputStream;
 
 public class MenubarController {
     @FXML
+    private MenuItem MInew;
+    @FXML
     private MenuItem MIsave;
     @FXML
     private MenuItem MIload;
-    private MainController mainController;
     @FXML
-    public void initialize(){
-         MIsave.setOnAction(e -> {
-             FileChooser fc = new FileChooser();
-             fc.setTitle("Save Mindmap");
-             fc.setInitialFileName("map.xml");
-             File file = fc.showSaveDialog(new Stage());
+    private Slider sliderScale;
+    @FXML
+    private MenuItem deleteButton;
+    @FXML
+    private MenuItem helpButton;
+    private Double scale = 1.0;
+    private MainController mainController;
+    final String helpFile = "src/view/textFiles/help.txt";
 
-             if (file != null) {
-                 try (FileOutputStream stream = new FileOutputStream(file)) {
-                    XMLConverter.saveMap(mainController.getMap(), stream);
-                 } catch (FileNotFoundException ex) {
-                     showAlert("Saving Error", "An error occurred when trying to save the Mindmap.");
-                 } catch (Exception exe) {
-                     exe.printStackTrace();
-                 }
-             }
-         });
+    /**
+     * Initializes the Menubar Controller and sets the Button handling for the Menubar
+     */
+    @FXML
+    public void initialize() {
+        MInew.setOnAction(e -> {
+            mainController.getCanvasController().drawNew();
+        });
+        MIsave.setOnAction(e -> {
+            FileChooser fc = new FileChooser();
+            fc.setTitle("Save Mindmap");
+            fc.setInitialFileName("map.xml");
+            File file = fc.showSaveDialog(new Stage());
+            if (file != null) {
+                try (FileOutputStream stream = new FileOutputStream(file)) {
+                    XMLConverter.saveMap(mainController.getMap(), stream, scale);
+                } catch (FileNotFoundException ex) {
+                    showAlert("Saving Error", "An error occurred when trying to save the Mindmap.");
+                } catch (Exception exe) {
+                    exe.printStackTrace();
+                }
+            }
+        });
+        MIload.setOnAction(e -> {
+            FileChooser fc = new FileChooser();
+            fc.setTitle("Open Mindmap");
+            FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files (*.xml)", "*.xml");
+            fc.getExtensionFilters().add(filter);
+            File file = fc.showOpenDialog(new Stage());
 
-         MIload.setOnAction(e -> {
-             FileChooser fc = new FileChooser();
-             fc.setTitle("Open Mindmap");
-             FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("XML Files (*.xml)", "*.xml");
-             fc.getExtensionFilters().add(filter);
-             File file = fc.showOpenDialog(new Stage());
+            if (file != null) {
+                try {
+                    mainController.setMap(XMLConverter.loadMap(file));
+                    mainController.getCanvasController().drawMap();
+                    sliderScale.setValue(XMLConverter.scale);
+                } catch (UnmarshalException ex) {
+                    showAlert("Loading Error",
+                            "An error occurred when trying to load the Mindmap.\n" +
+                                    "This file is either corrupted or not a Mindmap.");
+                } catch (Exception exe) {
+                    exe.printStackTrace();
+                }
+            }
+        });
 
-             if(file != null) {
-                 try {
-                     mainController.setMap(XMLConverter.loadMap(file));
-                     mainController.drawMap();
-                 }
-                 catch (UnmarshalException ex) {
-                     showAlert("Loading Error",
-                             "An error occurred when trying to load the Mindmap.\n" +
-                                     "This file is either corrupted or not a Mindmap.");
-                 }
-                 catch (Exception exe) {
-                     exe.printStackTrace();
-                 }
-             }
-         });
+        sliderScale.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+                for (Node node : mainController.getMap().getNodes()) {
+                    node.setScale(sliderScale.getValue());
+                    scale = sliderScale.getValue();
+                }
+            }
+        });
+        deleteButton.setOnAction(e -> {
+            if (mainController.getCanvasController().getSelectedConnection() != null) {
+                mainController.deleteConnection();
+            }
+            if (mainController.getCanvasController().getSelectedNode() != null) {
+                mainController.deleteNode();
+            }
+        });
+
+        helpButton.setOnAction(e -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Hilfe!");
+            TextArea area = new TextArea(readFile(helpFile));
+            area.setWrapText(true);
+            area.setEditable(false);
+            alert.getDialogPane().setContent(area);
+            alert.setResizable(true);
+            alert.getDialogPane().setPrefSize(500, 500);
+            alert.setHeaderText("Hilfe!");
+            alert.showAndWait();
+        });
+
     }
 
-    public void setMainController(MainController mainController){
+
+    /**
+     * @return scale
+     */
+    Double getScale() {
+        return scale;
+    }
+
+    /**
+     * @param scale double scale
+     */
+    public void setScale(double scale) {
+        this.scale = scale;
+        sliderScale.setValue(scale);
+    }
+
+    /**
+     * @param mainController inject mainController
+     */
+    void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
-    public void showAlert(String type, String text){
+    /**
+     * @param type String
+     * @param text Text
+     *             generates a Alert when a error occurs while loading or saving a file
+     */
+    void showAlert(String type, String text) {
         Alert alert = new Alert(Alert.AlertType.ERROR, type, ButtonType.OK);
         alert.setTitle("Error");
         alert.setResizable(true);
         alert.setContentText(text);
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
+    }
+
+
+    /**
+     * @param filename File which needs to be read
+     * @return returns the File content as a String
+     */
+    private String readFile(String filename) {
+        File f = new File(filename);
+        try {
+            byte[] bytes = Files.readAllBytes(f.toPath());
+            return new String(bytes,"UTF-8");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

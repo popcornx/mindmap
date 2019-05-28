@@ -1,21 +1,18 @@
 package model;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
-import javafx.scene.text.Text;
-import util.IdGenerator;
-import util.Position;
+import javafx.scene.text.Font;
+import util.staticFunctions.IdGenerator;
+import util.saveFunctions.Position;
 import view.Main;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static util.Position.TOP;
-
-
 /**
  * Class for generating Nodes, class is extended from a Pane
  * to put the textarea and the ellipse together.
@@ -23,7 +20,7 @@ import static util.Position.TOP;
 public class Node extends Pane {
     private int idNode;
     private Ellipse ellipse;
-    private Text text;
+    private Label text;
     private Anchor anchorL;
     private Anchor anchorR;
     private Anchor anchorT;
@@ -39,21 +36,14 @@ public class Node extends Pane {
     private List<Anchor> anchors = new ArrayList<>();
     private double maxWidth = 1024;
     private double maxHeight = 950;
-
-    public void setBorderWidth(double maxWidth) {
-        this.maxWidth = maxWidth;
-    }
-
-    public void setBorderHeight(double maxHeight) {
-        this.maxHeight = maxHeight;
-    }
-
-
-    private final double radius = 14;
-
+    private final double radiusAnchor = 14;
+    private final double radiusShapeX = 100;
+    private final double radiusShapeY = 50;
+    private final double textSize = 15;
     //Helpers for drag and drop
     private double orgX, orgY;
     private double orgTranslateX, orgTranslateY;
+    private double scale;
     /**
      * @param ellipse ellipse
      * @param text text
@@ -61,9 +51,10 @@ public class Node extends Pane {
      * @param y y-Coordinate
      * @param color Color of the ellipse
      */
-    public Node(Ellipse ellipse, Text text, double x, double y, Color color) {
+    public Node(Ellipse ellipse, Label text, double x, double y, Color color, Double scale) {
         super(ellipse, text);
-        this.setPrefSize(101,51);
+        this.scale = scale;
+        this.setPrefSize(radiusShapeX+1*scale,radiusShapeY+1*scale);
         this.idNode = IdGenerator.id.incrementAndGet();
         this.ellipse = ellipse;
         this.text = text;
@@ -79,12 +70,18 @@ public class Node extends Pane {
     private void styleNode(){
         this.setLayoutX(this.x.getValue());
         this.setLayoutY(this.y.getValue());
-        this.ellipse.setRadiusX(100);
-        this.ellipse.setRadiusY(50);
+        this.ellipse.setRadiusX(radiusShapeX*scale);
+        this.ellipse.setRadiusY(radiusShapeY*scale);
         this.ellipse.setStroke(this.color);
         this.ellipse.setStrokeWidth(2);
         this.ellipse.setFill(Color.WHITE);
-        textField.setLayoutX(ellipse.getRadiusX()*-1);
+        textField.setLayoutX(radiusShapeX*-1);
+        textField.setLayoutY(-10);
+        text.setLayoutX(radiusShapeX*-1);
+        text.setLayoutY(-10);
+        text.setPrefWidth(radiusShapeX*2);
+        text.setFont(Font.font(textSize));
+        text.setAlignment(Pos.CENTER);
 
         this.setOnMousePressed(e ->{
             orgX = e.getSceneX();
@@ -129,7 +126,7 @@ public class Node extends Pane {
                 }
             }
             if (e.getButton().equals(MouseButton.PRIMARY)){
-                Main.mainController.nodeSelected(this);
+                Main.mainController.getCanvasController().nodeSelected(this);
             }
         });
 
@@ -139,10 +136,10 @@ public class Node extends Pane {
      * Method used to give the Node the Anchors for Connection
      */
     private void anchor(){
-        this.anchorR = new Anchor(radius, Position.RIGHT);
-        this.anchorL = new Anchor(radius, Position.LEFT);
-        this.anchorT = new Anchor(radius, TOP);
-        this.anchorB = new Anchor(radius, Position.BOTTOM);
+        this.anchorR = new Anchor(radiusAnchor, Position.RIGHT);
+        this.anchorL = new Anchor(radiusAnchor, Position.LEFT);
+        this.anchorT = new Anchor(radiusAnchor, Position.TOP);
+        this.anchorB = new Anchor(radiusAnchor, Position.BOTTOM);
 
         anchorB.setLayoutY(ellipse.getRadiusY());
         anchorT.setLayoutY(ellipse.getRadiusY()*-1);
@@ -174,6 +171,7 @@ public class Node extends Pane {
             });
         }
     }
+
     /**
      * @param color color
      */
@@ -188,15 +186,12 @@ public class Node extends Pane {
     public SimpleDoubleProperty getX() {
         return x;
     }
-
     /**
      * @return Observable Y Value
      */
     public SimpleDoubleProperty getY() {
         return y;
     }
-
-
     /**
      * @param newTranslateX Updates X Value
      * @param newTranslateY Updates Y Value
@@ -237,6 +232,10 @@ public class Node extends Pane {
         return active;
     }
 
+    /**
+     * @param anchor sets the currently active Anchor
+     * and deactivates the previously active Anchor
+     */
     public void setActiveAnchor(Anchor anchor) {
         if(activeAnchor == null){
             activeAnchor = anchor;
@@ -260,14 +259,24 @@ public class Node extends Pane {
      */
     public int getIdNode() {return idNode; }
 
+    /**
+     * @return Color
+     */
     public Color getColor() {
         return color;
     }
 
-    public Text getText() {
+    /**
+     * @return Text
+     */
+    public Label getText() {
         return text;
     }
 
+    /**
+     * @param p Position of the Anchor
+     * @return Position
+     */
     public Anchor getAnchor(Position p){
         switch (p) {
             case TOP:
@@ -281,34 +290,85 @@ public class Node extends Pane {
             default:
                 return null;
         }
-
     }
+
+    /**
+     * @param scale change for all the objects, Anchors, Nodes
+     */
+    public void setScale(Double scale) {
+        this.ellipse.setRadiusX(radiusShapeX*scale);
+        this.ellipse.setRadiusY(radiusShapeY*scale);
+        anchorB.setLayoutY(radiusShapeY*scale);
+        anchorT.setLayoutY(radiusShapeY*-1*scale);
+        anchorR.setLayoutX(radiusShapeX*scale);
+        anchorL.setLayoutX(radiusShapeX*-1*scale);
+        text.setFont(Font.font(textSize*scale));
+        anchorR.helpCenterX.bind(this.getX().add(ellipse.getRadiusX()));
+        anchorB.helpCenterY.bind(this.getY().add(ellipse.getRadiusY()));
+        anchorL.helpCenterX.bind(this.getX().add(ellipse.getRadiusX()*-1));
+        anchorT.helpCenterY.bind(this.getY().add(ellipse.getRadiusY()*-1));
+    }
+    /**
+     * @return getLeftAnchor
+     */
     public Anchor getAnchorL() {
         return anchorL;
     }
 
+    /**
+     * @return getRightAnchor
+     */
     public Anchor getAnchorR() {
         return anchorR;
     }
 
+    /**
+     * @return getTopAnchor
+     */
     public Anchor getAnchorT() {
         return anchorT;
     }
 
+    /**
+     * @return getBottomAnchor
+     */
     public Anchor getAnchorB() {
         return anchorB;
     }
 
+    /**
+     * @param nodeText Sets NodeText
+     */
     public void setNodeText(String nodeText) {
         this.nodeText = nodeText;
     }
 
+    /**
+     * @return get Node Text
+     */
     public String getNodeText() {
         return nodeText;
     }
 
+    /**
+     * @param i Set Node id
+     */
     public void setIdNode(int i) {
         this.idNode = i;
+    }
+
+    /**
+     * @param maxWidth setsMaxWidth of Window
+     */
+    public void setBorderWidth(double maxWidth) {
+        this.maxWidth = maxWidth;
+    }
+
+    /**
+     * @param maxHeight setsMaxHeight of Window
+     */
+    public void setBorderHeight(double maxHeight) {
+        this.maxHeight = maxHeight;
     }
 }
 

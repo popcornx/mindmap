@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Pair;
-import util.Position;
+import util.saveFunctions.Position;
 import view.Main;
 
 public class Connection extends Line {
@@ -16,7 +16,7 @@ public class Connection extends Line {
         this.setStrokeWidth(5);
         this.setStroke(Color.SILVER);
         this.setOnMouseClicked(e->{
-            Main.mainController.connectionSelected(this);
+            Main.mainController.getCanvasController().connectionSelected(this);
         });
         this.start = start;
         this.end = end;
