@@ -32,7 +32,8 @@ public class MenubarController {
     private MenuItem helpButton;
     private Double scale = 1.0;
     private MainController mainController;
-    final String helpFile = "src/view/textFiles/help.txt";
+    private String currentDirectory = new File("").getAbsolutePath();
+    final String helpFile = currentDirectory+"/src/view/textFiles/help.txt";
 
     /**
      * Initializes the Menubar Controller and sets the Button handling for the Menubar
