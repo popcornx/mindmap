@@ -291,6 +291,10 @@ public class Node extends Pane {
                 return null;
         }
     }
+
+    /**
+     * @param scale change for all the objects, Anchors, Nodes
+     */
     public void setScale(Double scale) {
         this.ellipse.setRadiusX(radiusShapeX*scale);
         this.ellipse.setRadiusY(radiusShapeY*scale);

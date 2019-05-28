@@ -64,25 +64,26 @@ public class CanvasController {
                                 Start.getY().getValue(),mainController.getToolbarController().getColor(),
                                 mainController.getMenubarController().getScale());
                         canvas.getChildren().add(End);
+                        double scale = mainController.getMenubarController().getScale();
                         switch (Start.getActiveAnchor().getPos()) {
                             case TOP:
-                                End.setTranslateY(-275);
-                                End.setPosition(0,-275);
+                                End.setTranslateY(-200*scale);
+                                End.setPosition(0,-200*scale);
                                 End.setActiveAnchor(End.getAnchorB());
                                 break;
                             case LEFT:
-                                End.setTranslateX(-350);
-                                End.setPosition(-350,0);
+                                End.setTranslateX(-300*scale);
+                                End.setPosition(-300*scale,0);
                                 End.setActiveAnchor(End.getAnchorR());
                                 break;
                             case RIGHT:
-                                End.setTranslateX(350);
-                                End.setPosition(350,0);
+                                End.setTranslateX(300*scale);
+                                End.setPosition(300*scale,0);
                                 End.setActiveAnchor(End.getAnchorL());
                                 break;
                             case BOTTOM:
-                                End.setTranslateY(275);
-                                End.setPosition(0,275);
+                                End.setTranslateY(200*scale);
+                                End.setPosition(0,200*scale);
                                 End.setActiveAnchor(End.getAnchorT());
                                 break;
                         }
