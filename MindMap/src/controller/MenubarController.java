@@ -7,17 +7,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.nio.file.Files;
+import java.io.*;
 import model.Node;
 import util.saveFunctions.XMLConverter;
+import util.staticFunctions.FileRead;
 import javax.xml.bind.UnmarshalException;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class MenubarController {
     @FXML
@@ -34,9 +28,6 @@ public class MenubarController {
     private MenuItem helpButton;
     private Double scale = 1.0;
     private MainController mainController;
-    private String currentDirectory = new File("").getAbsolutePath();
-    final String helpFile = currentDirectory+"/src/view/textFiles/help.txt";
-
     /**
      * Initializes the Menubar Controller and sets the Button handling for the Menubar
      */
@@ -103,7 +94,7 @@ public class MenubarController {
         helpButton.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Hilfe!");
-            TextArea area = new TextArea(readFile(helpFile));
+            TextArea area = new TextArea(FileRead.helpText());
             area.setWrapText(true);
             area.setEditable(false);
             alert.getDialogPane().setContent(area);
@@ -141,7 +132,7 @@ public class MenubarController {
     /**
      * @param type String
      * @param text Text
-     *             generates a Alert when a error occurs while loading or saving a file
+     *        *             generates a Alert when a error occurs while loading or saving a file
      */
     void showAlert(String type, String text) {
         Alert alert = new Alert(Alert.AlertType.ERROR, type, ButtonType.OK);
@@ -153,20 +144,5 @@ public class MenubarController {
     }
 
 
-    /**
-     * @param filename File which needs to be read
-     * @return returns the File content as a String
-     */
-    private String readFile(String filename) {
-        File f = new File(filename);
-        try {
-            byte[] bytes = Files.readAllBytes(f.toPath());
-            return new String(bytes,"UTF-8");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
+
 }
