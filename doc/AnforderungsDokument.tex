@@ -12,7 +12,7 @@
 \usepackage{verbatim} %allows code
 \usepackage{graphicx} %allows images
 \usepackage{amssymb} %allows symbols for number sets
-
+\usepackage[table]{xcolor}
 \setlist{nosep} %smaller lists, less space between lines
 
 \title{Anforderungs- Dokumentation}
@@ -24,7 +24,8 @@
 \pagebreak
 
 \section{Ziel des Dokumentes}
-FIXME
+Dieses Dokument umschreibt die Anforderungen und Ziele für das Projekt 1, Mindmap. Es umschreibt
+die Vision und die funktionellen und nicht funktionellen Anforderungen des Projektes.
 
 \section{Vision}
 Jeder kennt diese Situation, man sitzt in einem Meeting und möchte kurz ein Brainstorming machen. Oder man
@@ -34,29 +35,22 @@ Das Mindmap basiert auf dem Prinzip der Assoziation. Dies kommt nicht von ungef�
 Dieses zu erstellen ist jedoch mit den meisten Programmen eher mühsam, deshalb greift man auf den Stift und Papier zurück. Um hier Abhilfe zu schaffen kommt unser Projekt ins Spiel.
 \newpage
 \section{Ziel des Projektes}
-Ziel unseres Projektes ist, die Erstellung einer einfachen und performanden Mindmap Software. Sie soll
-den Menschen helfen Ihre Ideen einfach in Form eines Mindmapes darzustellen und abzuspeichern.\\
+Ziel des Projektes ist es ein Mindmap Programm zu schreiben welches eine alternative zum Stift und Papier,
+bietet. Die Mindmap Softwares sind gegenüber der Papiervariante umständlicher, es bietet aber dafür andere
+Vorteile. Durch das Mindmap Programm gehen die Zeichnungen nicht so einfach verloren und können einfach 
+in Dokumente eingebettet werden und versendet werden. Deshalb sind die Hauptziele des Projektes, 
+die Einfachheit des Programmes.  
+
+\subsection{SMART Ziele}
 \begin{itemize}
-\item Wirtschaftlich
-	\begin{itemize}
-	\item Mithilfe des Programmes kann viel Zeit beim erstellen des Mindmaps gespart werden.
-	\item Durch das digitale Abspeichern besteht auch die Gefahr des Verlierens weniger als, bei einem Mindmap auf Papier.
-	\end{itemize}
-\item System
-	\begin{itemize}
-	\item Das System unterstützt den Benutzer beim Erstellen möglichst übersichtlichen Mindmaps.
-	\item Das System kann Mindmaps zu Bildern exportieren und diese auch ausdrucken, damit sie weiterverwendet werden können.
-	\end{itemize}
-\item Personell
-	\begin{itemize}
-	\item Das Programm soll selbsterklärend sein und keine Anleitung benötigen.
-	\item Das Programm soll ohne Experten installiert werden können.
-	\end{itemize}
-\item Qualität
-	\begin{itemize}
-	\item Das Programm soll weniger komplex aufgebaut sein, als die meisten anderen Mindmap Applikationen
-	\item Das Programm soll durch verschiedene Verbindungstypen und Farben Übersichtlichere Mindmaps generien können.
-	\end{itemize}
+\item Die Mindmaps müssen einfach abspeicherbar sein, damit es wieder geladen oder gesendet werden kann. 
+\item Das System soll einfach zu bedienen sein, ein neuer Benutzer soll das Programm ohne weitere Hilfe
+direkt bedienen können.
+\item Durch die Einführung des neuen Programmes soll das verlieren von Mindmaps und somit Zeitverluste
+minimiert werden. 
+\item Der Benutzer sollte das Programm ohne weitere Hilfe direkt auf seinem PC ausführen können, eine Installation ist nicht notwendig.
+\item Die Stakeholder des Projektes werden alle 2 Wochen über den Stand des Projektes informiert. Allfällige Anpassungen werden dann entgegengenommen.
+\item Bis zum Projektende steht dem Stakeholder eine Dokumentation über das Programm mit Ablaufdiagrammen und UML Diagrammen zur Verfügung.
 
 \end{itemize}
 \newpage
@@ -68,13 +62,22 @@ Der Benutzer kann mit unserer Software ein Mindmap erstellen. Dies geschieht üb
 Die Software greift auf das Dateisystem des Computers zu um ein Mindmap zu speichern oder zu laden.
 Der Druckservice des Computers erlaubt das Drucken des Mindmaps. Diese beiden Teile liegen ausserhalb unserer Software.
 
-\includegraphics[width=0.5\linewidth]{Systemkontext.png}
+\includegraphics[width=1\linewidth]{images/Systemkontext.jpg}
 
 \newpage
 
 \section{Anforderungen}
 
 \subsection{Nichtfunktionale Anforderungen}
+Die Anforderungen werden mit den PKVR Werten bewertet. \\
+P = Priorität  \\
+K = Komplexität \\
+V = Variablität \\
+R = Risiko aus PKV \\ 
+R = \(1/6P+1/3V+1/2K\) \\  
+\\
+Skala: 1 = niedrig, 2 = mittel, 3 = hoch \\
+
 
 \begin{table}[h]
 
@@ -82,23 +85,20 @@ Der Druckservice des Computers erlaubt das Drucken des Mindmaps. Diese beiden Te
 
 \hline
 Nr  & Datum   & Beschreibung                 & P & K & V & R \\ \hline
-1.1 & 14.3.19 & Benutzerfreundlich           &   &   &   &   \\ \hline
-1.2 & 14.3.19 & Schnell / Effizient          &   &   &   &   \\ \hline
-1.3 & 14.3.19 & Optisch ansprechendes Design &   &   &   &   \\ \hline
-1.4 & 14.3.19 & Output wie Input             &   &   &   &   \\ \hline
-1.5 & 14.3.19 & Einfache Installation        &   &   &   &   \\ \hline
+NFA-1 & 14.3.19 & Benutzerfreundlich           & 3 & 1 & 3 & \cellcolor{yellow!20}2 \\\hline
+NFA-2 & 14.3.19 & Schnell / Effizient          & 2 & 2 & 1 & \cellcolor{yellow!20}1.67 \\\hline
+NFA-3 & 14.3.19 & Optisch ansprechendes Design & 1 & 2 & 3 & \cellcolor{red!20}2.17 \\\hline
+NFA-4 & 14.3.19 & Output wie Input             & 3 & 1 & 1 & \cellcolor{green!20}1.33 \\\hline
+NFA-5 & 14.3.19 & Einfache Installation        & 3 & 1 & 1 & \cellcolor{green!20}1.33 \\\hline
 \end{tabular}
 \end{table}
-
-\begin{enumerate}
-\item [1.1] Als Benutzer möchte ich, dass das Programm selbsterklärend und einfach zu bedienen ist.
-\item [1.2] Als Benutzer möchte ich ein Programm welches schnell startet und sich nicht langsam anfühlt.
-\item [1.3] Als Benutzer möchte ich ein optisch Ansprechendes Design. Als Benutzer finde ich ein Programm
-besser wenn sein Design State of the Art ist.
-\item [1.4] Als Benutzer möchte ich, dass das Mindmap auf dem Papier gleich aussieht wie es im Programm ausgesehen hat.
-\item [1.5] Als Benutzer möchte ich nicht einen Experten konsultieren müssen um ein so triviales Programm zu installieren. 
-\end{enumerate}
-
+\begin{itemize}
+\item[NFA-1]	Als Benutzer möchte ich, dass das Programm selbsterklärend und einfach zu bedienen ist. 
+\item[NFA-2]	Als Benutzer möchte ich ein Programm welches schnell startet und sich nicht langsam anfühlt. 
+\item[NFA-3]	Als Benutzer möchte ich ein optisch ansprechendes Design. Als Benutzer finde ich ein Programm besser wenn sein Design State of the Art ist. 
+\item[NFA-4]	Als Benutzer möchte ich, dass das Mindmap auf dem Papier gleich aussieht wie es im Programm ausgesehen hat. 
+\item[NFA-5]	Als Benutzer möchte ich nicht einen Experten konsultieren müssen um ein so triviales Programm zu installieren. 
+\end{itemize}
 \subsection{Funktionale Anforderungen}
 \begin{table}[h]
 
@@ -106,34 +106,31 @@ besser wenn sein Design State of the Art ist.
 
 \hline
 Nr  & Datum   & Beschreibung                        & P & K & V & R \\ \hline
-2.1 & 14.3.19 & Neues Mindmap erstellen             &   &   &   &   \\ \hline
-2.2 & 14.3.19 & Knoten hinzufügen                   &   &   &   &   \\ \hline
-2.3 & 14.3.19 & Knoten miteinander verbinden        &   &   &   &   \\ \hline
-2.4 & 14.3.19 & Mindmaps speichern/laden            &   &   &   &   \\ \hline
-2.5 & 14.3.19 & Beschreibung eines Knoten anpassen  &   &   &   &   \\ \hline
-2.6 & 14.3.19 & Farbe eines Knoten ändern           &   &   &   &   \\ \hline
-2.7 & 14.3.19 & Verschiedene Verbindungstypen       &   &   &   &   \\ \hline
-2.8 & 14.3.19 & Drucken eines Mindmaps              &   &   &   &   \\ \hline
-2.9 & 14.3.19 & Exportieren eines Mindmaps          &   &   &   &   \\ \hline
-2.10 & 14.3.19 & Optimale Verteilung der Knoten      &   &   &   &   \\ \hline
+FA-1 & 14.3.19 & Neues Mindmap erstellen             & 3 & 1 & 1 & \cellcolor{green!20}1.33 \\\hline
+FA-2 & 14.3.19 & Knoten hinzufügen                   & 3 & 1 & 1 & \cellcolor{green!20}1.33 \\\hline
+FA-3 & 14.3.19 & Knoten miteinander verbinden        & 3 & 2 & 1 & \cellcolor{yellow!20}1.83 \\\hline
+FA-4 & 14.3.19 & Mindmaps speichern/laden            & 2 & 2 & 2 & \cellcolor{yellow!20}2 \\\hline
+FA-5 & 14.3.19 & Beschreibung eines Knoten anpassen  & 2 & 2 & 1 & \cellcolor{yellow!20}1.67 \\\hline
+FA-6 & 14.3.19 & Farbe eines Knoten ändern           & 1 & 2 & 1 & \cellcolor{yellow!20}1.5 \\\hline
+FA-7 & 14.3.19 & Verschiedene Verbindungstypen       & 1 & 1 & 1 & \cellcolor{green!20}1 \\\hline
+FA-8 & 14.3.19 & Drucken eines Mindmaps              & 1 & 1 & 1 & \cellcolor{green!20}1 \\\hline
+FA-9 & 14.3.19 & Exportieren eines Mindmaps          & 2 & 2 & 2 & \cellcolor{yellow!20}2 \\\hline
+FA-10 & 14.3.19 & Optimale Verteilung der Knoten     & 1 & 3 & 1 & \cellcolor{yellow!20}2 \\\hline
 
 \end{tabular}
 
 \end{table}
 
 \begin{enumerate}
-\item [2.1] Als Benutzer möchte ich mit dem Programm neue Mindmaps erstellen können.
-\item [2.2] Als Benutzer möchte ich neue Knoten hinzufügen könnnen, welcher eine Beschreibung besitzt und wenn gewünscht auch eine spezielle Farbe haben kann. 
-\item [2.3] Als Benutzer möchte ich die verschiedenen Informationen, also Knoten miteinander vernetzen und so grupieren können. 
-\item [2.4] Als Benutzer möchte ich meine Arbeit speichern können und gespeicherte Projekte auch wieder laden können
-\item [2.5] Als Benutzer möchte ich die Beschreibung eines Knoten auch nach seiner Erstellung bearbeiten können.
-\item [2.6] Als Benutzer möchte ich die Farbe eines Knotens nach seiner Erstellung bearbeiten können.
-\item [2.7] Als Benutzer möchte ich verschiedene Verbindungstypen definieren können, ich möchte Verbindungen zwischen verschiedenen Themen speziell hervorheben können. 
-\item [2.8] Als Benutzer möchte ich mein Mindmap drucken können.
-\item [2.9] Als Benutzer möchte ich mein Mindmap exportieren können, um es zum Beispiel als Bilddatei in einem Worddokument einfügen zu können.
-\item [2.10] Als Benutzer möchte ich ein Mindmap mit möglichst wenigen überschneidenden Verbindungen, das Programm sollte eine Möglichkeit bieten dieses Problem zu lösen.
+\item[FA-1] Als Benutzer möchte ich mit dem Programm neue Mindmaps erstellen können.
+\item[FA-2] Als Benutzer möchte ich neue Knoten hinzufügen könnnen, welcher eine Beschreibung besitzt und wenn gewünscht auch eine spezielle Farbe haben kann. 
+\item[FA-3] Als Benutzer möchte ich die verschiedenen Informationen, also Knoten miteinander vernetzen und so grupieren können. 
+\item[FA-4] Als Benutzer möchte ich meine Arbeit speichern können und gespeicherte Projekte auch wieder laden können
+\item[FA-5] Als Benutzer möchte ich die Beschreibung eines Knoten auch nach seiner Erstellung bearbeiten können.
+\item[FA-6] Als Benutzer möchte ich die Farbe eines Knotens nach seiner Erstellung bearbeiten können.
+\item[FA-7] Als Benutzer möchte ich verschiedene Verbindungstypen definieren können, ich möchte Verbindungen zwischen verschiedenen Themen speziell hervorheben können. 
+\item[FA-8] Als Benutzer möchte ich mein Mindmap drucken können.
+\item[FA-9] Als Benutzer möchte ich mein Mindmap exportieren können, um es zum Beispiel als Bilddatei in einem Worddokument einfügen zu können.
+\item[FA-10] Als Benutzer möchte ich ein Mindmap mit möglichst wenigen überschneidenden Verbindungen, das Programm sollte eine Möglichkeit bieten dieses Problem zu lösen.
 \end{enumerate}
-
-\section{Glossar}
-
 \end{document}
