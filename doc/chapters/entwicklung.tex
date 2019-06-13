@@ -1,15 +1,14 @@
 \chapter{Entwicklung}
 \label{chap:entwicklung}
-In diesem Kapitel wird die vorgehensweise und die Realisierung der Entwicklung dokumentiert.
+In diesem Kapitel wird die Vorgehensweise und die Realisierung der Entwicklung dokumentiert.
 \section{Sprint Planung}
 \label{sec:sprintplanung}
-Wir haben uns entschieden das Projekt in Sprints zu unterteilen. Diese Art der Planung erschien uns
-am praktischsten, da wir so einen guten Überblick hatten wann was fällig ist. Die Sprintplanung wurde im Gitlab integrierten Board gemacht. Zu jeder Userstory wurde ein Issue erstellt und auf die jewiligen Sprints verteilt.
+Wir haben uns entschieden das Projekt in Sprints zu unterteilen. Diese Art der Planung erschien uns am praktischsten, da wir so einen guten Überblick hatten wann was fällig ist. Die Sprintplanung wurde im Gitlab integrierten Board gemacht. Zu jeder Userstory wurde ein Issue erstellt und auf die jeweiligen Sprints verteilt.
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.5]{images/Board.PNG}
-	\caption{Use Case Diagramm}
-	\label{fig:use_case_diagramm}
+		\includegraphics[width=\textwidth]{images/Board.PNG}
+	\caption{Sprint Plannung}
+	\label{fig:sprint_plannung}
 \end{figure}
 
 \section{Sprint 1}
@@ -21,7 +20,7 @@ Der Sprint 2 dauerte vom 03.04 - 24.04. In diesem Sprint wurde dann richtig bego
 In diesem Sprint haben wir bemerkt, dass unser Programm zu unübersichtlich wird, wir haben unsere Kontrollerstruktur daraufhin angepasst.
 \section{Sprint 3}
 \label{sec:sprint_3}
-Der Sprint 3 dauert vom 24.04 - 15.05. In diesem Sprint wurde vorallem zuerst ein grosses Refactoring des Codes gemacht. Der Hauptkontroller wurde in 3 Unterkontroller geteilt. Dies gab dem Programm mehr Lesbarkeit und war folgedessen auch einfacher zu erweitern. Ebenfalls wurde das Feature zur Zusatzinformation für Knoten, der Unterknoten Button und der Typ einer Verbindung hinzugefügt. Am Schluss des Sprints wurde dann noch die Applikation optisch verschönert.
+Der Sprint 3 dauert vom 24.04 - 15.05. In diesem Sprint wurde vor allem zuerst ein grosses Refactoring des Codes gemacht. Der Hauptkontroller wurde in 3 Unterkontroller geteilt. Dies gab dem Programm mehr Lesbarkeit und war infolgedessen auch einfacher zu erweitern. Ebenfalls wurde das Feature zur Zusatzinformation für Knoten, der Unterknoten Button und der Typ einer Verbindung hinzugefügt. Am Schluss des Sprints wurde dann noch die Applikation optisch verschönert.
 \section{Sprint 4}
 \label{sec:sprint_4}
 Der Sprint 4 dauert vom 15.05 - 29.05. In diesem Sprint wurde das Programm beendet. Diverse Bugs wurden ausgebessert und einzelne neue Funktionen wie das Skalieren der Applikation und die ordnen Funktion wurde hinzugefügt. 
@@ -36,19 +35,18 @@ Die Knoten Ordnen Funktion wurde implementiert um dem Benutzer zu helfen sein Mi
 Die Funktion kann dabei 3 Probleme erkennen. 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.5]{images/threeissues.PNG}
-	\caption{Use Case Diagramm}
-	\label{fig:use_case_diagramm}
+		\includegraphics[width=\textwidth]{images/threeissues.PNG}
+	\caption{3 erkennbare Probleme}
+	\label{fig:probleme}
 \end{figure}
 
-Diese 3 Probleme versucht nun der Algorithmus zu lösen. Er geht dabei nach einem Try and Error konzept vor
-er versucht den Knoten in 8 Richtungen zu verschieben und prüft dann ob das Problem gelöst wurde. Falls nicht erhöht er die Distanz bis auf 7x grösser. Die Distanz des Verschiebens ist jeweils der Radius der zu verschiebenden Ellipse. 
+Diese 3 Probleme versucht nun der Algorithmus zu lösen. Er geht dabei nach einem Try and Error konzept vor. Es wird versucht den Knoten in 8 Richtungen zu verschieben und geprüft ob das Problem gelöst wurde. Falls nicht, wird die Distanz bis auf 7x vergrössert. Die Distanz des Verschiebens ist jeweils der Radius der zu verschiebenden Ellipse. 
 
 \begin{figure}[H]
 	\centering
 		\includegraphics[scale=0.5]{images/solving.PNG}
-	\caption{Use Case Diagramm}
-	\label{fig:use_case_diagramm}
+	\caption{Problemlösung}
+	\label{fig:problemloesung}
 \end{figure}
 
 Das Fazit zu dieser Lösung ist, dass der Algorithmus bei einfachen Problemen ohne Probleme eine Lösung findet. Bei schwereren Problemen jedoch findet er teils keine Lösung. Ebenfalls ist der Algorithmus sehr ineffizient und kann lange dauern wenn sehr viele Knoten geprüft werden müssen. 

@@ -23,7 +23,7 @@ Verbinden.
 	\caption{Delete Node SSD}
 	\label{fig:delete_node_ssd}
 \end{figure}
-Der Benutzer wählt einen Node oder eine Verbindung(der Ablauf zum Löschen einens Nodes oder einer Verbindung ist gleich), das System löscht diesen Node dann vom GUI und von der Liste. 
+Der Benutzer wählt einen Node oder eine Verbindung(der Ablauf zum Löschen eines Nodes oder einer Verbindung ist gleich), das System löscht diesen Node dann vom GUI und von der Liste. 
 
 \begin{figure}[H]
 	\centering
@@ -40,7 +40,7 @@ dann anhand dieser Informationen die Verbindung.
 	\caption{Save Map SSD}
 	\label{fig:save_map_ssd}
 \end{figure}
-Der Benuzer speichert die Map, das System speichert nun alle Informationen der Map in eine
+Der Benutzer speichert die Map, das System speichert nun alle Informationen der Map in eine
 Datei und übergibt sie dem Benutzer.
 
 \begin{figure}[H]
@@ -54,10 +54,10 @@ arbeitet nun die Informationen ab und stellt die Map dar.
 
 \section{Sequence Diagram}
 \label{sec:sequence_diagram}
-Das Sequence Diagramm zeigt die Interaktion zwischen den verschiedenen Objekten in dem Mind Map System.
+Das Sequence Diagramm zeigt die Interaktion zwischen den verschiedenen Objekten in dem Mindmap System.
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.6]{images/crNodeSD.PNG}
+		\includegraphics[width=\textwidth]{images/crNodeSD.PNG}
 	\caption{Create Node SD}
 	\label{fig:create_node_SD}
 \end{figure}
@@ -79,17 +79,17 @@ Dies funktioniert gleich bei der Verbindung.
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.6]{images/connectionSD.PNG}
+		\includegraphics[width=\textwidth]{images/connectionSD.PNG}
 	\caption{Create Connection SD}
 	\label{fig:create_connection_SD}
 \end{figure}
 Das System erstellt eine neue Verbindung, es holt sich zuerst die beiden aktiven Knoten, den Start 
-und den End Knoten. Von diesen beiden Knoten holt es sich dann die jewiligen aktiven Anchors. Danach
+und den End Knoten. Von diesen beiden Knoten holt es sich dann die jeweiligen aktiven Anchors. Danach
 verbindet das System die beiden aktiven Anchors miteinander.
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.4]{images/savemapSD.png}
+		\includegraphics[width=\textwidth]{images/savemapSD.png}
 	\caption{Save Map SD}
 	\label{fig:savemap_SD}
 \end{figure}
@@ -97,14 +97,14 @@ Das System lässt den Benutzer eine Datei wählen und erzeugt einen OutputStream
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.5]{images/saveConvertSD.png}
+		\includegraphics[width=\textwidth]{images/saveConvertSD.png}
 	\caption{Convert \& Save Map SD}
 	\label{fig:saveConvert_SD}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.4]{images/loadmapSD.png}
+		\includegraphics[width=\textwidth]{images/loadmapSD.png}
 	\caption{Load Map SD}
 	\label{fig:loadmap_SD}
 \end{figure}
@@ -112,7 +112,7 @@ Das System lässt den Benutzer eine Datei wählen. Der XMLConverter liest die Da
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.6]{images/loadConvertSD.png}
+		\includegraphics[width=\textwidth]{images/loadConvertSD.png}
 	\caption{Load \& Convert Map SD}
 	\label{fig:loadConvert_SD}
 \end{figure}
@@ -123,7 +123,7 @@ Unsere Packetstruktur ist nach dem MVC Prinzip erstellt. Wir haben ein View Pack
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.6]{images/packagediagramm.png}
+		\includegraphics[width=\textwidth]{images/packagediagramm.png}
 	\caption{Package Diagramm}
 	\label{fig:loadConvert_SD}
 \end{figure}
@@ -131,3 +131,20 @@ Unsere Packetstruktur ist nach dem MVC Prinzip erstellt. Wir haben ein View Pack
 
 \section{UML Diagramme}
 \label{sec:uml_diagramme}
+
+\subsection{Klassen Diagram}
+\label{subsec:class_diagramm}
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.5]{images/class_diagramm.png}
+	\caption{Klassen Diagramm}
+	\label{fig:class_diagramm}
+\end{figure}
+
+Das Klassen Diagramm zeigt einige der wichtigen Klassen in unserem Programm, deren Eigenschaften und wichtige Funktionen.
+\begin{itemize}
+\item \textbf{Map}: Eine Map hat eine Liste von Nodes und eine Liste von Connections. Entsprechend können diese ausgelesen oder neue Einträge in den Listen gemacht werden.
+\item \textbf{Node}: Eine Node enthält die vom Programm gezeigte Ellipse und die dazugehörige Position sowie den Text.
+\item \textbf{Connection}: Eine Connection verbindet zwei Nodes (Start und Ende) als Linie.
+\item \textbf{Anchor}: Eine Node hat 4 Anchors an denen eine Linie beginnen kann.
+\end{itemize}

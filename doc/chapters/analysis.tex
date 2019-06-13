@@ -10,25 +10,23 @@ wichtigsten Fachklassen und Assoziationen dar und zeigt die jeweiligen Multipliz
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.7]{images/DomainModel.png}
+		\includegraphics[width=\textwidth]{images/DomainModel.png}
 	\caption{Domainmodel}
 	\label{fig:domain_model}
 \end{figure}
 
-Wie oben in der Grafik zu sehen ist, haben wir uns dafür entschieden, dass eine Map mindestens einen Knoten haben muss um eine Map zu sein. Im Moment denken wir das die Connection und die Map keine direkte Verbindung benötigen dies könnte sich aber beim Implementieren vielleicht noch ändern. Ebenfalls haben wird definiert, dass eine Verbindung immer zwischen 2 Knoten besteht.
+Wie oben in der Grafik zu sehen ist, haben wir uns dafür entschieden, dass eine Map mindestens einen Knoten haben muss um eine Map zu sein. Im Moment denken wir dass die Connection und die Map keine direkte Verbindung benötigen. Dies könnte sich aber beim Implementieren vielleicht noch ändern. Ebenfalls haben wird definiert, dass eine Verbindung immer zwischen 2 Knoten besteht.
 
 \subsection{Assoziationen}
 \label{subsec:assoziationen}
 \begin{itemize}
 \item Zwei Knoten haben keine oder mehrere Verbindungen. Eine Verbindung besteht aus 2 Knoten.
-\item Eine Map hat einen oder Mehrere Knoten. Ein Knoten gehört zu einer Map.
+\item Eine Map hat einen oder mehrere Knoten. Ein Knoten gehört zu einer Map.
 \end{itemize}
 
 \section{Use Cases}
 \label{sec:use_cases}
-Use-Cases beschreiben die Requirements der einzelnen Akteure, es zeigt die Abläufe des Programmes auf. Zeigt dabei aber nicht wie die einzelnen Teile funktionieren.
-
-Eine Liste der Use Cases befindet sich im Anhang \ref{chap:use_cases}.
+Use-Cases beschreiben die Requirements der einzelnen Akteure und zeigen die Abläufe des Programmes auf. Dabei wird aber nicht auf die explizite Funktion der einzelnen Teile eingegangen.
 
 \subsection{Use Case Diagramm}
 \label{subsec:use_case_diagramm}
@@ -46,7 +44,7 @@ Eine Liste der Use Cases befindet sich im Anhang \ref{chap:use_cases}.
 \subsubsection{Use Case 1: Knoten erstellen}
 \begin{itemize}
 \item \textbf{Titel:} Als Benutzer möchte ich einen Knoten erstellen können.
-\item \textbf{Voraussetzung:} Programm ist gestartet
+\item \textbf{Voraussetzung:} Das Programm ist gestartet.
 \item \textbf{Erfolgsszenario:}
 	\begin{enumerate}
 	\item Der Benutzer gibt den Befehl einen neuen Knoten zu erstellen.
@@ -228,7 +226,7 @@ Die Software greift auf das Dateisystem des Computers zu um ein Mindmap zu speic
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=0.7]{images/Systemkontext.png}
+		\includegraphics[width=\textwidth]{images/Systemkontext.png}
 	\caption{Systemkontext}
 	\label{fig:systemkontext}
 \end{figure}

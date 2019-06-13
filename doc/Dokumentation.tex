@@ -9,8 +9,8 @@
 \documentclass[
 	a4paper,					% paper format
 	10pt,							% fontsize
-	twoside,					% double-sided
-	openright,				% begin new chapter on right side
+	%twoside,					% double-sided
+	%openright,				% begin new chapter on right side
 	notitlepage,			% use no standard title page
 	parskip=half,			% set paragraph skip to half of a line
 ]{scrreprt}					% KOMA-script report
@@ -87,8 +87,8 @@
 \usepackage{geometry}
 \geometry{
 	a4paper,
-	left=28mm,
-	right=15mm,
+	left=24mm,
+	right=24mm,
 	top=30mm,
 	headheight=20mm,
 	headsep=10mm,
@@ -153,17 +153,18 @@
 
 % Title Page and Abstract
 %---------------------------------------------------------------------------
+
 \include{intro/titelseite}		% activate for Titelseite ohne Bild
 \include{intro/versionen}
-\cleardoubleemptypage
+%\cleardoubleemptypage
 \setcounter{page}{1}
-\cleardoublepage
+%\cleardoublepage
 %---------------------------------------------------------------------------
 
 % Table of contents
 %---------------------------------------------------------------------------
 \tableofcontents
-\cleardoublepage
+%\cleardoublepage
 %---------------------------------------------------------------------------
 
 % Main part:
@@ -226,9 +227,9 @@
 
 % Attachment:
 %---------------------------------------------------------------------------
-\appendix
-\settocdepth{section}
-\include{appendix/use_cases}
+%\appendix
+%\settocdepth{section}
+%\include{appendix/use_cases}
 %---------------------------------------------------------------------------
 
 %---------------------------------------------------------------------------
